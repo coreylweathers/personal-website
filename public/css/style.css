@@ -1,15 +1,15 @@
 /* Basic Reset & Body */
 body {
-    font-family: sans-serif;
+    font-family: 'Open Sans', sans-serif; /* Apply Open Sans */
     margin: 0;
     padding: 0;
     line-height: 1.6;
     display: flex; /* Use Flexbox for layout */
-    transition: margin-left 0.3s ease; /* Smooth transition for content push */
 }
 
-body.sidebar-open #page-content {
-    margin-left: 250px; /* Push content when sidebar is open */
+/* Apply Cardo to headings */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cardo', serif;
 }
 
 a {
@@ -43,14 +43,8 @@ a:hover {
     left: 0;
     top: 0;
     background-color: #333; /* Dark grey background */
-    padding-top: 60px; /* Space for header content if needed later */
-    transform: translateX(-100%); /* Initially hidden off-screen */
-    transition: transform 0.3s ease;
-    z-index: 1000; /* Ensure sidebar is on top */
-}
-
-body.sidebar-open #sidebar {
-    transform: translateX(0); /* Slide in when open */
+    padding-top: 20px; /* Adjust padding as toggle button is gone */
+    z-index: 1000;
 }
 
 #sidebar nav ul {
@@ -77,49 +71,49 @@ body.sidebar-open #sidebar {
     text-decoration: none;
 }
 
+/* Social Media Links in Navigation */
+nav ul li.social-links {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    display: block;
+}
+
+nav ul li.social-links a {
+    display: inline-block;
+    margin: 8px;
+    font-size: 1.2em;
+    color: #ffdb15;
+    transition: color 0.3s ease;
+    width: 30%;
+    text-align: center;
+}
+
+nav ul li.social-links a:hover {
+    color: #fff;
+}
+
 /* Page Content Area */
 #page-content {
     flex-grow: 1; /* Take remaining space */
-    transition: margin-left 0.3s ease; /* Match sidebar transition */
-    /* Remove margin-left initially if sidebar is hidden by default */
+    margin-left: 250px; /* Permanently apply margin for sidebar */
 }
 
 /* Header within Page Content */
 #page-content header {
-    /* Remove background from previous style */
-    padding: 1em 2em; /* Adjust padding */
+    padding: 1em 2em;
     display: flex;
     align-items: center;
 }
 
 #page-content header h1 {
     margin: 0;
-    margin-left: 1em; /* Space between button and title */
 }
 
 #page-content header h1 a {
     color: #333; /* Reset color from sidebar style */
     text-decoration: none;
-}
-
-/* Menu Toggle Button */
-#menu-toggle {
-    position: fixed; /* Fixed position */
-    top: 15px; /* Adjust vertical position */
-    left: 15px; /* Adjust horizontal position */
-    background: none;
-    border: none;
-    font-size: 1.5em; /* Adjust size */
-    cursor: pointer;
-    padding: 5px 10px;
-    color: #333; /* Color for hamburger */
-    z-index: 1100; /* Ensure button is above sidebar */
-    transition: left 0.3s ease, color 0.3s ease; /* Smooth transitions */
-}
-
-body.sidebar-open #menu-toggle {
-    left: 265px; /* Move button right when sidebar opens (sidebar width + desired gap) */
-    color: #ffdb15; /* Change color for close icon, maybe? */
 }
 
 /* Main Content Area */
@@ -167,4 +161,10 @@ body.sidebar-open #menu-toggle {
     object-fit: cover; /* Cover the area, cropping if necessary */
     margin-bottom: 1.5em;
     display: block; /* Ensure it's a block element */
+}
+
+/* Search Styles Removed */
+
+/* Page Content Area */
+#page-content {
 } 

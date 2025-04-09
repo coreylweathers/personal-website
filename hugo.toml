@@ -20,3 +20,7 @@ theme = "my-minimal-theme"
     name = "Contact"
     url = "/contact/"
     weight = 40
+  [[menu.main]]
+    name = "Terms of Use"
+    url = "/terms/"
+    weight = 50
