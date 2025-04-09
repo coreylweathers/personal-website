@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Site.Title }}{{ with .Title }} | {{ . }}{{ end }}</title>
+    <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
+    <!-- Add CSS links here later -->
+</head>
+<body>
+    <button id="menu-toggle">☰</button> <!-- Hamburger moved outside page-content -->
+
+    <aside id="sidebar">
+        <div class="profile-pic-container">
+            <a href="{{ .Site.BaseURL }}">
+                <img src="{{ "images/profile.jpg" | relURL }}" alt="Profile Picture" class="profile-pic">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                {{ range .Site.Menus.main }}
+                    <li><a href="{{ .URL | relURL }}">{{ .Name }}</a></li>
+                {{ end }}
+            </ul>
+        </nav>
+    </aside>
+
+    <div id="page-content">
+        <header>
+            <!-- Toggle button removed from here -->
+            <h1><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></h1>
+        </header>
+        <main>
+            {{ block "main" . }}
+            <!-- Content from specific templates like list.html or single.html goes here -->
+            {{ end }}
+        </main>
+        <footer>
+            <!-- Add footer content here later -->
+            <p>&copy; {{ now.Format "2006" }} {{ .Site.Title }}</p>
+        </footer>
+    </div>
+
+    <script src="{{ "js/script.js" | relURL }}"></script>
+</body>
+</html> 

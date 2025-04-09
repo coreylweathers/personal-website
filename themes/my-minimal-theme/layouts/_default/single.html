@@ -1,0 +1,15 @@
+{{ define "main" }}
+    <article>
+        {{ $heroPath := "/images/default-hero.jpg" }} {{/* Default hero */}}
+        {{ with .Params.hero }}
+            {{ $heroPath = . }}
+        {{ end }}
+        <img src="{{ $heroPath | relURL }}" alt="{{ .Title }} Hero Image" class="single-hero-image">
+
+        <h2>{{ .Title }}</h2>
+        <p><small>Published on {{ .Date.Format "January 2, 2006" }}</small></p> {{/* Added date */}}
+        <div>
+            {{ .Content }}
+        </div>
+    </article>
+{{ end }} 

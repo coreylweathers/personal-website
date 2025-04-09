@@ -1,0 +1,30 @@
+{{ define "main" }}
+  <div class="homepage-content">
+    <h2>Welcome to My Site!</h2>
+    <p>This is the main homepage content area. You can add an introduction or other information here.</p>
+
+    <hr>
+
+    <h2>Featured Post</h2>
+    {{ $featured := where (where .Site.RegularPages "Section" "blog") ".Params.featured" true }}
+    {{ range first 1 $featured }}
+      <article class="featured-post">
+          {{ with .Params.hero }}
+            <img src="{{ . | relURL }}" alt="{{ $.Title }} Hero Image" class="featured-hero-image">
+          {{ end }}
+          <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          <p><small>Published on {{ .Date.Format "January 2, 2006" }}</small></p>
+          <p>{{ .Summary }}</p>
+          <a href="{{ .RelPermalink }}" class="read-more">Read More &raquo;</a>
+      </article>
+    {{ else }}
+      <p>No featured posts found.</p>
+    {{ end }}
+
+    <hr>
+
+    <!-- Optional: Add links to other sections or recent posts here -->
+    <p><a href="{{ "/blog/" | relURL }}">See all blog posts</a></p>
+
+  </div>
+{{ end }} 

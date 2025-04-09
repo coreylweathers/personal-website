@@ -1,0 +1,170 @@
+/* Basic Reset & Body */
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    display: flex; /* Use Flexbox for layout */
+    transition: margin-left 0.3s ease; /* Smooth transition for content push */
+}
+
+body.sidebar-open #page-content {
+    margin-left: 250px; /* Push content when sidebar is open */
+}
+
+a {
+    color: #007bff; /* Example link color */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Profile Picture in Sidebar */
+.profile-pic-container {
+    text-align: center; /* Center the image */
+    padding: 20px 0;
+}
+
+.profile-pic {
+    width: 100px; /* Adjust size as needed */
+    height: 100px;
+    border-radius: 50%; /* Make it circular */
+    object-fit: cover; /* Maintain aspect ratio */
+    border: 3px solid #ffdb15; /* Optional border */
+}
+
+/* Sidebar Navigation */
+#sidebar {
+    width: 250px; /* Fixed width */
+    height: 100vh; /* Full height */
+    position: fixed; /* Fixed position */
+    left: 0;
+    top: 0;
+    background-color: #333; /* Dark grey background */
+    padding-top: 60px; /* Space for header content if needed later */
+    transform: translateX(-100%); /* Initially hidden off-screen */
+    transition: transform 0.3s ease;
+    z-index: 1000; /* Ensure sidebar is on top */
+}
+
+body.sidebar-open #sidebar {
+    transform: translateX(0); /* Slide in when open */
+}
+
+#sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#sidebar nav ul li {
+    display: block; /* Display nav items vertically */
+}
+
+#sidebar nav ul li a {
+    display: block;
+    padding: 10px 15px;
+    color: #ffdb15; /* Yellow text color */
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+#sidebar nav ul li a:hover {
+    background-color: #555; /* Darker grey on hover */
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Page Content Area */
+#page-content {
+    flex-grow: 1; /* Take remaining space */
+    transition: margin-left 0.3s ease; /* Match sidebar transition */
+    /* Remove margin-left initially if sidebar is hidden by default */
+}
+
+/* Header within Page Content */
+#page-content header {
+    /* Remove background from previous style */
+    padding: 1em 2em; /* Adjust padding */
+    display: flex;
+    align-items: center;
+}
+
+#page-content header h1 {
+    margin: 0;
+    margin-left: 1em; /* Space between button and title */
+}
+
+#page-content header h1 a {
+    color: #333; /* Reset color from sidebar style */
+    text-decoration: none;
+}
+
+/* Menu Toggle Button */
+#menu-toggle {
+    position: fixed; /* Fixed position */
+    top: 15px; /* Adjust vertical position */
+    left: 15px; /* Adjust horizontal position */
+    background: none;
+    border: none;
+    font-size: 1.5em; /* Adjust size */
+    cursor: pointer;
+    padding: 5px 10px;
+    color: #333; /* Color for hamburger */
+    z-index: 1100; /* Ensure button is above sidebar */
+    transition: left 0.3s ease, color 0.3s ease; /* Smooth transitions */
+}
+
+body.sidebar-open #menu-toggle {
+    left: 265px; /* Move button right when sidebar opens (sidebar width + desired gap) */
+    color: #ffdb15; /* Change color for close icon, maybe? */
+}
+
+/* Main Content Area */
+#page-content main {
+    padding: 2em;
+}
+
+/* Footer */
+#page-content footer {
+    margin-top: 2em;
+    padding: 1em;
+    text-align: center;
+    font-size: 0.9em;
+    color: #666;
+    border-top: 1px solid #eee;
+}
+
+/* Homepage Specific Styles */
+.homepage-content h2 {
+    margin-bottom: 0.5em;
+}
+
+.featured-post {
+    border: 1px solid #ddd;
+    padding: 1.5em;
+    margin-bottom: 1.5em;
+    background-color: #f9f9f9;
+}
+
+.featured-post h3 {
+    margin-top: 0;
+}
+
+.featured-post .read-more {
+    display: inline-block;
+    margin-top: 0.5em;
+    font-weight: bold;
+}
+
+/* Hero Image Styles */
+.featured-hero-image,
+.single-hero-image {
+    width: 100%; /* Make image span the container width */
+    height: 300px; /* Set a fixed height (adjust as needed) */
+    object-fit: cover; /* Cover the area, cropping if necessary */
+    margin-bottom: 1.5em;
+    display: block; /* Ensure it's a block element */
+} 
