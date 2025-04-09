@@ -165,6 +165,73 @@ nav ul li.social-links a:hover {
 
 /* Search Styles Removed */
 
+/* Post Container */
+.post-container {
+    display: flex;
+    gap: 20px;
+    position: relative;
+}
+
+/* Post Content */
+.post-content {
+    flex: 1;
+    max-width: 800px;
+}
+
+/* TOC Container */
+.toc-container {
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+    max-width: 250px;
+}
+
+/* Floating Table of Contents */
+.floating-toc {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.toc-header {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.toc-header h3 {
+    margin: 0;
+    font-size: 1.1em;
+    color: #333;
+}
+
+.toc-content {
+    font-size: 0.9em;
+}
+
+.toc-content ul {
+    list-style: none;
+    padding-left: 15px;
+    margin: 0;
+}
+
+.toc-content li {
+    margin: 5px 0;
+}
+
+.toc-content a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.toc-content a:hover {
+    color: #000;
+}
+
 /* Page Content Area */
 #page-content {
 } 

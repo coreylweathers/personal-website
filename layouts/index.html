@@ -5,7 +5,7 @@
 
     <hr>
 
-    <h2>Featured Post</h2>
+    <h2>Featured Blog Post</h2>
     {{ $featured := where (where .Site.RegularPages "Section" "blog") ".Params.featured" true }}
     {{ range first 1 $featured }}
       <article class="featured-post">
