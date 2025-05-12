@@ -50,12 +50,5 @@
       <guid>http://localhost:1313/blog/sample-post-1/</guid>
       <description>&lt;p&gt;This is the &lt;strong&gt;featured&lt;/strong&gt; sample blog post. It should appear prominently on the homepage.&lt;/p&gt;&#xA;&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.&lt;/p&gt;</description>
     </item>
-    <item>
-      <title>Terms of Use</title>
-      <link>http://localhost:1313/terms/</link>
-      <pubDate>Tue, 19 Mar 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/terms/</guid>
-      <description>&lt;h2 id=&#34;terms-of-use&#34;&gt;Terms of Use&lt;/h2&gt;&#xA;&lt;p&gt;Last updated: {{ .Date.Format &amp;ldquo;January 2, 2006&amp;rdquo; }}&lt;/p&gt;&#xA;&lt;h3 id=&#34;1-acceptance-of-terms&#34;&gt;1. Acceptance of Terms&lt;/h3&gt;&#xA;&lt;p&gt;By accessing and using this website, you accept and agree to be bound by the terms and provision of this agreement.&lt;/p&gt;&#xA;&lt;h3 id=&#34;2-intellectual-property-rights&#34;&gt;2. Intellectual Property Rights&lt;/h3&gt;&#xA;&lt;p&gt;All content on this website, including but not limited to text, graphics, logos, images, and software, is the property of Corey L Weathers and is protected by copyright and other intellectual property laws.&lt;/p&gt;</description>
-    </item>
   </channel>
 </rss>

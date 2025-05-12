@@ -1,69 +1,54 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en-us" data-theme="light">
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My New Hugo Site | Sample Post 2</title>
+    <title>Sample Post 2 - My New Hugo Site</title>
+    
+    <link rel="canonical" href="http://localhost:1313/blog/sample-post-2/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
     
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    
-
-    <aside id="sidebar">
-        <div class="profile-pic-container">
-            <a href="http://localhost:1313/">
-                <img src="/images/profile.jpg" alt="Profile Picture" class="profile-pic">
-            </a>
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="http://localhost:1313/">
+                    <img src="/images/profile.jpg" alt="Profile Picture" class="profile-pic">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    
+                        <li><a href="/about/">About</a></li>
+                    
+                        <li><a href="/media/">Media</a></li>
+                    
+                        <li><a href="/blog/">Blog</a></li>
+                    
+                        <li><a href="/contact/">Contact</a></li>
+                    
+                        <li><a href="/terms/">Terms of Use</a></li>
+                    
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button id="theme-toggle" class="icon-button" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="search-toggle" class="icon-button" aria-label="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
         </div>
-        <nav>
-            <ul>
-                
-                    <li><a href="/about/">About</a></li>
-                
-                    <li><a href="/media/">Media</a></li>
-                
-                    <li><a href="/blog/">Blog</a></li>
-                
-                    <li><a href="/contact/">Contact</a></li>
-                
-                    <li><a href="/terms/">Terms of Use</a></li>
-                
-                
-                <li class="social-links">
-                    <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" title="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://bsky.app/profile/yourusername" target="_blank" rel="noopener noreferrer" title="Bluesky">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="https://reddit.com/user/yourusername" target="_blank" rel="noopener noreferrer" title="Reddit">
-                        <i class="fab fa-reddit"></i>
-                    </a>
-                    <a href="https://twitch.tv/yourusername" target="_blank" rel="noopener noreferrer" title="Twitch">
-                        <i class="fab fa-twitch"></i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+    </header>
 
-    </aside>
-
-    <div id="page-content">
-        <header>
-            
-            <h1><a href="http://localhost:1313/">My New Hugo Site</a></h1>
-        </header>
-        <main>
-            
+    <main class="main-content">
+        
     <article class="post">
         <header>
             <h1>Sample Post 2</h1>
@@ -97,12 +82,54 @@
         </div>
     </article>
 
-        </main>
-        <footer>
-            
-            <p>© 2025 Corey L Weathers All Rights Reserved</p>
-        </footer>
-    </div>
+    </main>
 
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://bsky.app/profile/yourusername" target="_blank" rel="noopener noreferrer" title="Bluesky">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://reddit.com/user/yourusername" target="_blank" rel="noopener noreferrer" title="Reddit">
+                    <i class="fab fa-reddit"></i>
+                </a>
+                <a href="https://twitch.tv/yourusername" target="_blank" rel="noopener noreferrer" title="Twitch">
+                    <i class="fab fa-twitch"></i>
+                </a>
+            </div>
+            <p>© 2025 Corey L Weathers All Rights Reserved</p>
+        </div>
+    </footer>
+
+    
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            const icon = themeToggle.querySelector('i');
+            icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+    </script>
 </body>
 </html> 
