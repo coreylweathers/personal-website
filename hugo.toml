@@ -7,7 +7,7 @@ theme = "my-minimal-theme"
   [[menu.main]]
     name = "About"
     url = "/about/"
-    weight = 10
+    weight = 60
   [[menu.main]]
     name = "Media"
     url = "/media/"
@@ -24,3 +24,7 @@ theme = "my-minimal-theme"
     name = "Terms of Use"
     url = "/terms/"
     weight = 50
+
+# Parameters
+[params]
+  profileImage = "/images/stencil-headshot.jpg"
