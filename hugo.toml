@@ -143,14 +143,13 @@ theme = "LoveIt"
     GitHub = ""
     Linkedin = ""
     Twitter = ""
-    Email = "your.email@example.com"
-  # Footer config
+    Email = "your.email@example.com"  # Footer config
   [params.footer]
     enable = true
-    # Custom content (HTML format is supported)
-    custom = ''
+    # Custom copyright content (HTML format is supported)
+    custom = 'This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="license">CC BY-NC-ND 4.0</a>'
     # whether to show Hugo and theme info
-    hugo = true
+    hugo = false
     # whether to show copyright info
     copyright = true
     # whether to show the author
