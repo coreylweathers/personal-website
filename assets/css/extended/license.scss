@@ -1,0 +1,42 @@
+/* License styling */
+.post-footer-license {
+    margin-top: 2.5rem;
+    border-top: 1px solid #e9e9e9;
+    padding-top: 1.5rem;
+}
+
+.license-box {
+    background-color: #f8f9fa;
+    border: 1px solid #e9e9e9;
+    border-radius: 4px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.license-title {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.license-content {
+    font-size: 0.9rem;
+}
+
+.license-content ul {
+    margin-top: 0.5rem;
+    padding-left: 1.5rem;
+}
+
+.license-title img {
+    border-width: 0;
+}
+
+[theme=dark] .license-box {
+    background-color: #2d333b;
+    border-color: #444c56;
+}
+
+[theme=dark] .post-footer-license {
+    border-top-color: #444c56;
+}
