@@ -1,7 +1,9 @@
 ---
 title: "Sample Post 3"
-date: 2025-04-08T20:17:00Z # Adjust date as needed
+date: 2025-04-08T20:17:00Z
 draft: false
+categories: ["Category2"]
+tags: ["Tag2", "Tag5"]
 ---
 
 This is the third sample post.

@@ -1,9 +1,10 @@
 ---
 title: "Sample Post 1 (Featured)"
-date: 2025-04-08T20:15:00Z # Adjust date as needed
+date: 2025-04-08T20:15:00Z
 draft: false
-featured: true
-hero: "/images/post1-hero.jpg" # Added hero image path
+featuredImage: "/images/post1-hero.jpg"
+categories: ["Category1"]
+tags: ["Tag1", "Tag2"]
 ---
 
 This is the **featured** sample blog post. It should appear prominently on the homepage.

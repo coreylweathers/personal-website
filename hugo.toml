@@ -1,30 +1,167 @@
-baseURL = 'https://example.org/'
-languageCode = 'en-us'
-title = 'My New Hugo Site'
-theme = "my-minimal-theme"
+baseURL = "https://example.org/"
+# [en, zh-cn, fr, pl, ...] determines default content language
+defaultContentLanguage = "en"
+# language code
+languageCode = "en-us"
+title = "My New Hugo Site"
 
+# Change the default theme to LoveIt
+theme = "LoveIt"
+
+# Author config
+[author]
+  name = "Your Name"
+  email = "your.email@example.com"
+  link = ""
+
+# Menu config
 [menu]
   [[menu.main]]
+    identifier = "posts"
+    # you can add extra information before the name (HTML format is supported), such as icons
+    pre = ""
+    # you can add extra information after the name (HTML format is supported), such as icons
+    post = ""
+    name = "Blog"
+    url = "/posts/"
+    # title will be shown when you hover on this menu link
+    title = "Blog posts"
+    weight = 1
+  [[menu.main]]
+    identifier = "about"
+    pre = ""
+    post = ""
     name = "About"
     url = "/about/"
-    weight = 60
+    title = "About me"
+    weight = 2
   [[menu.main]]
+    identifier = "media"
+    pre = ""
+    post = ""
     name = "Media"
     url = "/media/"
-    weight = 20
+    title = "Media"
+    weight = 3
   [[menu.main]]
-    name = "Blog"
-    url = "/blog/"
-    weight = 30
-  [[menu.main]]
+    identifier = "contact"
+    pre = ""
+    post = ""
     name = "Contact"
     url = "/contact/"
-    weight = 40
-  [[menu.main]]
-    name = "Terms of Use"
-    url = "/terms/"
-    weight = 50
+    title = "Contact me"
+    weight = 4
 
 # Parameters
 [params]
-  profileImage = "/images/stencil-headshot.jpg"
+  # LoveIt theme version
+  version = "0.2.X"
+  # site description
+  description = "Your site description"
+  # site keywords
+  keywords = ["Blog", "Personal"]
+  # site default theme ("light", "dark", "auto")
+  defaultTheme = "auto"
+  # public git repo url only then enableGitInfo is true
+  gitRepo = ""  # date format
+  dateFormat = "2006-01-02"
+  
+  # Search config
+  [params.search]
+    enable = true
+    # type of search engine ["lunr", "algolia"]
+    type = "lunr"
+    # max index length of the chunked content
+    contentLength = 4000
+    # placeholder of the search bar
+    placeholder = ""
+    # max number of results length
+    maxResultLength = 10
+    # snippet length of the result
+    snippetLength = 30
+    # HTML tag name of the highlight part in results
+    highlightTag = "em"
+    # whether to use the absolute URL based on the baseURL in search index
+    absoluteURL = false
+  
+  # Home page config
+  [params.home]
+    # amount of RSS pages
+    rss = 10
+    # Home page profile
+    [params.home.profile]
+      enable = true
+      # title shown in home page
+      title = "My New Hugo Site"
+      # subtitle shown in home page
+      subtitle = "Welcome to my personal website"
+      # whether to use typeit animation for subtitle
+      typeit = true
+      # whether to show social links
+      social = true
+      # use profileImage as avatar
+      avatarURL = "/images/stencil-headshot.jpg"
+      # disclaimer (HTML format is supported)
+      disclaimer = ""
+    # Home page posts
+    [params.home.posts]
+      enable = true
+      # special amount of posts in each home posts page
+      paginate = 6
+
+# Markup related configuration in Hugo
+[markup]
+  # Syntax Highlighting
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = true
+    lineNumbersInTable = true
+    # false is a necessary configuration for the LoveIt theme
+    noClasses = false
+  
+  # Goldmark is from Hugo 0.60 the default library used for Markdown
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      definitionList = true
+      footnote = true
+      linkify = true
+      strikethrough = true
+      table = true
+      taskList = true
+      typographer = true
+    [markup.goldmark.renderer]
+      # whether to use HTML tags directly in the document
+      unsafe = true
+  # Table Of Contents settings
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 6
+  
+  # Social links
+  [params.social]
+    GitHub = ""
+    Linkedin = ""
+    Twitter = ""
+    Email = "your.email@example.com"
+  # Footer config
+  [params.footer]
+    enable = true
+    # Custom content (HTML format is supported)
+    custom = ''
+    # whether to show Hugo and theme info
+    hugo = true
+    # whether to show copyright info
+    copyright = true
+    # whether to show the author
+    author = true
+    # site creation time
+    since = 2025
+
+# Options to make hugo output files
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  page = ["HTML"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML", "RSS"]
+  term = ["HTML", "RSS"]
