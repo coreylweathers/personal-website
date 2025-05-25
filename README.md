@@ -117,4 +117,10 @@ This project uses a standard Git workflow. The `public` directory is ignored in 
 
 ## License
 
-[MIT License](LICENSE)
+This blog is licensed under the [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (CC BY-NC-ND 4.0)](https://creativecommons.org/licenses/by-nc-nd/4.0/).
+
+This means:
+- You must give appropriate credit if you share the content
+- You may not use the material for commercial purposes
+- You may not distribute modified versions of the content
+- See the [LICENSE](LICENSE) file for details
