@@ -1,7 +1,4 @@
 /* Override light mode background color to #e0dfd8 */
-html {
-    background-color: #e0dfd8;
-}
 
 body {
     background-color: #e0dfd8 !important;
@@ -287,4 +284,18 @@ header {
 /* Alternative: Hide all icons in post author spans */
 .post-author i {
     display: none !important;
+}
+
+/* Footer background color consistency */
+footer.footer {
+    background-color: #e0dfd8 !important;
+}
+
+[theme=dark] footer.footer {
+    background-color: #292a2d !important;
+}
+
+/* Ensure footer container also matches */
+.footer-container {
+    background-color: transparent;
 }
