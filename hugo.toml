@@ -3,7 +3,7 @@ baseURL = "https://example.org/"
 defaultContentLanguage = "en"
 # language code
 languageCode = "en-us"
-title = "Syntax and Stories"
+title = "My New Hugo Site"
 
 # Change the default theme to LoveIt
 theme = "LoveIt"
@@ -111,9 +111,9 @@ theme = "LoveIt"
     [params.home.profile]
       enable = true
       # title shown in home page
-      title = "Syntax and Stories"
+      title = "My New Hugo Site"
       # subtitle shown in home page
-      subtitle = "Welcome to my space where code meets conversations"
+      subtitle = "Welcome to my personal website"
       # whether to use typeit animation for subtitle
       typeit = true
       # whether to show social links
