@@ -17,23 +17,23 @@ theme = "LoveIt"
 # Menu config
 [menu]
   [[menu.main]]
-    identifier = "posts"
+    identifier = "blog"
     # you can add extra information before the name (HTML format is supported), such as icons
     pre = ""
     # you can add extra information after the name (HTML format is supported), such as icons
     post = ""
     name = "Blog"
-    url = "/posts/"
+    url = "/blog/"
     # title will be shown when you hover on this menu link
     title = "Blog posts"
     weight = 1
   [[menu.main]]
-    identifier = "about"
+    identifier = "streams"
     pre = ""
     post = ""
-    name = "About"
-    url = "/about/"
-    title = "About me"
+    name = "Streams"
+    url = "/streams/"
+    title = "Live Streams"
     weight = 2
   [[menu.main]]
     identifier = "media"
@@ -41,7 +41,7 @@ theme = "LoveIt"
     post = ""
     name = "Media"
     url = "/media/"
-    title = "Media"
+    title = "Media Appearances"
     weight = 3
   [[menu.main]]
     identifier = "contact"
@@ -51,6 +51,14 @@ theme = "LoveIt"
     url = "/contact/"
     title = "Contact me"
     weight = 4
+  [[menu.main]]
+    identifier = "about"
+    pre = ""
+    post = ""
+    name = "About"
+    url = "/about/"
+    title = "About me"
+    weight = 5
 
 # Parameters
 [params]
@@ -183,3 +191,15 @@ theme = "LoveIt"
   section = ["HTML", "RSS"]
   taxonomy = ["HTML", "RSS"]
   term = ["HTML", "RSS"]
+
+# RSS Configuration
+[params.rss]
+  # RSS feed description
+  description = "Latest blog posts and updates"
+  # Number of items in RSS feed
+  limit = 20
+  # Include full content in RSS feed
+  fullContent = true
+
+# Copyright for RSS feeds
+copyright = "Copyright © 2025 My New Hugo Site"
