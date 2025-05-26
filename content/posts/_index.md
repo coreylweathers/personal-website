@@ -8,11 +8,9 @@ url: "/blog/"
 type: "posts"
 ---
 
-# Blog
-
 Welcome to my blog! This is where I share my thoughts, experiences, and insights from the world of software development and technology.
 
-## What You'll Find Here
+# What You'll Find Here
 
 - **Technical Tutorials**: Step-by-step guides and how-to articles
 - **Development Insights**: Lessons learned from real-world projects
@@ -21,11 +19,11 @@ Welcome to my blog! This is where I share my thoughts, experiences, and insights
 - **Problem Solving**: Deep dives into interesting challenges and their solutions
 - **Industry Trends**: Analysis of emerging technologies and best practices
 
-## Topics I Cover
+# Topics I Cover
 
 From frontend frameworks to backend architectures, from DevOps practices to software design patterns, I write about the technologies and methodologies that shape modern software development.
 
-## Stay Updated
+# Stay Updated
 
 Subscribe to my RSS feed to get notified of new posts: [RSS Feed](/blog/index.xml)
 

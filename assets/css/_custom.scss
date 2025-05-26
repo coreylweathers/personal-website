@@ -343,3 +343,42 @@ footer.footer {
 .special .single-subtitle {
     text-align: left !important;
 }
+
+/* Left align blog content */
+.page.archive .content,
+.page.archive .single-title,
+.page.archive h1,
+.page.archive h2,
+.page.archive h3,
+.page.archive p,
+.page.archive ul,
+.page.archive ol {
+    text-align: left !important;
+}
+
+/* Ensure the blog index content is left-aligned */
+.page.single.special .content,
+.page.single.special .single-title,
+.page.single.special h1,
+.page.single.special h2,
+.page.single.special h3,
+.page.single.special p,
+.page.single.special ul,
+.page.single.special ol {
+    text-align: left !important;
+}
+
+/* Left align the posts list section */
+.archive-item {
+    text-align: left !important;
+}
+
+.group-title {
+    text-align: left !important;
+}
+
+/* Override width specifically for posts section blog index */
+.page.archive .page.single.special,
+body[data-theme] .page.single.special {
+    width: 100% !important;
+}
