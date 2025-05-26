@@ -299,3 +299,23 @@ footer.footer {
 .footer-container {
     background-color: transparent;
 }
+
+/* Make blog content text darker and more readable */
+.home[data-home=posts] .summary .content {
+    color: #161209 !important; /* Use primary font color instead of secondary */
+}
+
+[theme=dark] .home[data-home=posts] .summary .content {
+    color: #a9a9b3 !important; /* Use primary font color for dark mode */
+}
+
+/* Also make bold text in summaries use primary color */
+.home[data-home=posts] .summary .content b,
+.home[data-home=posts] .summary .content strong {
+    color: #161209 !important;
+}
+
+[theme=dark] .home[data-home=posts] .summary .content b,
+[theme=dark] .home[data-home=posts] .summary .content strong {
+    color: #a9a9b3 !important;
+}
