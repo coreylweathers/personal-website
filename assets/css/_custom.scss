@@ -1,3 +1,80 @@
+/* Override light mode background color to #e0dfd8 */
+html {
+    background-color: #e0dfd8;
+}
+
+body {
+    background-color: #e0dfd8 !important;
+}
+
+body[theme=dark] {
+    background-color: #292a2d !important;
+}
+
+/* Ensure the background color applies to the main content areas */
+.wrapper {
+    background-color: #e0dfd8;
+}
+
+[theme=dark] .wrapper {
+    background-color: #292a2d;
+}
+
+/* Apply to main content container */
+main {
+    background-color: #e0dfd8;
+}
+
+[theme=dark] main {
+    background-color: #292a2d;
+}
+
+/* Enhanced navbar visibility for light mode */
+header {
+    background-color: #f5f4f0 !important;
+    border-bottom: 1px solid #d0cfc8;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+[theme=dark] header {
+    background-color: #252627 !important;
+    border-bottom: 1px solid #363636;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.header-wrapper {
+    background-color: transparent;
+}
+
+/* Improve menu item visibility */
+#header-desktop .menu .menu-item a {
+    color: #2c2c2c;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+#header-desktop .menu .menu-item a:hover {
+    color: #1a5490;
+}
+
+[theme=dark] #header-desktop .menu .menu-item a {
+    color: #a9a9b3;
+}
+
+[theme=dark] #header-desktop .menu .menu-item a:hover {
+    color: #fff;
+}
+
+/* Header title styling */
+.header-title {
+    color: #2c2c2c !important;
+    font-weight: 600;
+}
+
+[theme=dark] .header-title {
+    color: #a9a9b3 !important;
+}
+
 /* Custom styles for license display */
 .post-footer-license {
     margin-top: 2.5rem;
