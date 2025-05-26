@@ -1,17 +1,17 @@
-baseURL = "https://example.org/"
+baseURL = "https://coreylweathers.com/"
 # [en, zh-cn, fr, pl, ...] determines default content language
 defaultContentLanguage = "en"
 # language code
 languageCode = "en-us"
-title = "My New Hugo Site"
+title = "Corey’s Syntax & Stories"
 
 # Change the default theme to LoveIt
 theme = "LoveIt"
 
 # Author config
 [author]
-  name = "Your Name"
-  email = "your.email@example.com"
+  name = "Corey L Weathers"
+  email = "corey.weathers@outlook.com"
   link = ""
 
 # Menu config
@@ -19,7 +19,7 @@ theme = "LoveIt"
   [[menu.main]]
     identifier = "blog"
     # you can add extra information before the name (HTML format is supported), such as icons
-    pre = ""
+    pre = "📝"
     # you can add extra information after the name (HTML format is supported), such as icons
     post = ""
     name = "Blog"
@@ -29,7 +29,7 @@ theme = "LoveIt"
     weight = 1
   [[menu.main]]
     identifier = "streams"
-    pre = ""
+    pre = "🎥"
     post = ""
     name = "Streams"
     url = "/streams/"
@@ -37,7 +37,7 @@ theme = "LoveIt"
     weight = 2
   [[menu.main]]
     identifier = "media"
-    pre = ""
+    pre = "🎤"
     post = ""
     name = "Media"
     url = "/media/"
@@ -45,7 +45,7 @@ theme = "LoveIt"
     weight = 3
   [[menu.main]]
     identifier = "contact"
-    pre = ""
+    pre = "📩"
     post = ""
     name = "Contact"
     url = "/contact/"
@@ -55,7 +55,7 @@ theme = "LoveIt"
     identifier = "about"
     pre = ""
     post = ""
-    name = "About"
+    name = "ℹ️About"
     url = "/about/"
     title = "About me"
     weight = 5
@@ -65,13 +65,14 @@ theme = "LoveIt"
   # LoveIt theme version
   version = "0.2.X"
   # site description
-  description = "Your site description"
+  description = "Corey's Syntax & Stories is where I document my journey—through code, creativity, and life as a developer and parent. From debugging software to navigating the challenges of DevRel and fatherhood, I share insights, lessons, and personal reflections along the way."
   # site keywords
-  keywords = ["Blog", "Personal"]
+  keywords = ["syntax and stories", "Corey L. Weathers", "Corey Weathers", "coding blog", "developer relations", "devrel insights", "programming stories", "debugging life", "software engineering reflections", "coding lessons", "developer journey", "tech storytelling", "developer advocacy", "work-life balance", "parenting in tech", "coding advice for developers", ".net development", "c# programming", "asp.net core", "blazor development", "dotnet"]
   # site default theme ("light", "dark", "auto")
   defaultTheme = "auto"
   # public git repo url only then enableGitInfo is true
-  gitRepo = ""  # date format
+  gitRepo = "https://github.com/coreylweathers/personal-website"
+  # date format
   dateFormat = "2006-01-02"
   
   # Header config
@@ -119,9 +120,9 @@ theme = "LoveIt"
     [params.home.profile]
       enable = true
       # title shown in home page
-      title = "My New Hugo Site"
+      title = "Corey’s Syntax & Stories"
       # subtitle shown in home page
-      subtitle = "Welcome to my personal website"
+      subtitle = "Corey's Syntax & Stories is where I document my journey—through code, creativity, and life as a developer and parent. From debugging software to navigating the challenges of DevRel and fatherhood, I share insights, lessons, and personal reflections along the way."
       # whether to use typeit animation for subtitle
       typeit = true
       # whether to show social links
@@ -167,10 +168,19 @@ theme = "LoveIt"
   
   # Social links
   [params.social]
-    GitHub = ""
-    Linkedin = ""
-    Twitter = ""
-    Email = "your.email@example.com"  # Footer config
+    GitHub = "coreylweathers"
+    Linkedin = "coreylweathers"
+    X = "coreylweathers"
+    Threads = "coreylweathers"
+    Discord = "coreylweathers"
+    Email = "corey.weathers@outlook.com"  # Footer config
+
+    # New platforms you can add:
+    Twitch = "coreylweathers"
+    Bluesky = "coreylweathers"
+  
+    # YouTube options (choose one based on your URL type):
+    YouTubeChannel = "coreylweathers"   # for /channel/ID URLs
   [params.footer]
     enable = true
     # Custom copyright content (HTML format is supported)
@@ -202,4 +212,4 @@ theme = "LoveIt"
   fullContent = true
 
 # Copyright for RSS feeds
-copyright = "Copyright © 2025 My New Hugo Site"
+copyright = "Copyright © 2025 Corey’s Syntax & Stories"
