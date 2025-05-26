@@ -336,3 +336,10 @@ footer.footer {
 .links a[href*="twitch"]:hover i {
     color: white !important;
 }
+
+/* Left align page titles for archive and special pages */
+.archive .single-title,
+.special .single-title,
+.special .single-subtitle {
+    text-align: left !important;
+}
