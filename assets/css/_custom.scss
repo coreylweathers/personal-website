@@ -306,3 +306,33 @@ footer.footer {
 [theme=dark] .home[data-home=posts] .summary .content strong {
     color: #a9a9b3 !important;
 }
+
+/* YouTube - comprehensive URL matching with official brand red */
+.links a[href*="youtube.com"]:hover,
+.links a[href*="youtu.be"]:hover,
+.links a[href*="/channel/"]:hover,
+.links a[href*="youtube"]:hover {
+    background-color: #c4302b !important;
+    border-color: #c4302b !important;
+}
+
+.links a[href*="youtube.com"]:hover i,
+.links a[href*="youtu.be"]:hover i,
+.links a[href*="/channel/"]:hover i,
+.links a[href*="youtube"]:hover i {
+    color: white !important;
+}
+
+/* Twitch - comprehensive URL matching with official brand purple */
+.links a[href*="twitch.tv"]:hover,
+.links a[href*="twitch.com"]:hover,
+.links a[href*="twitch"]:hover {
+    background-color: #9146ff !important;
+    border-color: #9146ff !important;
+}
+
+.links a[href*="twitch.tv"]:hover i,
+.links a[href*="twitch.com"]:hover i,
+.links a[href*="twitch"]:hover i {
+    color: white !important;
+}
