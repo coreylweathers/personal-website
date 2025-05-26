@@ -3,6 +3,9 @@ title: "Blog"
 description: "Technical insights, tutorials, and thoughts on software development"
 date: 2025-01-02
 draft: false
+aliases: ["/blog/"]
+url: "/blog/"
+type: "posts"
 ---
 
 # Blog
