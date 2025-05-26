@@ -3,7 +3,7 @@ baseURL = "https://coreylweathers.com/"
 defaultContentLanguage = "en"
 # language code
 languageCode = "en-us"
-title = "Corey’s Syntax & Stories"
+title = "Corey's Syntax & Stories"
 
 # Change the default theme to LoveIt
 theme = "LoveIt"
@@ -87,7 +87,7 @@ theme = "LoveIt"
     # Header title config
     [params.header.title]
       # URL of the LOGO
-      logo = "/images/logos/light mode logo.svg"
+      logo = "/images/home-4-svgrepo-com-light.svg"
       # title name (can be empty if using logo)
       name = ""
       # you can add extra information before the name (HTML format is supported), such as icons
@@ -123,7 +123,7 @@ theme = "LoveIt"
     [params.home.profile]
       enable = true
       # title shown in home page
-      title = "Corey’s Syntax & Stories"
+      title = "Corey's Syntax & Stories"
       # subtitle shown in home page
       subtitle = "Corey's Syntax & Stories is where I document my journey—through code, creativity, and life as a developer and parent. From debugging software to navigating the challenges of DevRel and fatherhood, I share insights, lessons, and personal reflections along the way."
       # whether to use typeit animation for subtitle
@@ -154,6 +154,12 @@ theme = "LoveIt"
     # Windows v8-11 tile color
     tileColor = "#da532c"
   
+  # Custom JavaScript files
+  [params.page]
+    [params.page.library]
+      [params.page.library.js]
+        # Custom JS file
+        custom = "/js/custom.js"
 
 # Markup related configuration in Hugo
 [markup]
@@ -230,4 +236,4 @@ theme = "LoveIt"
   fullContent = true
 
 # Copyright for RSS feeds
-copyright = "Copyright © 2025 Corey’s Syntax & Stories"
+copyright = "Copyright © 2025 Corey's Syntax & Stories"

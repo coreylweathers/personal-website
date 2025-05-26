@@ -43,26 +43,6 @@ header {
     background-color: transparent;
 }
 
-/* Logo styling - target the actual img element */
-.header-title .logo,
-.header-title img {
-    max-height: 4rem !important;
-    height: 4rem !important;
-    width: auto !important;
-    display: block !important;
-}
-
-/* Dark mode logo switching using CSS */
-[theme=light] .header-title .logo,
-[theme=light] .header-title img {
-    content: url('/images/logos/light mode logo.svg') !important;
-}
-
-[theme=dark] .header-title .logo,
-[theme=dark] .header-title img {
-    content: url('/images/logos/dark mode logo.svg') !important;
-}
-
 /* Header title container */
 .header-title {
     display: flex;
@@ -75,6 +55,13 @@ header {
     color: #a9a9b3 !important;
 }
 
+/* Logo styling - target the actual img element */
+
+/* Switch to dark mode logo */
+[theme=dark] .header-title .logo,
+[theme=dark] .header-title img {
+    content: url('/images/home-4-svgrepo-com-dark.svg') !important;
+}
 /* Improve menu item visibility */
 #header-desktop .menu .menu-item a {
     color: #2c2c2c;
@@ -229,26 +216,6 @@ header {
 }
 
 .links a[href*="mailto:"]:hover i {
-    color: white !important;
-}
-
-/* YouTube brand color on hover */
-.links a[href*="youtube.com"]:hover {
-    background-color: #FF0000;
-    border-color: #FF0000;
-}
-
-.links a[href*="youtube.com"]:hover i {
-    color: white !important;
-}
-
-/* Twitch brand color on hover */
-.links a[href*="twitch.tv"]:hover {
-    background-color: #9146FF;
-    border-color: #9146FF;
-}
-
-.links a[href*="twitch.tv"]:hover i {
     color: white !important;
 }
 
