@@ -66,6 +66,25 @@ theme = "LoveIt"
   gitRepo = ""  # date format
   dateFormat = "2006-01-02"
   
+  # Header config
+  [params.header]
+    # desktop header mode ["fixed", "normal", "auto"]
+    desktopMode = "fixed"
+    # mobile header mode ["fixed", "normal", "auto"]
+    mobileMode = "auto"
+    # Header title config
+    [params.header.title]
+      # URL of the LOGO
+      logo = "/images/logos/light mode logo.svg"
+      # title name (can be empty if using logo)
+      name = ""
+      # you can add extra information before the name (HTML format is supported), such as icons
+      pre = ""
+      # you can add extra information after the name (HTML format is supported), such as icons
+      post = ""
+      # whether to use typeit animation for title name
+      typeit = false
+
   # Search config
   [params.search]
     enable = true

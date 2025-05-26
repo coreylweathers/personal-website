@@ -46,6 +46,38 @@ header {
     background-color: transparent;
 }
 
+/* Logo styling - target the actual img element */
+.header-title .logo,
+.header-title img {
+    max-height: 4rem !important;
+    height: 4rem !important;
+    width: auto !important;
+    display: block !important;
+}
+
+/* Dark mode logo switching using CSS */
+[theme=light] .header-title .logo,
+[theme=light] .header-title img {
+    content: url('/images/logos/light mode logo.svg') !important;
+}
+
+[theme=dark] .header-title .logo,
+[theme=dark] .header-title img {
+    content: url('/images/logos/dark mode logo.svg') !important;
+}
+
+/* Header title container */
+.header-title {
+    display: flex;
+    align-items: center;
+    color: #2c2c2c !important;
+    font-weight: 600;
+}
+
+[theme=dark] .header-title {
+    color: #a9a9b3 !important;
+}
+
 /* Improve menu item visibility */
 #header-desktop .menu .menu-item a {
     color: #2c2c2c;
@@ -63,16 +95,6 @@ header {
 
 [theme=dark] #header-desktop .menu .menu-item a:hover {
     color: #fff;
-}
-
-/* Header title styling */
-.header-title {
-    color: #2c2c2c !important;
-    font-weight: 600;
-}
-
-[theme=dark] .header-title {
-    color: #a9a9b3 !important;
 }
 
 /* Custom styles for license display */
