@@ -232,6 +232,26 @@ header {
     color: white !important;
 }
 
+/* YouTube brand color on hover */
+.links a[href*="youtube.com"]:hover {
+    background-color: #FF0000;
+    border-color: #FF0000;
+}
+
+.links a[href*="youtube.com"]:hover i {
+    color: white !important;
+}
+
+/* Twitch brand color on hover */
+.links a[href*="twitch.tv"]:hover {
+    background-color: #9146FF;
+    border-color: #9146FF;
+}
+
+.links a[href*="twitch.tv"]:hover i {
+    color: white !important;
+}
+
 /* Simple Icons hover effects */
 .links a:hover i[data-svg-src] {
     color: white !important;
