@@ -278,3 +278,13 @@ header {
 [theme=dark] .post-footer-license {
     border-top-color: #444c56;
 }
+
+/* Hide author icon in blog post listings */
+.post-author .author i.fas.fa-user-circle {
+    display: none;
+}
+
+/* Alternative: Hide all icons in post author spans */
+.post-author i {
+    display: none !important;
+}

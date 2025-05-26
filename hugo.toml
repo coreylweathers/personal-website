@@ -12,12 +12,6 @@ theme = "LoveIt"
 [permalinks]
   posts = "/blog/:year/:month/:title/"
 
-# Author config
-[author]
-  name = "Corey L Weathers"
-  email = "corey.weathers@outlook.com"
-  link = ""
-
 # Menu config
 [menu]
   [[menu.main]]
@@ -78,6 +72,11 @@ theme = "LoveIt"
   gitRepo = "https://github.com/coreylweathers/personal-website"
   # date format
   dateFormat = "2006-01-02"
+
+  [params.author]
+  name = "Corey"
+  email = "corey.weathers@outlook.com"
+  link = ""
   
   # Header config
   [params.header]
