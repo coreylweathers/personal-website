@@ -8,6 +8,10 @@ title = "Corey’s Syntax & Stories"
 # Change the default theme to LoveIt
 theme = "LoveIt"
 
+# Permalinks configuration - make posts section use /blog URLs
+[permalinks]
+  posts = "/blog/:year/:month/:title/"
+
 # Author config
 [author]
   name = "Corey L Weathers"
