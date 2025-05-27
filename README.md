@@ -37,6 +37,17 @@ The LoveIt theme is included as a Git submodule. If it's not already present, yo
 git submodule add https://github.com/dillonzq/LoveIt.git themes/LoveIt
 ```
 
+### Environment Variables
+
+This site uses environment variables for sensitive configuration. Create a `.env` file in the root directory:
+
+```bash
+# Contact form ID for Un-static Forms
+HUGO_PARAMS_CONTACT_FORM_ID=your_form_id_here
+```
+
+**Note:** The `.env` file is ignored by Git for security. Never commit sensitive IDs or keys to version control.
+
 ### Local Development
 
 Run the Hugo development server:

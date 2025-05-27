@@ -10,7 +10,7 @@ theme = "LoveIt"
 
 # Permalinks configuration - make posts section use /blog URLs
 [permalinks]
-  posts = "/blog/:year/:month/:title/"
+  posts = "/posts/:year/:month/:title/"
 
 # Menu config
 [menu]
@@ -21,7 +21,7 @@ theme = "LoveIt"
     # you can add extra information after the name (HTML format is supported), such as icons
     post = ""
     name = "Blog"
-    url = "/blog/"
+    url = "/posts/"
     # title will be shown when you hover on this menu link
     title = "Blog posts"
     weight = 1
@@ -72,6 +72,8 @@ theme = "LoveIt"
   gitRepo = "https://github.com/coreylweathers/personal-website"
   # date format
   dateFormat = "2006-01-02"
+  # Contact form configuration
+  contact_form_id = ""
 
   [params.author]
   name = "Corey"

@@ -24,3 +24,7 @@ Thumbs.db
 .vscode
 *.swp
 *.swo
+
+# Environment variables
+.env
+.env.local

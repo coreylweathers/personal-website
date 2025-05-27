@@ -17,7 +17,7 @@ You can reach me at: [corey.weathers@outlook.com](mailto:corey.weathers@outlook.
 
 <h3 style="text-align: left; margin-bottom: 1.5rem; color: #2c2c2c; font-weight: 600;">Send me a message</h3>
 
-<form method="post" action="https://forms.un-static.com/forms/fe68548c6c7cdfb6240cba3db29f5aa87709f73d">
+<form method="post" action="https://forms.un-static.com/forms/{{ .Site.Params.contact_form_id }}">
 
 <div style="margin-bottom: 1.5rem;">
 <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #495057; font-size: 0.95rem;">Name</label>

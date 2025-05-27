@@ -3,8 +3,6 @@ title: "Blog"
 description: "Technical insights, tutorials, and thoughts on software development"
 date: 2025-01-02
 draft: false
-aliases: ["/blog/"]
-url: "/blog/"
 type: "posts"
 ---
 
@@ -25,7 +23,7 @@ From frontend frameworks to backend architectures, from DevOps practices to soft
 
 # Stay Updated
 
-Subscribe to my RSS feed to get notified of new posts: [RSS Feed](/blog/index.xml)
+Subscribe to my RSS feed to get notified of new posts: [RSS Feed](/posts/index.xml)
 
 ---
 
