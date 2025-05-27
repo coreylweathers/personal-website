@@ -11,3 +11,6 @@ show_drafts = true
   [analytics.google]
     id = ""  # Empty in development to disable tracking
     respectDoNotTrack = true
+  
+  [analytics.clarity]
+    id = ""  # Empty in development to disable tracking

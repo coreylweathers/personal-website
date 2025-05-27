@@ -33,6 +33,7 @@ In your GitHub repository, go to **Settings → Secrets and variables → Action
 
 - `CONTACT_FORM_ID`: Your Un-static Forms ID (e.g., `abc123def456ghi789jkl012mno345pqr678stu901`)
 - `GOOGLE_ANALYTICS_ID`: Your Google Analytics Measurement ID (e.g., `G-ABC123DEF4`)
+- `MICROSOFT_CLARITY_ID`: Your Microsoft Clarity Project ID (e.g., `abc123def4`)
 
 ### 3. Create GitHub Actions Workflow
 
@@ -91,6 +92,8 @@ jobs:
             [analytics.google]
               id = "${{ secrets.GOOGLE_ANALYTICS_ID }}"
               respectDoNotTrack = false
+            [analytics.clarity]
+              id = "${{ secrets.MICROSOFT_CLARITY_ID }}"
           EOF
       - name: Build with Hugo
         env:
@@ -122,16 +125,16 @@ jobs:
 
 1. **Trigger**: The workflow runs on every push to `main` branch
 2. **Build**: Hugo builds the site using the production environment
-3. **Configuration**: The workflow creates `config/production/params.toml` with your form ID and Google Analytics ID from GitHub Secrets
+3. **Configuration**: The workflow creates `config/production/params.toml` with your form ID, Google Analytics ID, and Microsoft Clarity ID from GitHub Secrets
 4. **Deploy**: The built site is deployed to GitHub Pages
 
 ### 5. Important Notes
 
-- ✅ **Sensitive data stays secure**: Your form ID and Google Analytics ID are stored as GitHub Secrets, not in your code
+- ✅ **Sensitive data stays secure**: Your form ID, Google Analytics ID, and Microsoft Clarity ID are stored as GitHub Secrets, not in your code
 - ✅ **Automatic deployment**: Every push to `main` triggers a new deployment
 - ✅ **Production configuration**: The workflow automatically uses production settings
 - ✅ **No manual config files needed**: The production config is created during the build process
-- ✅ **Analytics tracking**: Google Analytics is automatically enabled in production builds
+- ✅ **Analytics tracking**: Google Analytics and Microsoft Clarity are automatically enabled in production builds
 
 **Security:** Never commit your actual `config/production/params.toml` file to Git. The GitHub Actions workflow will create it automatically using your stored secrets.
 
@@ -145,6 +148,7 @@ jobs:
 4. Add environment variables:
    - `CONTACT_FORM_ID` with your form ID value
    - `GOOGLE_ANALYTICS_ID` with your Google Analytics Measurement ID
+   - `MICROSOFT_CLARITY_ID` with your Microsoft Clarity Project ID
 
 ### Vercel
 
@@ -155,6 +159,7 @@ jobs:
 5. Add environment variables:
    - `CONTACT_FORM_ID` with your form ID value
    - `GOOGLE_ANALYTICS_ID` with your Google Analytics Measurement ID
+   - `MICROSOFT_CLARITY_ID` with your Microsoft Clarity Project ID
 
 ### Cloudflare Pages
 
@@ -164,6 +169,7 @@ jobs:
 4. Add environment variables:
    - `CONTACT_FORM_ID` with your form ID value
    - `GOOGLE_ANALYTICS_ID` with your Google Analytics Measurement ID
+   - `MICROSOFT_CLARITY_ID` with your Microsoft Clarity Project ID
 
 ## Manual Deployment via FTP/SFTP
 

@@ -161,13 +161,17 @@ theme = "LoveIt"
       # Google Analytics ID will be read from HUGO_PARAMS_ANALYTICS_GOOGLE_ID environment variable
       id = ""
       respectDoNotTrack = false
+    
+    [params.analytics.clarity]
+      # Microsoft Clarity ID will be read from HUGO_PARAMS_ANALYTICS_CLARITY_ID environment variable
+      id = ""
 
-  # Custom JavaScript files
-  [params.page]
-    [params.page.library]
-      [params.page.library.js]
-        # Custom JS file
-        custom = "/js/custom.js"
+# Custom JavaScript files
+[params.page]
+  [params.page.library]
+    [params.page.library.js]
+      # Custom JS file
+      custom = "/js/custom.js"
 
 # Markup related configuration in Hugo
 [markup]
