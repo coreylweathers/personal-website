@@ -5,3 +5,9 @@ contact_form_id = ""
 # Development-only settings
 debug_mode = true
 show_drafts = true
+
+# Analytics config - disabled in development
+[analytics]
+  [analytics.google]
+    id = ""  # Empty in development to disable tracking
+    respectDoNotTrack = true

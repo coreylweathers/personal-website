@@ -155,6 +155,13 @@ theme = "LoveIt"
     # Windows v8-11 tile color
     tileColor = "#da532c"
   
+  # Analytics config - uses environment variables
+  [params.analytics]
+    [params.analytics.google]
+      # Google Analytics ID will be read from HUGO_PARAMS_ANALYTICS_GOOGLE_ID environment variable
+      id = ""
+      respectDoNotTrack = false
+
   # Custom JavaScript files
   [params.page]
     [params.page.library]

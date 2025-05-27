@@ -52,6 +52,12 @@ cp config/development/params.toml.example config/development/params.toml
 # Edit the file and add your actual form ID
 # config/development/params.toml
 contact_form_id = "your_actual_form_id_here"
+
+# Analytics is disabled in development (empty ID)
+[analytics]
+  [analytics.google]
+    id = ""  # Empty to disable tracking in development
+    respectDoNotTrack = true
 ```
 
 #### Production Configuration
@@ -61,9 +67,24 @@ For production deployments, create:
 ```bash
 # config/production/params.toml
 contact_form_id = "your_production_form_id_here"
+
+# Google Analytics configuration for production
+[analytics]
+  [analytics.google]
+    id = "G-XXXXXXXXXX"  # Replace with your actual Google Analytics Measurement ID
+    respectDoNotTrack = false
 ```
 
 **Security Note:** The `config/` directory is ignored by Git to keep sensitive configuration out of version control. The `.example` files show what configuration is needed without exposing actual values.
+
+#### Getting Your Google Analytics ID
+
+1. Go to [Google Analytics](https://analytics.google.com/)
+2. Create a new property for your website (if you haven't already)
+3. Navigate to Admin → Property → Data Streams
+4. Select your web data stream
+5. Copy your **Measurement ID** (looks like `G-ABC123DEF4`)
+6. Replace `G-XXXXXXXXXX` in your production config with this ID
 
 ### Local Development
 
@@ -130,9 +151,9 @@ The main configuration file is `hugo.toml`. This is where you can:
 
 ### Environment-Specific Configuration
 
-Environment-specific settings (like API keys, form IDs) are stored in:
-- `config/development/params.toml` - for local development
-- `config/production/params.toml` - for production builds
+Environment-specific settings (like API keys, form IDs, analytics IDs) are stored in:
+- `config/development/params.toml` - for local development (analytics disabled)
+- `config/production/params.toml` - for production builds (with Google Analytics)
 
 ### Theme Customization
 

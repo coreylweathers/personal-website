@@ -32,6 +32,7 @@ This site can be automatically deployed to GitHub Pages using GitHub Actions. He
 In your GitHub repository, go to **Settings → Secrets and variables → Actions** and add:
 
 - `CONTACT_FORM_ID`: Your Un-static Forms ID (e.g., `abc123def456ghi789jkl012mno345pqr678stu901`)
+- `GOOGLE_ANALYTICS_ID`: Your Google Analytics Measurement ID (e.g., `G-ABC123DEF4`)
 
 ### 3. Create GitHub Actions Workflow
 
@@ -83,7 +84,14 @@ jobs:
       - name: Create production config
         run: |
           mkdir -p config/production
-          echo "contact_form_id = \"${{ secrets.CONTACT_FORM_ID }}\"" > config/production/params.toml
+          cat > config/production/params.toml << EOF
+          contact_form_id = "${{ secrets.CONTACT_FORM_ID }}"
+          
+          [analytics]
+            [analytics.google]
+              id = "${{ secrets.GOOGLE_ANALYTICS_ID }}"
+              respectDoNotTrack = false
+          EOF
       - name: Build with Hugo
         env:
           HUGO_ENVIRONMENT: production
@@ -114,15 +122,16 @@ jobs:
 
 1. **Trigger**: The workflow runs on every push to `main` branch
 2. **Build**: Hugo builds the site using the production environment
-3. **Configuration**: The workflow creates `config/production/params.toml` with your form ID from GitHub Secrets
+3. **Configuration**: The workflow creates `config/production/params.toml` with your form ID and Google Analytics ID from GitHub Secrets
 4. **Deploy**: The built site is deployed to GitHub Pages
 
 ### 5. Important Notes
 
-- ✅ **Sensitive data stays secure**: Your form ID is stored as a GitHub Secret, not in your code
+- ✅ **Sensitive data stays secure**: Your form ID and Google Analytics ID are stored as GitHub Secrets, not in your code
 - ✅ **Automatic deployment**: Every push to `main` triggers a new deployment
 - ✅ **Production configuration**: The workflow automatically uses production settings
 - ✅ **No manual config files needed**: The production config is created during the build process
+- ✅ **Analytics tracking**: Google Analytics is automatically enabled in production builds
 
 **Security:** Never commit your actual `config/production/params.toml` file to Git. The GitHub Actions workflow will create it automatically using your stored secrets.
 
@@ -133,7 +142,9 @@ jobs:
 1. Connect your GitHub repository to Netlify
 2. Set build command: `hugo --environment production`
 3. Set publish directory: `public`
-4. Add environment variable: `CONTACT_FORM_ID` with your form ID value
+4. Add environment variables:
+   - `CONTACT_FORM_ID` with your form ID value
+   - `GOOGLE_ANALYTICS_ID` with your Google Analytics Measurement ID
 
 ### Vercel
 
@@ -141,19 +152,23 @@ jobs:
 2. Set framework preset to "Hugo"
 3. Set build command: `hugo --environment production`
 4. Set output directory: `public`
-5. Add environment variable: `CONTACT_FORM_ID` with your form ID value
+5. Add environment variables:
+   - `CONTACT_FORM_ID` with your form ID value
+   - `GOOGLE_ANALYTICS_ID` with your Google Analytics Measurement ID
 
 ### Cloudflare Pages
 
 1. Connect your GitHub repository to Cloudflare Pages
 2. Set build command: `hugo --environment production`
 3. Set build output directory: `public`
-4. Add environment variable: `CONTACT_FORM_ID` with your form ID value
+4. Add environment variables:
+   - `CONTACT_FORM_ID` with your form ID value
+   - `GOOGLE_ANALYTICS_ID` with your Google Analytics Measurement ID
 
 ## Manual Deployment via FTP/SFTP
 
 1. Build the site locally: `hugo --environment production`
-2. Create your production config file with the actual form ID
+2. Create your production config file with the actual form ID and Google Analytics ID
 3. Upload the contents of the `public/` directory to your web server
 4. Remember to exclude the `config/` directory from uploads
 
@@ -163,8 +178,9 @@ jobs:
 - ✅ Use environment variables or secrets for sensitive data
 - ✅ Keep the `config/` directory in `.gitignore`
 - ✅ Use different form IDs for development and production if needed
-- ✅ Regularly rotate API keys and form IDs
+- ✅ Regularly rotate API keys, form IDs, and analytics IDs
 - ✅ Review deployment logs for any exposed sensitive information
+- ✅ Keep Google Analytics IDs secure (though they're less sensitive than API keys)
 
 ## Troubleshooting
 
