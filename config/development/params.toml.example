@@ -1,0 +1,7 @@
+# Development config
+# Add a contact form ID for the contact us form to work during local development by copying this file and renaming to params.toml, then update the value below.
+contact_form_id = ""
+
+# Development-only settings
+debug_mode = true
+show_drafts = true

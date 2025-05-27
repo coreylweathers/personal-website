@@ -72,8 +72,7 @@ theme = "LoveIt"
   gitRepo = "https://github.com/coreylweathers/personal-website"
   # date format
   dateFormat = "2006-01-02"
-  # Contact form configuration
-  contact_form_id = ""
+  # Contact form configuration will be read from HUGO_PARAMS_CONTACT_FORM_ID environment variable
 
   [params.author]
   name = "Corey"

@@ -37,16 +37,33 @@ The LoveIt theme is included as a Git submodule. If it's not already present, yo
 git submodule add https://github.com/dillonzq/LoveIt.git themes/LoveIt
 ```
 
-### Environment Variables
+### Configuration Setup
 
-This site uses environment variables for sensitive configuration. Create a `.env` file in the root directory:
+This site uses environment-specific configuration files for sensitive data like form IDs. You'll need to create configuration files for both development and production environments.
+
+#### Development Configuration
+
+Copy the example configuration and add your actual values:
 
 ```bash
-# Contact form ID for Un-static Forms
-HUGO_PARAMS_CONTACT_FORM_ID=your_form_id_here
+# Copy the example file
+cp config/development/params.toml.example config/development/params.toml
+
+# Edit the file and add your actual form ID
+# config/development/params.toml
+contact_form_id = "your_actual_form_id_here"
 ```
 
-**Note:** The `.env` file is ignored by Git for security. Never commit sensitive IDs or keys to version control.
+#### Production Configuration
+
+For production deployments, create:
+
+```bash
+# config/production/params.toml
+contact_form_id = "your_production_form_id_here"
+```
+
+**Security Note:** The `config/` directory is ignored by Git to keep sensitive configuration out of version control. The `.example` files show what configuration is needed without exposing actual values.
 
 ### Local Development
 
@@ -56,7 +73,7 @@ Run the Hugo development server:
 hugo server -D
 ```
 
-This will start a local development server at http://localhost:1313/ with hot-reloading enabled.
+This will start a local development server at http://localhost:1313/ with hot-reloading enabled. The development environment will automatically use your `config/development/params.toml` settings.
 
 ## Creating Content
 
@@ -78,6 +95,12 @@ hugo new page/my-new-page.md
 .
 ├── archetypes/        # Content templates
 ├── assets/            # CSS, JS, and other assets
+├── config/            # Environment-specific configuration (ignored by Git)
+│   ├── development/   # Development environment config
+│   │   ├── params.toml.example  # Example development config
+│   │   └── params.toml          # Actual development config (not in Git)
+│   └── production/    # Production environment config
+│       └── params.toml          # Production config (not in Git)
 ├── content/           # Site content (Markdown files)
 │   ├── posts/         # Blog posts
 │   ├── about/         # About page
@@ -85,6 +108,7 @@ hugo new page/my-new-page.md
 │   └── contact/       # Contact page
 ├── data/              # Configuration data files
 ├── layouts/           # Custom layout templates (overrides theme)
+│   └── shortcodes/    # Custom shortcodes
 ├── static/            # Static files (images, etc.)
 ├── themes/            # Theme submodules
 │   └── LoveIt/        # LoveIt theme
@@ -104,6 +128,12 @@ The main configuration file is `hugo.toml`. This is where you can:
 - Configure search functionality
 - And much more
 
+### Environment-Specific Configuration
+
+Environment-specific settings (like API keys, form IDs) are stored in:
+- `config/development/params.toml` - for local development
+- `config/production/params.toml` - for production builds
+
 ### Theme Customization
 
 To override theme templates or styles:
@@ -114,17 +144,19 @@ To override theme templates or styles:
 
 ## Deployment
 
-To build the site for production:
+For detailed deployment instructions including GitHub Pages, Netlify, Vercel, and other hosting providers, see the [Deployment Guide](deployment.md).
 
+Quick local build:
 ```bash
-hugo --minify
+hugo --minify --environment production
 ```
-
-This will generate the site in the `public` directory, which can be deployed to any static hosting service.
 
 ## Git Workflow
 
-This project uses a standard Git workflow. The `public` directory is ignored in Git as it contains generated files that should not be committed.
+This project uses a standard Git workflow. The following directories/files are ignored in Git:
+- `public/` - Generated files that should not be committed
+- `config/` - Environment-specific configuration with sensitive data
+- `.env*` - Environment variable files
 
 ## License
 

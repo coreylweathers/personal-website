@@ -28,3 +28,7 @@ Thumbs.db
 # Environment variables
 .env
 .env.local
+
+# Local configuration with sensitive data
+config/production/
+config/development/params.toml
