@@ -33,10 +33,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: true
           fetch-depth: 0
-      - name: Update submodules
-        run: git submodule update --init --recursive
+      - name: Setup theme
+        run: |
+          if [ ! -d "themes/LoveIt" ] || [ ! "$(ls -A themes/LoveIt)" ]; then
+            rm -rf themes/LoveIt
+            git clone https://github.com/dillonzq/LoveIt.git themes/LoveIt
+          fi
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4
@@ -78,4 +81,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4
