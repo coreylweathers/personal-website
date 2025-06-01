@@ -1,0 +1,21 @@
+{{- $pc := site.Config.Privacy.X -}}
+{{- if not $pc.Disable -}}
+  {{- $id := or (.Get "id") "" -}}
+  {{- $user := or (.Get "user") "" -}}
+  {{- if and $id $user -}}
+    {{- $url := printf "https://x.com/%v/status/%v" $user $id -}}
+    {{- $query := querify "url" $url "dnt" $pc.EnableDNT -}}
+    {{- $request := printf "https://publish.x.com/oembed?%s" $query -}}
+    {{- with try (resources.GetRemote $request) -}}
+      {{- with .Err -}}
+        {{- errorf "%s" . -}}
+      {{- else with .Value -}}
+        {{- (. | transform.Unmarshal).html | safeHTML -}}
+      {{- else -}}
+        {{- warnf "The X shortcode was unable to retrieve the remote data for %s" $url -}}
+      {{- end -}}
+    {{- end -}}
+  {{- else -}}
+    {{- errorf "The X shortcode requires two named parameters: user and id" -}}
+  {{- end -}}
+{{- end -}} 

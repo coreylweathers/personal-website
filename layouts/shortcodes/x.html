@@ -1,0 +1,35 @@
+{{- $pc := site.Config.Privacy.X -}}
+{{- if not $pc.Disable -}}
+  {{- if $pc.Simple -}}
+    {{- $id := .Get "id" -}}
+    {{- $user := .Get "user" -}}
+    {{- if and $id $user -}}
+      {{- $url := printf "https://x.com/%v/status/%v" $user $id -}}
+      <blockquote class="x-tweet">
+        <p><a href="{{ $url }}">{{ $url }}</a></p>
+      </blockquote>
+    {{- else -}}
+      {{- errorf "The %q shortcode requires two named parameters: user and id. See %s" .Name .Position -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $id := .Get "id" -}}
+    {{- $user := .Get "user" -}}
+    {{- if and $id $user -}}
+      {{- $url := printf "https://x.com/%v/status/%v" $user $id -}}
+      {{- $query := querify "url" $url "dnt" $pc.EnableDNT -}}
+      {{- $request := printf "https://publish.x.com/oembed?%s" $query -}}
+      {{- with resources.GetRemote $request -}}
+        {{- with .Err -}}
+          {{- warnf "Failed to get X post: %s" . -}}
+          <blockquote class="x-tweet">
+            <p><a href="{{ $url }}">{{ $url }}</a></p>
+          </blockquote>
+        {{- else -}}
+          {{- .Content | transform.Unmarshal | index "html" | safeHTML -}}
+        {{- end -}}
+      {{- end -}}
+    {{- else -}}
+      {{- errorf "The %q shortcode requires two named parameters: user and id. See %s" .Name .Position -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}} 

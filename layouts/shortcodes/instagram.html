@@ -1,0 +1,21 @@
+{{- $pc := site.Config.Privacy.Instagram -}}
+{{- if not $pc.Disable -}}
+    {{- with .Get 0 -}}
+        {{- $id := . -}}
+        {{- $url := printf "https://instagram.com/p/%s" $id -}}
+        {{- $query := querify "url" $url "hidecaption" (default "false" $pc.HideCaption) "maxwidth" 640 -}}
+        {{- $request := printf "https://api.instagram.com/oembed?%s" $query -}}
+        {{- with resources.GetRemote $request -}}
+            {{- with .Err -}}
+                {{- warnf "Failed to get Instagram post: %s" . -}}
+                <div class="instagram-fallback">
+                    <a href="{{ $url }}" target="_blank" rel="noopener">View this post on Instagram</a>
+                </div>
+            {{- else -}}
+                {{- .Content | transform.Unmarshal | index "html" | safeHTML -}}
+            {{- end -}}
+        {{- end -}}
+    {{- else -}}
+        {{- errorf "The %q shortcode requires the Instagram post ID. See %s" .Name .Position -}}
+    {{- end -}}
+{{- end -}} 

@@ -1,0 +1,13 @@
+{{- $pc := site.Config.Privacy.X -}}
+{{- if not $pc.Disable -}}
+  {{- $id := or (.Get "id") "" -}}
+  {{- $user := or (.Get "user") "" -}}
+  {{- if and $id $user -}}
+    {{- $url := printf "https://x.com/%v/status/%v" $user $id -}}
+    <blockquote class="x-tweet">
+      <p><a href="{{ $url }}">{{ $url }}</a></p>
+    </blockquote>
+  {{- else -}}
+    {{- errorf "The X shortcode requires two named parameters: user and id" -}}
+  {{- end -}}
+{{- end -}} 
