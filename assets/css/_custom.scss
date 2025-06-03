@@ -55,20 +55,15 @@ header {
     color: #a9a9b3 !important;
 }
 
-/* Logo styling with dark mode filter */
+/* Logo styling - simple single logo approach */
 .header-title .logo,
 .header-title img.logo {
     display: inline-block;
     max-height: 1.5em;
     width: auto;
-    transition: filter 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-/* Dark mode: adjust the logo colors */
-[theme="dark"] .header-title .logo,
-[theme="dark"] .header-title img.logo {
-    filter: invert(1) brightness(0.85) contrast(1.1);
-}
 
 /* Improve menu item visibility */
 #header-desktop .menu .menu-item a {
