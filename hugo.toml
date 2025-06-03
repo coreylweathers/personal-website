@@ -88,7 +88,7 @@ theme = "LoveIt"
     # Header title config
     [params.header.title]
       # URL of the LOGO
-      logo = "/images/home-4-svgrepo-com-light.svg"
+      logo = "/images/icons8-home.svg"
       # title name (can be empty if using logo)
       name = ""
       # you can add extra information before the name (HTML format is supported), such as icons
