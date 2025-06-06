@@ -1,0 +1,173 @@
+{{- $cdn := .Scratch.Get "cdn" | default dict -}}
+{{- $fingerprint := .Scratch.Get "fingerprint" -}}
+
+{{- if not .Site.Params.app.noFavicon -}}
+    {{- with .Site.Params.app.svgFavicon -}}
+        <link rel="icon" href="{{ . }}">
+    {{- else -}}
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    {{- end -}}
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    {{- with .Site.Params.app.iconColor -}}
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="{{ . }}">
+    {{- end -}}
+    <link rel="manifest" href="/site.webmanifest">
+{{- end -}}
+
+<link rel="canonical" href="{{ .Permalink }}" />
+{{- if .PrevInSection -}}
+    <link rel="prev" href="{{ .PrevInSection.Permalink }}" />
+{{- end -}}
+{{- if .NextInSection -}}
+    <link rel="next" href="{{ .NextInSection.Permalink }}" />
+{{- end -}}
+
+{{- with .OutputFormats.Get "RSS" -}}
+    <link rel="alternate" href="{{ .RelPermalink }}" type="application/rss+xml" title="{{ $.Site.Title }}">
+    <link rel="feed" href="{{ .RelPermalink }}" type="application/rss+xml" title="{{ $.Site.Title }}">
+{{- end -}}
+
+{{- /* style.min.css */ -}}
+{{- $options := dict "Source" "css/style.scss" "Fingerprint" $fingerprint -}}
+{{- $toCSS := dict "targetPath" "css/style.min.css" "outputStyle" "compressed" "enableSourceMap" true -}}
+{{- $options = dict "Context" . "ToCSS" $toCSS | merge $options -}}
+{{- partial "plugin/style.html" $options -}}
+
+{{- /* Custom Social Media Icons CSS */ -}}
+<style>
+.home-profile .links {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 2rem !important;
+    justify-content: center !important;
+    margin: 2rem 0 !important;
+    padding: 0.5rem !important;
+    font-size: 1.5rem !important;
+}
+
+.home-profile .links a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 3rem !important;
+    height: 3rem !important;
+    border-radius: 50% !important;
+    background-color: #f8f9fa !important;
+    border: 3px solid #d0d7de !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.home-profile .links a:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2) !important;
+    border-color: #6c757d !important;
+}
+
+[theme=dark] .home-profile .links a {
+    background-color: #343a40 !important;
+    border-color: #495057 !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
+}
+
+[theme=dark] .home-profile .links a:hover {
+    background-color: #495057 !important;
+    border-color: #6c757d !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Platform-specific colors on hover */
+.home-profile .links a[href*="github.com"]:hover {
+    background-color: #24292e !important;
+    border-color: #24292e !important;
+}
+
+.home-profile .links a[href*="github.com"]:hover i {
+    color: white !important;
+}
+
+.home-profile .links a[href*="linkedin.com"]:hover {
+    background-color: #0077b5 !important;
+    border-color: #0077b5 !important;
+}
+
+.home-profile .links a[href*="linkedin.com"]:hover i {
+    color: white !important;
+}
+
+.home-profile .links a[href*="threads.net"]:hover {
+    background-color: #000000 !important;
+    border-color: #000000 !important;
+}
+
+.home-profile .links a[href*="threads.net"]:hover i {
+    color: white !important;
+}
+
+.home-profile .links a[href*="twitter.com"]:hover,
+.home-profile .links a[href*="x.com"]:hover {
+    background-color: #1da1f2 !important;
+    border-color: #1da1f2 !important;
+}
+
+.home-profile .links a[href*="twitter.com"]:hover i,
+.home-profile .links a[href*="x.com"]:hover i {
+    color: white !important;
+}
+
+.home-profile .links a[href*="discord"]:hover {
+    background-color: #5865f2 !important;
+    border-color: #5865f2 !important;
+}
+
+.home-profile .links a[href*="discord"]:hover i {
+    color: white !important;
+}
+
+.home-profile .links a[href*="mailto:"]:hover {
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
+
+.home-profile .links a[href*="mailto:"]:hover i {
+    color: white !important;
+}
+
+.home-profile .links a[href*="youtube"]:hover {
+    background-color: #c4302b !important;
+    border-color: #c4302b !important;
+}
+
+.home-profile .links a[href*="youtube"]:hover i {
+    color: white !important;
+}
+
+.home-profile .links a[href*="twitch"]:hover {
+    background-color: #9146ff !important;
+    border-color: #9146ff !important;
+}
+
+.home-profile .links a[href*="twitch"]:hover i {
+    color: white !important;
+}
+</style>
+
+{{- /* Font Awesome */ -}}
+{{- $source := $cdn.fontawesomeFreeCSS | default "lib/fontawesome-free/css/all.min.css" -}}
+{{- $options := dict "Source" $source "Fingerprint" $fingerprint "Preload" true -}}
+{{- partial "plugin/style.html" $options -}}
+{{- if not $cdn.fontawesomeFreeCSS -}}
+    {{- range resources.Match "lib/fontawesome-free/webfonts/*" -}}
+        {{- .Publish -}}
+    {{- end -}}
+{{- end -}}
+
+{{- /* Animate.css */ -}}
+{{- $source := $cdn.animateCSS | default "lib/animate/animate.min.css" -}}
+{{- $options := dict "Source" $source "Fingerprint" $fingerprint "Preload" true -}}
+{{- partial "plugin/style.html" $options -}} 

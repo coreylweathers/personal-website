@@ -166,7 +166,7 @@ theme = "LoveIt"
       # Microsoft Clarity ID will be read from HUGO_PARAMS_ANALYTICS_CLARITY_ID environment variable
       id = ""
 
-# Custom JavaScript files
+# Custom JavaScript and CSS files
 [params.page]
   [params.page.library]
     [params.page.library.js]

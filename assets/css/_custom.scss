@@ -85,48 +85,53 @@ header {
 }
 
 /* Enhanced Social Media Icons Styling */
-.links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-    margin: 1.5rem 0;
+.home-profile .links {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 2rem !important;
+    justify-content: center !important;
+    margin: 2rem 0 !important;
+    padding: 0.5rem !important; /* Keep theme's padding but override other styles */
+    font-size: 1.5rem !important; /* Keep theme's font-size */
 }
 
-.links a {
+.home-profile .links a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 3rem;
+    height: 3rem;
     border-radius: 50%;
     background-color: #f8f9fa;
-    border: 2px solid #e9ecef;
+    border: 3px solid #d0d7de;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     text-decoration: none;
     position: relative;
     overflow: hidden;
 }
 
-.links a:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.home-profile .links a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
     border-color: #6c757d;
+    border-width: 3px;
 }
 
-[theme=dark] .links a {
+[theme=dark] .home-profile .links a {
     background-color: #343a40;
     border-color: #495057;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-[theme=dark] .links a:hover {
+[theme=dark] .home-profile .links a:hover {
     background-color: #495057;
     border-color: #6c757d;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
 /* Simple Icons SVG styling */
-.links a i[data-svg-src] {
+.home-profile .links a i[data-svg-src] {
     width: 1.25rem;
     height: 1.25rem;
     fill: currentColor;
@@ -134,96 +139,96 @@ header {
     transition: color 0.3s ease;
 }
 
-[theme=dark] .links a i[data-svg-src] {
+[theme=dark] .home-profile .links a i[data-svg-src] {
     color: #adb5bd;
 }
 
 /* Font Awesome icons styling */
-.links a i.fab,
-.links a i.fas,
-.links a i.far {
+.home-profile .links a i.fab,
+.home-profile .links a i.fas,
+.home-profile .links a i.far {
     font-size: 1.25rem;
     color: #495057;
     transition: color 0.3s ease;
 }
 
-.links a:hover i.fab,
-.links a:hover i.fas,
-.links a:hover i.far {
+.home-profile .links a:hover i.fab,
+.home-profile .links a:hover i.fas,
+.home-profile .links a:hover i.far {
     color: #212529;
 }
 
-[theme=dark] .links a i.fab,
-[theme=dark] .links a i.fas,
-[theme=dark] .links a i.far {
+[theme=dark] .home-profile .links a i.fab,
+[theme=dark] .home-profile .links a i.fas,
+[theme=dark] .home-profile .links a i.far {
     color: #adb5bd;
 }
 
-[theme=dark] .links a:hover i.fab,
-[theme=dark] .links a:hover i.fas,
-[theme=dark] .links a:hover i.far {
+[theme=dark] .home-profile .links a:hover i.fab,
+[theme=dark] .home-profile .links a:hover i.fas,
+[theme=dark] .home-profile .links a:hover i.far {
     color: #f8f9fa;
 }
 
 /* Platform-specific colors on hover */
-.links a[href*="github.com"]:hover {
+.home-profile .links a[href*="github.com"]:hover {
     background-color: #24292e;
     border-color: #24292e;
 }
 
-.links a[href*="github.com"]:hover i {
+.home-profile .links a[href*="github.com"]:hover i {
     color: white !important;
 }
 
-.links a[href*="linkedin.com"]:hover {
+.home-profile .links a[href*="linkedin.com"]:hover {
     background-color: #0077b5;
     border-color: #0077b5;
 }
 
-.links a[href*="linkedin.com"]:hover i {
+.home-profile .links a[href*="linkedin.com"]:hover i {
     color: white !important;
 }
 
-.links a[href*="threads.net"]:hover {
+.home-profile .links a[href*="threads.net"]:hover {
     background-color: #000000;
     border-color: #000000;
 }
 
-.links a[href*="threads.net"]:hover i {
+.home-profile .links a[href*="threads.net"]:hover i {
     color: white !important;
 }
 
-.links a[href*="twitter.com"]:hover,
-.links a[href*="x.com"]:hover {
+.home-profile .links a[href*="twitter.com"]:hover,
+.home-profile .links a[href*="x.com"]:hover {
     background-color: #1da1f2;
     border-color: #1da1f2;
 }
 
-.links a[href*="twitter.com"]:hover i,
-.links a[href*="x.com"]:hover i {
+.home-profile .links a[href*="twitter.com"]:hover i,
+.home-profile .links a[href*="x.com"]:hover i {
     color: white !important;
 }
 
-.links a[href*="discord"]:hover {
+.home-profile .links a[href*="discord"]:hover {
     background-color: #5865f2;
     border-color: #5865f2;
 }
 
-.links a[href*="discord"]:hover i {
+.home-profile .links a[href*="discord"]:hover i {
     color: white !important;
 }
 
-.links a[href*="mailto:"]:hover {
+.home-profile .links a[href*="mailto:"]:hover {
     background-color: #dc3545;
     border-color: #dc3545;
 }
 
-.links a[href*="mailto:"]:hover i {
+.home-profile .links a[href*="mailto:"]:hover i {
     color: white !important;
 }
 
 /* Simple Icons hover effects */
-.links a:hover i[data-svg-src] {
+.home-profile .links a:hover i[data-svg-src] {
     color: white !important;
 }
 
@@ -291,83 +296,145 @@ footer.footer {
 }
 
 /* Make blog content text darker and more readable */
-.home[data-home=posts] .summary .content {
-    color: #161209 !important; /* Use primary font color instead of secondary */
+.home[data-home=posts] .summary .content,
+.content,
+.home-subtitle,
+.home-profile .content {
+    color: #000000 !important; /* Pure black for light mode */
 }
 
-[theme=dark] .home[data-home=posts] .summary .content {
-    color: #a9a9b3 !important; /* Use primary font color for dark mode */
+[theme=dark] .home[data-home=posts] .summary .content,
+[theme=dark] .content,
+[theme=dark] .home-subtitle,
+[theme=dark] .home-profile .content {
+    color: #ffffff !important; /* Pure white for dark mode */
 }
 
 /* Also make bold text in summaries use primary color */
 .home[data-home=posts] .summary .content b,
-.home[data-home=posts] .summary .content strong {
-    color: #161209 !important;
+.home[data-home=posts] .summary .content strong,
+.content b,
+.content strong {
+    color: #000000 !important;
 }
 
 [theme=dark] .home[data-home=posts] .summary .content b,
-[theme=dark] .home[data-home=posts] .summary .content strong {
-    color: #a9a9b3 !important;
+[theme=dark] .home[data-home=posts] .summary .content strong,
+[theme=dark] .content b,
+[theme=dark] .content strong {
+    color: #ffffff !important;
 }
 
 /* YouTube - comprehensive URL matching with official brand red */
-.links a[href*="youtube.com"]:hover,
-.links a[href*="youtu.be"]:hover,
-.links a[href*="/channel/"]:hover,
-.links a[href*="youtube"]:hover {
+.home-profile .links a[href*="youtube.com"]:hover,
+.home-profile .links a[href*="youtu.be"]:hover,
+.home-profile .links a[href*="/channel/"]:hover,
+.home-profile .links a[href*="youtube"]:hover {
     background-color: #c4302b !important;
     border-color: #c4302b !important;
 }
 
-.links a[href*="youtube.com"]:hover i,
-.links a[href*="youtu.be"]:hover i,
-.links a[href*="/channel/"]:hover i,
-.links a[href*="youtube"]:hover i {
+.home-profile .links a[href*="youtube.com"]:hover i,
+.home-profile .links a[href*="youtu.be"]:hover i,
+.home-profile .links a[href*="/channel/"]:hover i,
+.home-profile .links a[href*="youtube"]:hover i {
     color: white !important;
 }
 
 /* Twitch - comprehensive URL matching with official brand purple */
-.links a[href*="twitch.tv"]:hover,
-.links a[href*="twitch.com"]:hover,
-.links a[href*="twitch"]:hover {
+.home-profile .links a[href*="twitch.tv"]:hover,
+.home-profile .links a[href*="twitch.com"]:hover,
+.home-profile .links a[href*="twitch"]:hover {
     background-color: #9146ff !important;
     border-color: #9146ff !important;
 }
 
-.links a[href*="twitch.tv"]:hover i,
-.links a[href*="twitch.com"]:hover i,
-.links a[href*="twitch"]:hover i {
+.home-profile .links a[href*="twitch.tv"]:hover i,
+.home-profile .links a[href*="twitch.com"]:hover i,
+.home-profile .links a[href*="twitch"]:hover i {
     color: white !important;
 }
 
-/* Left align page titles for archive and special pages */
+/* ULTRA SPECIFIC h1 left alignment - overrides theme CSS */
+body h1,
+body .single-title,
+body .single-subtitle,
+.wrapper h1,
+.wrapper .single-title,
+.wrapper .single-subtitle,
+.main h1,
+.main .single-title,
+.main .single-subtitle,
+.container h1,
+.container .single-title,
+.container .single-subtitle,
+.page h1,
+.page .single-title,
+.page .single-subtitle,
+.content h1,
+.content .single-title,
+.content .single-subtitle,
+article h1,
+article .single-title,
+article .single-subtitle,
+main h1,
+main .single-title,
+main .single-subtitle,
+.single h1,
+.single .single-title,
+.single .single-subtitle,
+.archive h1,
+.archive .single-title,
+.archive .single-subtitle,
+.special h1,
+.special .single-title,
+.special .single-subtitle,
+.page.archive h1,
+.page.archive .single-title,
+.page.archive .single-subtitle,
+.page.single h1,
+.page.single .single-title,
+.page.single .single-subtitle,
+.page.single.special h1,
+.page.single.special .single-title,
+.page.single.special .single-subtitle,
+.page.single.archive h1,
+.page.single.archive .single-title,
+.page.single.archive .single-subtitle {
+    text-align: left !important;
+}
+
+/* Additional comprehensive fix for all h1 elements */
+h1,
+.single-title,
 .archive .single-title,
 .special .single-title,
-.special .single-subtitle {
+.content h1,
+article h1,
+main h1,
+.post h1 {
     text-align: left !important;
 }
 
-/* Left align blog content */
-.page.archive .content,
-.page.archive .single-title,
-.page.archive h1,
-.page.archive h2,
-.page.archive h3,
-.page.archive p,
-.page.archive ul,
-.page.archive ol {
+/* NUCLEAR OPTION - Override theme's specific selectors directly */
+.special .single-title, 
+.special .single-subtitle,
+.archive .single-title {
     text-align: left !important;
 }
 
-/* Ensure the blog index content is left-aligned */
-.page.single.special .content,
-.page.single.special .single-title,
-.page.single.special h1,
-.page.single.special h2,
-.page.single.special h3,
-.page.single.special p,
-.page.single.special ul,
-.page.single.special ol {
+/* Make sure it applies to all possible DOM structures */
+* h1,
+* .single-title,
+* .single-subtitle {
+    text-align: left !important;
+}
+
+/* One more ultra-specific override */
+html body .wrapper .main .container .single .single-title,
+html body .wrapper .main .container .archive .single-title,
+html body .wrapper .main .container .special .single-title,
+html body .wrapper .main .container .special .single-subtitle {
     text-align: left !important;
 }
 
@@ -631,3 +698,59 @@ textarea.form-control {
     background-color: #5a8bc4;
     color: #2c2c2c;
 }
+
+/* Blog Title and Header Font Styling - SPECIFIC TARGETING ONLY */
+.home-profile h1.home-title {
+    color: #000000 !important;
+    text-align: center !important;
+    margin-bottom: 1.5rem !important;
+}
+
+[theme=dark] .home-profile h1.home-title {
+    color: #ffffff !important;
+}
+
+/* FINAL OVERRIDE SECTION - These rules must come last */
+/* Force left alignment for all h1 headings except home title */
+h1:not(.home-title),
+.single-title,
+.single-subtitle {
+    text-align: left !important;
+}
+
+/* Target specific theme classes that cause right alignment */
+.special .single-title,
+.special .single-subtitle,
+.archive .single-title {
+    text-align: left !important;
+}
+
+/* Ultra-specific selectors to override theme CSS */
+html body .wrapper .main .container h1:not(.home-title),
+html body .wrapper .main .container .single-title,
+html body .wrapper .main .container .single-subtitle,
+html body .wrapper .main .container .single .single-title,
+html body .wrapper .main .container .archive .single-title,
+html body .wrapper .main .container .special .single-title,
+html body .wrapper .main .container .special .single-subtitle {
+    text-align: left !important;
+}
+
+/* Catch-all to ensure no h1 is right-aligned, except home title */
+* h1:not(.home-title) {
+    text-align: left !important;
+}
+
+/* EXCEPTION: Center the home page title - ULTIMATE OVERRIDE */
+html body .wrapper .main .container .page.home .home-profile .home-title,
+html body .wrapper .main .container .page.home .home-profile h1.home-title,
+html body .page.home .home-profile .home-title,
+html body .page.home .home-profile h1.home-title,
+.page.home .home-profile .home-title,
+.page.home .home-profile h1.home-title,
+.home-profile .home-title,
+.home-profile h1.home-title,
+h1.home-title {
+    text-align: center !important;
+}
+
