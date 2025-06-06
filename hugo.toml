@@ -25,14 +25,15 @@ theme = "LoveIt"
     # title will be shown when you hover on this menu link
     title = "Blog posts"
     weight = 1
-  [[menu.main]]
-    identifier = "streams"
-    pre = "🎥"
-    post = ""
-    name = "Streams"
-    url = "/streams/"
-    title = "Live Streams"
-    weight = 2
+  # Streams menu item (hidden but kept in config)
+  # [[menu.main]]
+  #   identifier = "streams"
+  #   pre = "🎥"
+  #   post = ""
+  #   name = "Streams"
+  #   url = "/streams/"
+  #   title = "Live Streams"
+  #   weight = 2
   [[menu.main]]
     identifier = "media"
     pre = "🎤"
