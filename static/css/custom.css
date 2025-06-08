@@ -1,0 +1,4 @@
+/* Fix blog text color in dark theme */
+[theme=dark] .home[data-home=posts] .summary .content {
+  color: #a9a9b3 !important;
+} 
