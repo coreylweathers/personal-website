@@ -1,30 +1,33 @@
-/* Override light mode background color to #e0dfd8 */
+/* ==========================================================================
+   BASE LAYOUT & BACKGROUNDS
+   ========================================================================== */
 
-body {
+/* Override light mode background color to #e0dfd8 */
+body,
+.wrapper,
+main {
     background-color: #e0dfd8 !important;
 }
 
-body[theme=dark] {
+[theme=dark] body,
+[theme=dark] .wrapper,
+[theme=dark] main {
     background-color: #292a2d !important;
 }
 
-/* Ensure the background color applies to the main content areas */
-.wrapper {
-    background-color: #e0dfd8;
+/* Footer background color consistency - uses same colors as body */
+footer.footer {
+    background-color: inherit !important;
 }
 
-[theme=dark] .wrapper {
-    background-color: #292a2d;
+/* Ensure footer container also matches */
+.footer-container {
+    background-color: transparent;
 }
 
-/* Apply to main content container */
-main {
-    background-color: #e0dfd8;
-}
-
-[theme=dark] main {
-    background-color: #292a2d;
-}
+/* ==========================================================================
+   HEADER & NAVIGATION
+   ========================================================================== */
 
 /* Enhanced navbar visibility for light mode */
 header {
@@ -64,7 +67,6 @@ header {
     transition: all 0.3s ease;
 }
 
-
 /* Improve menu item visibility */
 #header-desktop .menu .menu-item a {
     color: #2c2c2c;
@@ -83,6 +85,62 @@ header {
 [theme=dark] #header-desktop .menu .menu-item a:hover {
     color: #fff;
 }
+
+/* ==========================================================================
+   TYPOGRAPHY & CONTENT
+   ========================================================================== */
+
+/* Simplified h1 left alignment - overrides theme CSS */
+h1:not(.home-title),
+.single-title,
+.single-subtitle {
+    text-align: left !important;
+}
+
+/* Blog Title and Header Font Styling - SPECIFIC TARGETING ONLY */
+.home-profile h1.home-title {
+    color: #000000 !important;
+    text-align: center !important;
+    margin-bottom: 1.5rem !important;
+}
+
+[theme=dark] .home-profile h1.home-title {
+    color: #ffffff !important;
+}
+
+/* Make blog content text darker and more readable */
+.home[data-home=posts] .summary .content,
+.content,
+.home-subtitle,
+.home-profile .content {
+    color: #000000 !important; /* Pure black for light mode */
+}
+
+[theme=dark] .home[data-home=posts] .summary .content,
+[theme=dark] .content,
+[theme=dark] .home-subtitle,
+[theme=dark] .home-profile .content {
+    color: #ffffff !important; /* Pure white for dark mode */
+}
+
+/* Also make bold text in summaries use primary color */
+.home[data-home=posts] .summary .content b,
+.home[data-home=posts] .summary .content strong,
+.content b,
+.content strong {
+    color: #000000 !important;
+}
+
+[theme=dark] .home[data-home=posts] .summary .content b,
+[theme=dark] .home[data-home=posts] .summary .content strong,
+[theme=dark] .content b,
+[theme=dark] .content strong {
+    color: #ffffff !important;
+}
+
+/* ==========================================================================
+   HOME PAGE & SOCIAL MEDIA ICONS
+   ========================================================================== */
 
 /* Enhanced Social Media Icons Styling */
 .home-profile .links {
@@ -170,7 +228,12 @@ header {
     color: #f8f9fa;
 }
 
-/* Platform-specific colors on hover */
+/* Simple Icons hover effects */
+.home-profile .links a:hover i[data-svg-src] {
+    color: white !important;
+}
+
+/* Platform-specific brand colors on hover */
 .home-profile .links a[href*="github.com"]:hover {
     background-color: #24292e;
     border-color: #24292e;
@@ -227,10 +290,68 @@ header {
     color: white !important;
 }
 
-/* Simple Icons hover effects */
-.home-profile .links a:hover i[data-svg-src] {
+/* YouTube - comprehensive URL matching with official brand red */
+.home-profile .links a[href*="youtube.com"]:hover,
+.home-profile .links a[href*="youtu.be"]:hover,
+.home-profile .links a[href*="/channel/"]:hover,
+.home-profile .links a[href*="youtube"]:hover {
+    background-color: #c4302b !important;
+    border-color: #c4302b !important;
+}
+
+.home-profile .links a[href*="youtube.com"]:hover i,
+.home-profile .links a[href*="youtu.be"]:hover i,
+.home-profile .links a[href*="/channel/"]:hover i,
+.home-profile .links a[href*="youtube"]:hover i {
     color: white !important;
 }
+
+/* Twitch - comprehensive URL matching with official brand purple */
+.home-profile .links a[href*="twitch.tv"]:hover,
+.home-profile .links a[href*="twitch.com"]:hover,
+.home-profile .links a[href*="twitch"]:hover {
+    background-color: #9146ff !important;
+    border-color: #9146ff !important;
+}
+
+.home-profile .links a[href*="twitch.tv"]:hover i,
+.home-profile .links a[href*="twitch.com"]:hover i,
+.home-profile .links a[href*="twitch"]:hover i {
+    color: white !important;
+}
+
+/* ==========================================================================
+   BLOG & ARCHIVE PAGES
+   ========================================================================== */
+
+/* Left align the posts list section */
+.archive-item {
+    text-align: left !important;
+}
+
+.group-title {
+    text-align: left !important;
+}
+
+/* Override width specifically for posts section blog index */
+.page.archive .page.single.special,
+body[data-theme] .page.single.special {
+    width: 100% !important;
+}
+
+/* Hide author icon in blog post listings */
+.post-author .author i.fas.fa-user-circle {
+    display: none;
+}
+
+/* Alternative: Hide all icons in post author spans */
+.post-author i {
+    display: none !important;
+}
+
+/* ==========================================================================
+   LICENSE & POST FOOTER
+   ========================================================================== */
 
 /* Custom styles for license display */
 .post-footer-license {
@@ -271,186 +392,71 @@ header {
     border-top-color: #444c56;
 }
 
-/* Hide author icon in blog post listings */
-.post-author .author i.fas.fa-user-circle {
-    display: none;
+/* ==========================================================================
+   CONTACT FORM
+   ========================================================================== */
+
+/* Contact page specific styling */
+.contact-intro {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #1a5490;
 }
 
-/* Alternative: Hide all icons in post author spans */
-.post-author i {
-    display: none !important;
+[theme=dark] .contact-intro {
+    background-color: #2d333b;
+    border-left-color: #6c9bd1;
 }
 
-/* Footer background color consistency */
-footer.footer {
-    background-color: #e0dfd8 !important;
+.contact-intro h2 {
+    color: #2c2c2c;
+    margin-bottom: 1rem;
 }
 
-[theme=dark] footer.footer {
-    background-color: #292a2d !important;
+[theme=dark] .contact-intro h2 {
+    color: #a9a9b3;
 }
 
-/* Ensure footer container also matches */
-.footer-container {
-    background-color: transparent;
+.contact-intro p {
+    color: #495057;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
 }
 
-/* Make blog content text darker and more readable */
-.home[data-home=posts] .summary .content,
-.content,
-.home-subtitle,
-.home-profile .content {
-    color: #000000 !important; /* Pure black for light mode */
+[theme=dark] .contact-intro p {
+    color: #adb5bd;
 }
 
-[theme=dark] .home[data-home=posts] .summary .content,
-[theme=dark] .content,
-[theme=dark] .home-subtitle,
-[theme=dark] .home-profile .content {
-    color: #ffffff !important; /* Pure white for dark mode */
+.contact-email {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #1a5490;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
 }
 
-/* Also make bold text in summaries use primary color */
-.home[data-home=posts] .summary .content b,
-.home[data-home=posts] .summary .content strong,
-.content b,
-.content strong {
-    color: #000000 !important;
+.contact-email:hover {
+    background-color: #154080;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(26, 84, 144, 0.3);
+    color: white;
+    text-decoration: none;
 }
 
-[theme=dark] .home[data-home=posts] .summary .content b,
-[theme=dark] .home[data-home=posts] .summary .content strong,
-[theme=dark] .content b,
-[theme=dark] .content strong {
-    color: #ffffff !important;
+[theme=dark] .contact-email {
+    background-color: #6c9bd1;
+    color: #2c2c2c;
 }
 
-/* YouTube - comprehensive URL matching with official brand red */
-.home-profile .links a[href*="youtube.com"]:hover,
-.home-profile .links a[href*="youtu.be"]:hover,
-.home-profile .links a[href*="/channel/"]:hover,
-.home-profile .links a[href*="youtube"]:hover {
-    background-color: #c4302b !important;
-    border-color: #c4302b !important;
-}
-
-.home-profile .links a[href*="youtube.com"]:hover i,
-.home-profile .links a[href*="youtu.be"]:hover i,
-.home-profile .links a[href*="/channel/"]:hover i,
-.home-profile .links a[href*="youtube"]:hover i {
-    color: white !important;
-}
-
-/* Twitch - comprehensive URL matching with official brand purple */
-.home-profile .links a[href*="twitch.tv"]:hover,
-.home-profile .links a[href*="twitch.com"]:hover,
-.home-profile .links a[href*="twitch"]:hover {
-    background-color: #9146ff !important;
-    border-color: #9146ff !important;
-}
-
-.home-profile .links a[href*="twitch.tv"]:hover i,
-.home-profile .links a[href*="twitch.com"]:hover i,
-.home-profile .links a[href*="twitch"]:hover i {
-    color: white !important;
-}
-
-/* ULTRA SPECIFIC h1 left alignment - overrides theme CSS */
-body h1,
-body .single-title,
-body .single-subtitle,
-.wrapper h1,
-.wrapper .single-title,
-.wrapper .single-subtitle,
-.main h1,
-.main .single-title,
-.main .single-subtitle,
-.container h1,
-.container .single-title,
-.container .single-subtitle,
-.page h1,
-.page .single-title,
-.page .single-subtitle,
-.content h1,
-.content .single-title,
-.content .single-subtitle,
-article h1,
-article .single-title,
-article .single-subtitle,
-main h1,
-main .single-title,
-main .single-subtitle,
-.single h1,
-.single .single-title,
-.single .single-subtitle,
-.archive h1,
-.archive .single-title,
-.archive .single-subtitle,
-.special h1,
-.special .single-title,
-.special .single-subtitle,
-.page.archive h1,
-.page.archive .single-title,
-.page.archive .single-subtitle,
-.page.single h1,
-.page.single .single-title,
-.page.single .single-subtitle,
-.page.single.special h1,
-.page.single.special .single-title,
-.page.single.special .single-subtitle,
-.page.single.archive h1,
-.page.single.archive .single-title,
-.page.single.archive .single-subtitle {
-    text-align: left !important;
-}
-
-/* Additional comprehensive fix for all h1 elements */
-h1,
-.single-title,
-.archive .single-title,
-.special .single-title,
-.content h1,
-article h1,
-main h1,
-.post h1 {
-    text-align: left !important;
-}
-
-/* NUCLEAR OPTION - Override theme's specific selectors directly */
-.special .single-title, 
-.special .single-subtitle,
-.archive .single-title {
-    text-align: left !important;
-}
-
-/* Make sure it applies to all possible DOM structures */
-* h1,
-* .single-title,
-* .single-subtitle {
-    text-align: left !important;
-}
-
-/* One more ultra-specific override */
-html body .wrapper .main .container .single .single-title,
-html body .wrapper .main .container .archive .single-title,
-html body .wrapper .main .container .special .single-title,
-html body .wrapper .main .container .special .single-subtitle {
-    text-align: left !important;
-}
-
-/* Left align the posts list section */
-.archive-item {
-    text-align: left !important;
-}
-
-.group-title {
-    text-align: left !important;
-}
-
-/* Override width specifically for posts section blog index */
-.page.archive .page.single.special,
-body[data-theme] .page.single.special {
-    width: 100% !important;
+[theme=dark] .contact-email:hover {
+    background-color: #5a8bc4;
+    color: #2c2c2c;
 }
 
 /* Contact Form Styling */
@@ -483,6 +489,7 @@ body[data-theme] .page.single.special {
 
 .form-group {
     margin-bottom: 1.5rem;
+    position: relative;
 }
 
 .form-group label {
@@ -541,6 +548,13 @@ textarea.form-control {
     resize: vertical;
     min-height: 120px;
     font-family: inherit;
+}
+
+/* Input focus animations */
+.form-control:focus + .form-label,
+.form-control:not(:placeholder-shown) + .form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+    color: #1a5490;
 }
 
 .btn-submit {
@@ -612,16 +626,9 @@ textarea.form-control {
     color: #6c9bd1;
 }
 
-/* Input focus animations */
-.form-group {
-    position: relative;
-}
-
-.form-control:focus + .form-label,
-.form-control:not(:placeholder-shown) + .form-label {
-    transform: translateY(-1.5rem) scale(0.85);
-    color: #1a5490;
-}
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
 
 /* Responsive design */
 @media (max-width: 768px) {
@@ -636,120 +643,12 @@ textarea.form-control {
     }
 }
 
-/* Contact page specific styling */
-.contact-intro {
-    text-align: center;
-    margin-bottom: 2rem;
-    padding: 1.5rem;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    border-left: 4px solid #1a5490;
-}
+/* ==========================================================================
+   CRITICAL OVERRIDES - THESE MUST COME LAST
+   ========================================================================== */
 
-[theme=dark] .contact-intro {
-    background-color: #2d333b;
-    border-left-color: #6c9bd1;
-}
-
-.contact-intro h2 {
-    color: #2c2c2c;
-    margin-bottom: 1rem;
-}
-
-[theme=dark] .contact-intro h2 {
-    color: #a9a9b3;
-}
-
-.contact-intro p {
-    color: #495057;
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-}
-
-[theme=dark] .contact-intro p {
-    color: #adb5bd;
-}
-
-.contact-email {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    background-color: #1a5490;
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    margin-top: 1rem;
-    transition: all 0.3s ease;
-}
-
-.contact-email:hover {
-    background-color: #154080;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(26, 84, 144, 0.3);
-    color: white;
-    text-decoration: none;
-}
-
-[theme=dark] .contact-email {
-    background-color: #6c9bd1;
-    color: #2c2c2c;
-}
-
-[theme=dark] .contact-email:hover {
-    background-color: #5a8bc4;
-    color: #2c2c2c;
-}
-
-/* Blog Title and Header Font Styling - SPECIFIC TARGETING ONLY */
-.home-profile h1.home-title {
-    color: #000000 !important;
-    text-align: center !important;
-    margin-bottom: 1.5rem !important;
-}
-
-[theme=dark] .home-profile h1.home-title {
-    color: #ffffff !important;
-}
-
-/* FINAL OVERRIDE SECTION - These rules must come last */
-/* Force left alignment for all h1 headings except home title */
-h1:not(.home-title),
-.single-title,
-.single-subtitle {
-    text-align: left !important;
-}
-
-/* Target specific theme classes that cause right alignment */
-.special .single-title,
-.special .single-subtitle,
-.archive .single-title {
-    text-align: left !important;
-}
-
-/* Ultra-specific selectors to override theme CSS */
-html body .wrapper .main .container h1:not(.home-title),
-html body .wrapper .main .container .single-title,
-html body .wrapper .main .container .single-subtitle,
-html body .wrapper .main .container .single .single-title,
-html body .wrapper .main .container .archive .single-title,
-html body .wrapper .main .container .special .single-title,
-html body .wrapper .main .container .special .single-subtitle {
-    text-align: left !important;
-}
-
-/* Catch-all to ensure no h1 is right-aligned, except home title */
-* h1:not(.home-title) {
-    text-align: left !important;
-}
-
-/* EXCEPTION: Center the home page title - ULTIMATE OVERRIDE */
-html body .wrapper .main .container .page.home .home-profile .home-title,
-html body .wrapper .main .container .page.home .home-profile h1.home-title,
-html body .page.home .home-profile .home-title,
-html body .page.home .home-profile h1.home-title,
-.page.home .home-profile .home-title,
-.page.home .home-profile h1.home-title,
+/* Exception: Center the home page title */
 .home-profile .home-title,
-.home-profile h1.home-title,
 h1.home-title {
     text-align: center !important;
 }
