@@ -1,156 +1,51 @@
-/* ==========================================================================
-   BASE LAYOUT & BACKGROUNDS
-   ========================================================================== */
-
-/* Override light mode background color to #e0dfd8 */
-body,
-.wrapper,
-main {
-    background-color: #e0dfd8 !important;
-}
-
-[theme=dark] body,
-[theme=dark] .wrapper,
-[theme=dark] main {
-    background-color: #292a2d !important;
-}
-
-/* Footer background color consistency - uses same colors as body */
-footer.footer {
-    background-color: inherit !important;
-}
-
-/* Ensure footer container also matches */
-.footer-container {
-    background-color: transparent;
-}
+// ==============================
+// Custom Styles
+// Additional styling that can't be achieved with SCSS variables
+// ==============================
 
 /* ==========================================================================
-   HEADER & NAVIGATION
+   TYPOGRAPHY & LAYOUT OVERRIDES
    ========================================================================== */
 
-/* Enhanced navbar visibility for light mode */
-header {
-    background-color: #f5f4f0 !important;
-    border-bottom: 1px solid #d0cfc8;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-[theme=dark] header {
-    background-color: #252627 !important;
-    border-bottom: 1px solid #363636;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.header-wrapper {
-    background-color: transparent;
-}
-
-/* Header title container */
-.header-title {
-    display: flex;
-    align-items: center;
-    color: #2c2c2c !important;
-    font-weight: 600;
-}
-
-[theme=dark] .header-title {
-    color: #a9a9b3 !important;
-}
-
-/* Logo styling - simple single logo approach */
-.header-title .logo,
-.header-title img.logo {
-    display: inline-block;
-    max-height: 1.5em;
-    width: auto;
-    transition: all 0.3s ease;
-}
-
-/* Improve menu item visibility */
-#header-desktop .menu .menu-item a {
-    color: #2c2c2c;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-#header-desktop .menu .menu-item a:hover {
-    color: #1a5490;
-}
-
-[theme=dark] #header-desktop .menu .menu-item a {
-    color: #a9a9b3;
-}
-
-[theme=dark] #header-desktop .menu .menu-item a:hover {
-    color: #fff;
-}
-
-/* ==========================================================================
-   TYPOGRAPHY & CONTENT
-   ========================================================================== */
-
-/* Simplified h1 left alignment - overrides theme CSS */
-h1:not(.home-title),
-.single-title,
-.single-subtitle {
+/* Left align headings (except home title) */
+h1:not(.home-title), .single-title, .single-subtitle {
     text-align: left !important;
 }
 
-/* Blog Title and Header Font Styling - SPECIFIC TARGETING ONLY */
-.home-profile h1.home-title {
-    color: #000000 !important;
+/* Center the home page title */
+.home-profile h1.home-title,
+h1.home-title {
     text-align: center !important;
     margin-bottom: 1.5rem !important;
 }
 
-[theme=dark] .home-profile h1.home-title {
-    color: #ffffff !important;
+/* Archive and blog layout */
+.archive-item, .group-title {
+    text-align: left !important;
 }
 
-/* Make blog content text darker and more readable */
-.home[data-home=posts] .summary .content,
-.content,
-.home-subtitle,
-.home-profile .content {
-    color: #000000 !important; /* Pure black for light mode */
+.page.archive .page.single.special,
+body[data-theme] .page.single.special {
+    width: 100% !important;
 }
 
-[theme=dark] .home[data-home=posts] .summary .content,
-[theme=dark] .content,
-[theme=dark] .home-subtitle,
-[theme=dark] .home-profile .content {
-    color: #ffffff !important; /* Pure white for dark mode */
-}
-
-/* Also make bold text in summaries use primary color */
-.home[data-home=posts] .summary .content b,
-.home[data-home=posts] .summary .content strong,
-.content b,
-.content strong {
-    color: #000000 !important;
-}
-
-[theme=dark] .home[data-home=posts] .summary .content b,
-[theme=dark] .home[data-home=posts] .summary .content strong,
-[theme=dark] .content b,
-[theme=dark] .content strong {
-    color: #ffffff !important;
+/* Hide author icons in blog post listings */
+.post-author i {
+    display: none !important;
 }
 
 /* ==========================================================================
-   HOME PAGE & SOCIAL MEDIA ICONS
+   ENHANCED SOCIAL MEDIA ICONS
    ========================================================================== */
 
-/* Enhanced Social Media Icons Styling */
 .home-profile .links {
     display: flex !important;
     flex-wrap: wrap !important;
     gap: 2rem !important;
     justify-content: center !important;
     margin: 2rem 0 !important;
-    padding: 0.5rem !important; /* Keep theme's padding but override other styles */
-    font-size: 1.5rem !important; /* Keep theme's font-size */
+    padding: 0.5rem !important;
+    font-size: 1.5rem !important;
 }
 
 .home-profile .links a {
@@ -160,8 +55,8 @@ h1:not(.home-title),
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
-    background-color: #f8f9fa;
-    border: 3px solid #d0d7de;
+    background-color: $code-background-color;
+    border: 3px solid $global-border-color;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     text-decoration: none;
@@ -172,197 +67,268 @@ h1:not(.home-title),
 .home-profile .links a:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-    border-color: #6c757d;
-    border-width: 3px;
+    border-color: $scrollbar-color;
 }
 
-[theme=dark] .home-profile .links a {
-    background-color: #343a40;
-    border-color: #495057;
+[theme="dark"] .home-profile .links a {
+    background-color: $table-thead-color-dark;
+    border-color: $scrollbar-hover-color;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-[theme=dark] .home-profile .links a:hover {
-    background-color: #495057;
-    border-color: #6c757d;
+[theme="dark"] .home-profile .links a:hover {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
-/* Simple Icons SVG styling */
-.home-profile .links a i[data-svg-src] {
-    width: 1.25rem;
-    height: 1.25rem;
-    fill: currentColor;
-    color: #495057;
-    transition: color 0.3s ease;
-}
-
-[theme=dark] .home-profile .links a i[data-svg-src] {
-    color: #adb5bd;
-}
-
-/* Font Awesome icons styling */
-.home-profile .links a i.fab,
-.home-profile .links a i.fas,
-.home-profile .links a i.far {
+/* Icon styling */
+.home-profile .links a i {
     font-size: 1.25rem;
-    color: #495057;
+    color: $global-font-secondary-color;
     transition: color 0.3s ease;
 }
 
-.home-profile .links a:hover i.fab,
-.home-profile .links a:hover i.fas,
-.home-profile .links a:hover i.far {
-    color: #212529;
+[theme="dark"] .home-profile .links a i {
+    color: $global-font-secondary-color-dark;
 }
 
-[theme=dark] .home-profile .links a i.fab,
-[theme=dark] .home-profile .links a i.fas,
-[theme=dark] .home-profile .links a i.far {
-    color: #adb5bd;
-}
-
-[theme=dark] .home-profile .links a:hover i.fab,
-[theme=dark] .home-profile .links a:hover i.fas,
-[theme=dark] .home-profile .links a:hover i.far {
-    color: #f8f9fa;
-}
-
-/* Simple Icons hover effects */
-.home-profile .links a:hover i[data-svg-src] {
+.home-profile .links a:hover i {
     color: white !important;
 }
 
 /* Platform-specific brand colors on hover */
 .home-profile .links a[href*="github.com"]:hover {
-    background-color: #24292e;
-    border-color: #24292e;
-}
-
-.home-profile .links a[href*="github.com"]:hover i {
-    color: white !important;
+    background-color: $social-github !important;
+    border-color: $social-github !important;
 }
 
 .home-profile .links a[href*="linkedin.com"]:hover {
-    background-color: #0077b5;
-    border-color: #0077b5;
-}
-
-.home-profile .links a[href*="linkedin.com"]:hover i {
-    color: white !important;
+    background-color: $social-linkedin !important;
+    border-color: $social-linkedin !important;
 }
 
 .home-profile .links a[href*="threads.net"]:hover {
-    background-color: #000000;
-    border-color: #000000;
-}
-
-.home-profile .links a[href*="threads.net"]:hover i {
-    color: white !important;
+    background-color: $social-threads !important;
+    border-color: $social-threads !important;
 }
 
 .home-profile .links a[href*="twitter.com"]:hover,
 .home-profile .links a[href*="x.com"]:hover {
-    background-color: #1da1f2;
-    border-color: #1da1f2;
-}
-
-.home-profile .links a[href*="twitter.com"]:hover i,
-.home-profile .links a[href*="x.com"]:hover i {
-    color: white !important;
+    background-color: $social-twitter !important;
+    border-color: $social-twitter !important;
 }
 
 .home-profile .links a[href*="discord"]:hover {
-    background-color: #5865f2;
-    border-color: #5865f2;
-}
-
-.home-profile .links a[href*="discord"]:hover i {
-    color: white !important;
+    background-color: $social-discord !important;
+    border-color: $social-discord !important;
 }
 
 .home-profile .links a[href*="mailto:"]:hover {
-    background-color: #dc3545;
-    border-color: #dc3545;
+    background-color: $social-email !important;
+    border-color: $social-email !important;
 }
 
-.home-profile .links a[href*="mailto:"]:hover i {
-    color: white !important;
-}
-
-/* YouTube - comprehensive URL matching with official brand red */
-.home-profile .links a[href*="youtube.com"]:hover,
-.home-profile .links a[href*="youtu.be"]:hover,
-.home-profile .links a[href*="/channel/"]:hover,
 .home-profile .links a[href*="youtube"]:hover {
-    background-color: #c4302b !important;
-    border-color: #c4302b !important;
+    background-color: $social-youtube !important;
+    border-color: $social-youtube !important;
 }
 
-.home-profile .links a[href*="youtube.com"]:hover i,
-.home-profile .links a[href*="youtu.be"]:hover i,
-.home-profile .links a[href*="/channel/"]:hover i,
-.home-profile .links a[href*="youtube"]:hover i {
-    color: white !important;
-}
-
-/* Twitch - comprehensive URL matching with official brand purple */
-.home-profile .links a[href*="twitch.tv"]:hover,
-.home-profile .links a[href*="twitch.com"]:hover,
 .home-profile .links a[href*="twitch"]:hover {
-    background-color: #9146ff !important;
-    border-color: #9146ff !important;
-}
-
-.home-profile .links a[href*="twitch.tv"]:hover i,
-.home-profile .links a[href*="twitch.com"]:hover i,
-.home-profile .links a[href*="twitch"]:hover i {
-    color: white !important;
+    background-color: $social-twitch !important;
+    border-color: $social-twitch !important;
 }
 
 /* ==========================================================================
-   BLOG & ARCHIVE PAGES
+   CONTACT PAGE STYLING
    ========================================================================== */
 
-/* Left align the posts list section */
-.archive-item {
-    text-align: left !important;
+.contact-intro {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: $code-background-color;
+    border-radius: 8px;
+    border-left: 4px solid $brand-primary;
 }
 
-.group-title {
-    text-align: left !important;
+[theme="dark"] .contact-intro {
+    background-color: $code-background-color-dark;
+    border-left-color: $brand-primary-dark;
 }
 
-/* Override width specifically for posts section blog index */
-.page.archive .page.single.special,
-body[data-theme] .page.single.special {
-    width: 100% !important;
+.contact-intro h2 {
+    margin-bottom: 1rem;
 }
 
-/* Hide author icon in blog post listings */
-.post-author .author i.fas.fa-user-circle {
-    display: none;
+.contact-intro p {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
 }
 
-/* Alternative: Hide all icons in post author spans */
-.post-author i {
-    display: none !important;
+.contact-email {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: $brand-primary;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.contact-email:hover {
+    background-color: $brand-secondary;
+    transform: translateY(-1px);
+    color: white;
+    text-decoration: none;
+}
+
+[theme="dark"] .contact-email {
+    background-color: $brand-primary-dark;
+    color: $global-font-color-dark;
+}
+
+[theme="dark"] .contact-email:hover {
+    background-color: darken($brand-primary-dark, 10%);
+    color: $global-font-color-dark;
+}
+
+/* Contact Form */
+.contact-form {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: $table-background-color;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid $global-border-color;
+}
+
+[theme="dark"] .contact-form {
+    background-color: $table-background-color-dark;
+    border-color: $global-border-color-dark;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.contact-form h3 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid $global-border-color;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: $table-background-color;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: $brand-primary;
+}
+
+[theme="dark"] .form-control {
+    background-color: $table-thead-color-dark;
+    border-color: $scrollbar-hover-color;
+    color: $global-font-secondary-color-dark;
+}
+
+[theme="dark"] .form-control:focus {
+    border-color: $scrollbar-color;
+}
+
+.form-control::placeholder {
+    color: $scrollbar-color;
+    opacity: 0.8;
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+    font-family: inherit;
+}
+
+.btn-submit {
+    background: linear-gradient(135deg, $brand-primary 0%, $brand-secondary 100%);
+    color: white;
+    border: none;
+    padding: 0.875rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+}
+
+.form-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid $global-border-color;
+}
+
+[theme="dark"] .form-footer {
+    border-top-color: $global-border-color-dark;
+}
+
+.form-footer small {
+    color: $scrollbar-color;
+    font-size: 0.85rem;
+}
+
+.form-footer a {
+    color: $brand-primary;
+    text-decoration: none;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+[theme="dark"] .form-footer a {
+    color: $brand-primary-dark;
 }
 
 /* ==========================================================================
    LICENSE & POST FOOTER
    ========================================================================== */
 
-/* Custom styles for license display */
 .post-footer-license {
     margin-top: 2.5rem;
-    border-top: 1px solid #e9e9e9;
+    border-top: 1px solid $global-border-color;
     padding-top: 1.5rem;
 }
 
 .license-box {
-    background-color: #f8f9fa;
-    border: 1px solid #e9e9e9;
+    background-color: $code-background-color;
+    border: 1px solid $global-border-color;
     border-radius: 4px;
     padding: 1rem;
     display: flex;
@@ -383,254 +349,19 @@ body[data-theme] .page.single.special {
     padding-left: 1.5rem;
 }
 
-[theme=dark] .license-box {
-    background-color: #2d333b;
-    border-color: #444c56;
+[theme="dark"] .license-box {
+    background-color: $code-background-color-dark;
+    border-color: $global-border-color-dark;
 }
 
-[theme=dark] .post-footer-license {
-    border-top-color: #444c56;
-}
-
-/* ==========================================================================
-   CONTACT FORM
-   ========================================================================== */
-
-/* Contact page specific styling */
-.contact-intro {
-    text-align: center;
-    margin-bottom: 2rem;
-    padding: 1.5rem;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    border-left: 4px solid #1a5490;
-}
-
-[theme=dark] .contact-intro {
-    background-color: #2d333b;
-    border-left-color: #6c9bd1;
-}
-
-.contact-intro h2 {
-    color: #2c2c2c;
-    margin-bottom: 1rem;
-}
-
-[theme=dark] .contact-intro h2 {
-    color: #a9a9b3;
-}
-
-.contact-intro p {
-    color: #495057;
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-}
-
-[theme=dark] .contact-intro p {
-    color: #adb5bd;
-}
-
-.contact-email {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    background-color: #1a5490;
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    margin-top: 1rem;
-    transition: all 0.3s ease;
-}
-
-.contact-email:hover {
-    background-color: #154080;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(26, 84, 144, 0.3);
-    color: white;
-    text-decoration: none;
-}
-
-[theme=dark] .contact-email {
-    background-color: #6c9bd1;
-    color: #2c2c2c;
-}
-
-[theme=dark] .contact-email:hover {
-    background-color: #5a8bc4;
-    color: #2c2c2c;
-}
-
-/* Contact Form Styling */
-.contact-form {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e9ecef;
-}
-
-[theme=dark] .contact-form {
-    background-color: #2d333b;
-    border-color: #444c56;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-.contact-form h3 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    color: #2c2c2c;
-    font-weight: 600;
-}
-
-[theme=dark] .contact-form h3 {
-    color: #a9a9b3;
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-    position: relative;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: #495057;
-    font-size: 0.95rem;
-}
-
-[theme=dark] .form-group label {
-    color: #adb5bd;
-}
-
-.form-control {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 2px solid #e9ecef;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    background-color: #ffffff;
-    color: #495057;
-    box-sizing: border-box;
-}
-
-.form-control:focus {
-    outline: none;
-    border-color: #1a5490;
-    box-shadow: 0 0 0 3px rgba(26, 84, 144, 0.1);
-    background-color: #ffffff;
-}
-
-[theme=dark] .form-control {
-    background-color: #343a40;
-    border-color: #495057;
-    color: #adb5bd;
-}
-
-[theme=dark] .form-control:focus {
-    background-color: #343a40;
-    border-color: #6c757d;
-    box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.2);
-}
-
-.form-control::placeholder {
-    color: #6c757d;
-    opacity: 0.8;
-}
-
-[theme=dark] .form-control::placeholder {
-    color: #6c757d;
-}
-
-textarea.form-control {
-    resize: vertical;
-    min-height: 120px;
-    font-family: inherit;
-}
-
-/* Input focus animations */
-.form-control:focus + .form-label,
-.form-control:not(:placeholder-shown) + .form-label {
-    transform: translateY(-1.5rem) scale(0.85);
-    color: #1a5490;
-}
-
-.btn-submit {
-    background: linear-gradient(135deg, #1a5490 0%, #2c6aa0 100%);
-    color: white;
-    border: none;
-    padding: 0.875rem 2rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 100%;
-    margin-top: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.btn-submit:hover {
-    background: linear-gradient(135deg, #154080 0%, #256090 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(26, 84, 144, 0.3);
-}
-
-.btn-submit:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 10px rgba(26, 84, 144, 0.2);
-}
-
-[theme=dark] .btn-submit {
-    background: linear-gradient(135deg, #2c6aa0 0%, #3a7bb0 100%);
-}
-
-[theme=dark] .btn-submit:hover {
-    background: linear-gradient(135deg, #256090 0%, #2c6aa0 100%);
-    box-shadow: 0 6px 20px rgba(44, 106, 160, 0.4);
-}
-
-.form-footer {
-    text-align: center;
-    margin-top: 1.5rem;
-    padding-top: 1rem;
-    border-top: 1px solid #e9ecef;
-}
-
-[theme=dark] .form-footer {
-    border-top-color: #444c56;
-}
-
-.form-footer small {
-    color: #6c757d;
-    font-size: 0.85rem;
-}
-
-.form-footer a {
-    color: #1a5490;
-    text-decoration: none;
-}
-
-.form-footer a:hover {
-    text-decoration: underline;
-}
-
-[theme=dark] .form-footer small {
-    color: #6c757d;
-}
-
-[theme=dark] .form-footer a {
-    color: #6c9bd1;
+[theme="dark"] .post-footer-license {
+    border-top-color: $global-border-color-dark;
 }
 
 /* ==========================================================================
    RESPONSIVE DESIGN
    ========================================================================== */
 
-/* Responsive design */
 @media (max-width: 768px) {
     .contact-form {
         margin: 1rem;
@@ -641,20 +372,5 @@ textarea.form-control {
         padding: 1rem 1.5rem;
         font-size: 0.95rem;
     }
-}
-
-/* ==========================================================================
-   CRITICAL OVERRIDES - THESE MUST COME LAST
-   ========================================================================== */
-
-/* Exception: Center the home page title */
-.home-profile .home-title,
-h1.home-title {
-    text-align: center !important;
-}
-
-/* Fix blog text color in dark theme */
-[theme=dark] .home[data-home=posts] .summary .content {
-    color: #a9a9b3 !important;
 }
 
