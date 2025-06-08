@@ -64,7 +64,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.120.0
+      HUGO_VERSION: 0.147.6
     steps:
       - name: Install Hugo CLI
         run: |
@@ -75,8 +75,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: recursive
           fetch-depth: 0
+      - name: Setup theme
+        run: |
+          if [ ! -d "themes/LoveIt" ] || [ ! "$(ls -A themes/LoveIt)" ]; then
+            rm -rf themes/LoveIt
+            git clone https://github.com/dillonzq/LoveIt.git themes/LoveIt
+          fi
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4
@@ -99,13 +104,13 @@ jobs:
         env:
           HUGO_ENVIRONMENT: production
           HUGO_ENV: production
-        run: |
-          hugo \
-            --gc \
-            --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"          
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+                  run: |
+            hugo \
+              --gc \
+              --minify \
+              --baseURL "https://coreylweathers.com/"          
+        - name: Upload artifact
+          uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
 
@@ -118,7 +123,7 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4
 ```
 
 ### 4. How It Works

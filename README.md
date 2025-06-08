@@ -1,10 +1,12 @@
-# My Hugo Blog
+# Corey's Syntax & Stories
+
+[![Deploy Hugo site to GitHub Pages](https://github.com/coreylweathers/personal-website/actions/workflows/deploy.yml/badge.svg)](https://github.com/coreylweathers/personal-website/actions/workflows/deploy.yml)
 
 A personal blog site built with [Hugo](https://gohugo.io/) and the [LoveIt theme](https://hugoloveit.com/).
 
 ## Project Overview
 
-This project is a personal blog/website created with Hugo, a fast and modern static site generator. It uses the LoveIt theme which provides a clean, responsive design with many built-in features.
+This project is a personal blog/website created with Hugo, a fast and modern static site generator. It uses the LoveIt theme which provides a clean, responsive design with many built-in features. The site is automatically deployed to [coreylweathers.com](https://coreylweathers.com) via GitHub Actions.
 
 ## Features
 
@@ -14,10 +16,13 @@ This project is a personal blog/website created with Hugo, a fast and modern sta
 - Blog posts with categories and tags
 - About, Media, and Contact pages
 - Easy content management with Markdown
+- Google Analytics integration
+- Microsoft Clarity analytics
+- Automated deployment with GitHub Actions
 
 ## Prerequisites
 
-- [Hugo](https://gohugo.io/getting-started/installing/) (v0.68.0 or later)
+- [Hugo](https://gohugo.io/getting-started/installing/) (v0.147.6 or later)
 - [Git](https://git-scm.com/downloads)
 
 ## Getting Started
@@ -25,21 +30,21 @@ This project is a personal blog/website created with Hugo, a fast and modern sta
 ### Clone the repository
 
 ```bash
-git clone <your-repo-url>
-cd new-blog
+git clone https://github.com/coreylweathers/personal-website.git
+cd personal-website
 ```
 
 ### Install the theme
 
-The LoveIt theme is included as a Git submodule. If it's not already present, you can add it with:
+The LoveIt theme is automatically installed during the GitHub Actions build process. For local development, the theme will be cloned automatically if not present, or you can manually add it:
 
 ```bash
-git submodule add https://github.com/dillonzq/LoveIt.git themes/LoveIt
+git clone https://github.com/dillonzq/LoveIt.git themes/LoveIt
 ```
 
 ### Configuration Setup
 
-This site uses environment-specific configuration files for sensitive data like form IDs. You'll need to create configuration files for both development and production environments.
+This site uses environment-specific configuration files for sensitive data like form IDs and analytics. You'll need to create configuration files for both development and production environments.
 
 #### Development Configuration
 
@@ -53,38 +58,47 @@ cp config/development/params.toml.example config/development/params.toml
 # config/development/params.toml
 contact_form_id = "your_actual_form_id_here"
 
-# Analytics is disabled in development (empty ID)
+# Analytics is disabled in development (empty IDs)
 [analytics]
   [analytics.google]
     id = ""  # Empty to disable tracking in development
     respectDoNotTrack = true
+  [analytics.clarity]
+    id = ""  # Empty to disable tracking in development
 ```
 
 #### Production Configuration
 
-For production deployments, create:
+For production deployments, the configuration is automatically created during the GitHub Actions build process using repository secrets. The production config includes:
 
-```bash
-# config/production/params.toml
+```toml
+# config/production/params.toml (auto-generated during build)
 contact_form_id = "your_production_form_id_here"
 
-# Google Analytics configuration for production
+# Analytics configuration for production
 [analytics]
   [analytics.google]
-    id = "G-XXXXXXXXXX"  # Replace with your actual Google Analytics Measurement ID
+    id = "G-XXXXXXXXXX"  # Google Analytics Measurement ID
     respectDoNotTrack = false
+  [analytics.clarity]
+    id = "abc123def4"     # Microsoft Clarity Project ID
 ```
 
 **Security Note:** The `config/` directory is ignored by Git to keep sensitive configuration out of version control. The `.example` files show what configuration is needed without exposing actual values.
 
-#### Getting Your Google Analytics ID
+#### Getting Your Analytics IDs
 
+**Google Analytics:**
 1. Go to [Google Analytics](https://analytics.google.com/)
 2. Create a new property for your website (if you haven't already)
 3. Navigate to Admin → Property → Data Streams
 4. Select your web data stream
 5. Copy your **Measurement ID** (looks like `G-ABC123DEF4`)
-6. Replace `G-XXXXXXXXXX` in your production config with this ID
+
+**Microsoft Clarity:**
+1. Go to [Microsoft Clarity](https://clarity.microsoft.com/)
+2. Create a new project for your website
+3. Copy your **Project ID** from the project settings
 
 ### Local Development
 
@@ -114,14 +128,17 @@ hugo new page/my-new-page.md
 
 ```
 .
+├── .github/           # GitHub Actions workflows
+│   └── workflows/     
+│       └── deploy.yml # Automated deployment workflow
 ├── archetypes/        # Content templates
 ├── assets/            # CSS, JS, and other assets
 ├── config/            # Environment-specific configuration (ignored by Git)
 │   ├── development/   # Development environment config
 │   │   ├── params.toml.example  # Example development config
 │   │   └── params.toml          # Actual development config (not in Git)
-│   └── production/    # Production environment config
-│       └── params.toml          # Production config (not in Git)
+│   └── production/    # Production environment config (auto-generated)
+│       └── params.toml          # Production config (created during build)
 ├── content/           # Site content (Markdown files)
 │   ├── posts/         # Blog posts
 │   ├── about/         # About page
@@ -131,9 +148,10 @@ hugo new page/my-new-page.md
 ├── layouts/           # Custom layout templates (overrides theme)
 │   └── shortcodes/    # Custom shortcodes
 ├── static/            # Static files (images, etc.)
-├── themes/            # Theme submodules
-│   └── LoveIt/        # LoveIt theme
+├── themes/            # Theme directory
+│   └── LoveIt/        # LoveIt theme (auto-installed)
 ├── hugo.toml          # Hugo configuration
+├── deployment.md      # Detailed deployment guide
 └── README.md          # This file
 ```
 
@@ -153,7 +171,7 @@ The main configuration file is `hugo.toml`. This is where you can:
 
 Environment-specific settings (like API keys, form IDs, analytics IDs) are stored in:
 - `config/development/params.toml` - for local development (analytics disabled)
-- `config/production/params.toml` - for production builds (with Google Analytics)
+- `config/production/params.toml` - for production builds (auto-generated with analytics enabled)
 
 ### Theme Customization
 
@@ -165,7 +183,17 @@ To override theme templates or styles:
 
 ## Deployment
 
+This site is automatically deployed to [coreylweathers.com](https://coreylweathers.com) using GitHub Actions. Every push to the `main` branch triggers a new deployment.
+
 For detailed deployment instructions including GitHub Pages, Netlify, Vercel, and other hosting providers, see the [Deployment Guide](deployment.md).
+
+### GitHub Secrets Configuration
+
+For automated deployment, the following secrets must be configured in your GitHub repository (Settings → Secrets and variables → Actions):
+
+- `CONTACT_FORM_ID`: Your form service ID
+- `GOOGLE_ANALYTICS_ID`: Your Google Analytics Measurement ID (e.g., `G-ABC123DEF4`)
+- `MICROSOFT_CLARITY_ID`: Your Microsoft Clarity Project ID
 
 Quick local build:
 ```bash
