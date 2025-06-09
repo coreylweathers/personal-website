@@ -10,7 +10,7 @@ theme = "LoveIt"
 
 # Permalinks configuration - make posts section use /blog URLs
 [permalinks]
-  posts = "/posts/:year/:month/:title/"
+  posts = "/posts/:year/:month/:slug/"
 
 # Menu config
 [menu]
