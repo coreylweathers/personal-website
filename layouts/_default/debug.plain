@@ -1,0 +1,11 @@
+# Debug template for social links
+Social params exist: {{ if .Site.Params.social }}YES{{ else }}NO{{ end }}
+
+{{- with .Site.Params.social }}
+Social platforms found:
+{{- range $platform, $username := . }}
+- {{ $platform }}: {{ $username }}
+{{- end }}
+{{- else }}
+No social params found.
+{{- end }}

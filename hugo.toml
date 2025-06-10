@@ -8,6 +8,9 @@ title = "Corey's Syntax & Stories"
 # Change the default theme to LoveIt
 theme = "LoveIt"
 
+# Enable robots.txt generation
+enableRobotsTXT = true
+
 # Permalinks configuration - make posts section use /blog URLs
 [permalinks]
   posts = "/posts/:year/:month/:slug/"
@@ -238,6 +241,14 @@ theme = "LoveIt"
   section = ["HTML", "RSS"]
   taxonomy = ["HTML", "RSS"]
   term = ["HTML", "RSS"]
+
+# Define custom output formats
+[outputFormats]
+  [outputFormats.plain]
+    mediaType = "text/plain"
+    isPlainText = true
+    isHTML = false
+    protocol = ""
 
 # RSS Configuration
 [params.rss]

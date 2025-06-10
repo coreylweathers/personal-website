@@ -1,0 +1,72 @@
+# {{ .Site.Title }} - LLMs.txt
+
+## Site Information
+- Site Name: {{ .Site.Title }}
+- URL: {{ .Site.BaseURL }}
+- Description: {{ .Site.Params.description }}
+- Author: {{ .Site.Params.author.name }}
+- Contact: {{ .Site.Params.author.email }}
+
+## Content Focus
+{{- range .Site.Params.keywords }}
+- {{ . | title }}
+{{- end }}
+
+## Recent Content
+{{- range first 10 (where .Site.RegularPages "Section" "posts") }}
+### {{ .Title }}
+- URL: {{ .Permalink }}
+- Date: {{ .Date.Format "2006-01-02" }}
+- Description: {{ .Summary | plainify | truncate 200 }}
+{{- if .Params.tags }}
+- Tags: {{ delimit .Params.tags ", " }}
+{{- end }}
+{{- if .Params.categories }}
+- Categories: {{ delimit .Params.categories ", " }}
+{{- end }}
+
+{{- end }}
+
+## Content Guidelines
+- Personal blog posts about software development
+- Technical tutorials and insights
+- Developer advocacy content
+- Reflections on work-life balance
+- Stories from the tech industry
+
+## Social Links
+{{- with .Site.Params.social }}
+{{- if .github }}
+- GitHub: https://github.com/{{ .github }}
+{{- end }}
+{{- if .linkedin }}
+- LinkedIn: https://linkedin.com/in/{{ .linkedin }}
+{{- end }}
+{{- if .x }}
+- Twitter/X: https://x.com/{{ .x }}
+{{- end }}
+{{- if .threads }}
+- Threads: https://threads.net/@{{ .threads }}
+{{- end }}
+{{- if .twitch }}
+- Twitch: https://twitch.tv/{{ .twitch }}
+{{- end }}
+{{- if .youtubechannel }}
+- YouTube: https://youtube.com/@{{ .youtubechannel }}
+{{- end }}
+{{- if .bluesky }}
+- Bluesky: https://bsky.app/profile/{{ .bluesky }}
+{{- end }}
+{{- if .discord }}
+- Discord: {{ .discord }}
+{{- end }}
+{{- if .email }}
+- Email: {{ .email }}
+{{- end }}
+{{- end }}
+
+## License
+{{ .Site.Params.footer.custom | plainify }}
+
+## Last Updated
+{{ now.Format "2006-01-02" }}

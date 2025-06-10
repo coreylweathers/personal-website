@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Allow access to llms.txt for AI crawlers
+Allow: /llms.txt
+
+# Sitemap location
+Sitemap: {{ .Site.BaseURL }}sitemap.xml
+
+# Crawl delay (be nice to servers)
+Crawl-delay: 1
+
+# Common directories to allow
+Allow: /posts/
+Allow: /about/
+Allow: /contact/
+Allow: /media/
+
+# Allow RSS feeds
+Allow: /index.xml
+Allow: /posts/index.xml
