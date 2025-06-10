@@ -1,0 +1,57 @@
+{{- define "content" -}}
+<div class="page single special">
+  <h1 class="single-title animate__animated animate__pulse animate__faster">
+    {{- .Title -}}
+  </h1>
+  
+  <div class="single-subtitle">
+    {{- with .Content -}}
+      <div class="single-content">
+        {{- . -}}
+      </div>
+    {{- end -}}
+    <div class="post-meta">
+      <span class="post-meta-item">
+        {{- printf "%d posts" (len .Pages) -}}
+      </span>
+    </div>
+  </div>
+
+  {{- if .Pages -}}
+    <div class="archive-posts">
+      {{- range .Pages.GroupByDate "2006" -}}
+        <h3 class="group-title">{{- .Key -}}</h3>
+        {{- range .Pages -}}
+          <article class="archive-post">
+            <div class="archive-post-header">
+              <div class="archive-post-meta">
+                <time class="archive-post-date">
+                  {{- .Date.Format (.Site.Params.dateFormat | default "2006-01-02") -}}
+                </time>
+              </div>
+              <h2 class="archive-post-title">
+                <a href="{{- .RelPermalink -}}">{{- .Title -}}</a>
+              </h2>
+            </div>
+            {{- with .Summary -}}
+              <div class="archive-post-summary">
+                {{- . -}}
+              </div>
+            {{- end -}}
+            
+            {{- if .Params.tags -}}
+              <div class="post-tags">
+                {{- range .Params.tags -}}
+                  <span class="tag">
+                    <a href="{{- "/tags/" | relLangURL -}}{{- . | urlize -}}/">#{{- . -}}</a>
+                  </span>
+                {{- end -}}
+              </div>
+            {{- end -}}
+          </article>
+        {{- end -}}
+      {{- end -}}
+    </div>
+  {{- end -}}
+</div>
+{{- end -}}

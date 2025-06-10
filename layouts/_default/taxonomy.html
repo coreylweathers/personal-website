@@ -1,0 +1,71 @@
+{{- define "content" -}}
+<div class="page single special">
+  <h1 class="single-title animate__animated animate__pulse animate__faster">
+    {{- .Title -}}
+  </h1>
+  
+  <div class="single-subtitle">
+    <div class="post-meta">
+      <span class="post-meta-item">
+        {{- printf "Browse all %s" (.Data.Plural | lower) -}}
+      </span>
+    </div>
+  </div>
+
+  {{- if .Data.Terms -}}
+    <div class="taxonomy-cloud">
+      {{- range .Data.Terms.Alphabetical -}}
+        <div class="taxonomy-item">
+          <a href="{{- .Page.RelPermalink -}}" class="taxonomy-link">
+            <span class="taxonomy-name">{{- .Page.Title -}}</span>
+            <span class="taxonomy-count">({{- .Count -}})</span>
+          </a>
+        </div>
+      {{- end -}}
+    </div>
+  {{- end -}}
+</div>
+
+<style>
+.taxonomy-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.taxonomy-item {
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.taxonomy-item:hover {
+  background: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.taxonomy-link {
+  text-decoration: none;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.taxonomy-name {
+  font-weight: 500;
+}
+
+.taxonomy-count {
+  font-size: 0.85em;
+  opacity: 0.7;
+  background: var(--accent-color);
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+}
+</style>
+{{- end -}}

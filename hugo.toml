@@ -61,6 +61,22 @@ enableRobotsTXT = true
     url = "/about/"
     title = "About me"
     weight = 5
+  [[menu.main]]
+    identifier = "categories"
+    pre = "📂"
+    post = ""
+    name = "Categories"
+    url = "/categories/"
+    title = "Browse by category"
+    weight = 6
+  [[menu.main]]
+    identifier = "tags"
+    pre = "🏷️"
+    post = ""
+    name = "Tags"
+    url = "/tags/"
+    title = "Browse by tag"
+    weight = 7
 
 # Parameters
 [params]
@@ -233,6 +249,12 @@ enableRobotsTXT = true
     author = true
     # site creation time
     since = 2025
+
+# Taxonomies configuration
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+  series = "series"
 
 # Options to make hugo output files
 [outputs]

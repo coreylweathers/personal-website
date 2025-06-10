@@ -1,0 +1,26 @@
+{{- if .Params.series -}}
+  {{- $currentSeries := index .Params.series 0 -}}
+  {{- $seriesPages := where .Site.RegularPages "Params.series" "intersect" .Params.series -}}
+  {{- $otherPages := where $seriesPages "Title" "!=" .Title -}}
+  
+  {{- if gt (len $seriesPages) 1 -}}
+    <div class="series-navigation">
+      <h3 class="series-title">
+        📚 Part of the series: 
+        <a href="{{- "/series/" | relLangURL -}}{{- $currentSeries | urlize -}}/">{{- $currentSeries -}}</a>
+      </h3>
+      
+      <div class="series-posts">
+        {{- range $seriesPages.ByDate -}}
+          <div class="series-post {{- if eq .Title $.Title -}} current{{- end -}}">
+            {{- if eq .Title $.Title -}}
+              <span class="series-current">📍 {{ .Title }}</span>
+            {{- else -}}
+              <a href="{{- .RelPermalink -}}">{{ .Title }}</a>
+            {{- end -}}
+          </div>
+        {{- end -}}
+      </div>
+    </div>
+  {{- end -}}
+{{- end -}}
