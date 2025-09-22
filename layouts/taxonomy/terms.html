@@ -1,0 +1,74 @@
+{{- /* Custom interactive Tags/Categories explorer overriding theme for enhanced tags page */ -}}
+{{- define "title" -}}
+  {{- .Params.Title | default (T .Data.Plural) | default .Data.Plural | dict "Some" | T "allSome" }} - {{ .Site.Title -}}
+{{- end -}}
+
+{{- define "content" -}}
+  {{- $taxonomies := .Data.Plural -}}
+  {{- $terms := .Data.Terms.Alphabetical -}}
+  {{- /* Pre-build a JSON structure for tags -> posts to avoid scraping & mismatch */ -}}
+  {{- if eq $taxonomies "tags" -}}
+    {{- $tagMap := dict -}}
+    {{- range $terms -}}
+      {{- $posts := slice -}}
+      {{- range .Pages -}}
+        {{- $posts = $posts | append (dict "title" .Title "permalink" .RelPermalink "date" (.Date.Format "2006-01-02") "summary" .Summary) -}}
+      {{- end -}}
+      {{- $tagMap = merge $tagMap (dict (.Page.Title | urlize) $posts) -}}
+    {{- end -}}
+    <script id="tag-data" type="application/json">{{ $tagMap | jsonify }}</script>
+  {{- end -}}
+  <div class="page tags-explorer" data-taxonomy="{{ $taxonomies }}">
+    <h1 class="single-title animate__animated animate__pulse animate__faster">
+      {{- if eq $taxonomies "tags" -}}
+        <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;All Tags
+      {{- else if eq $taxonomies "categories" -}}
+        <i class="far fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;All Categories
+      {{- else -}}
+        {{- $taxonomies | title -}}
+      {{- end -}}
+    </h1>
+
+    {{- if eq $taxonomies "tags" -}}
+      <div class="tags-layout">
+        <aside class="tags-sidebar">
+          <div class="tags-search-group">
+            <input id="tag-filter" type="text" placeholder="Filter tags..." aria-label="Filter tags" />
+            <div class="tags-count" id="tag-count" aria-live="polite"></div>
+          </div>
+          {{- /* Use div-based list to avoid strict lint issues with whitespace in ul/li */ -}}
+          <div id="tag-list" class="tag-list" aria-label="Tag list" role="list">{{- range $terms -}}<div class="tag-item" role="listitem" data-tag="{{ .Page.Title | urlize }}" data-count="{{ .Count }}"><a href="{{ .Page.RelPermalink }}" class="tag-link">{{ .Page.Title }} <span class="badge">{{ .Count }}</span></a></div>{{- end -}}</div>
+        </aside>
+        <section class="tags-results">
+          <div class="results-toolbar">
+            <div class="active-tag" id="active-tag" aria-live="polite">Select a tag to view posts</div>
+            <input id="post-search" type="text" placeholder="Search posts in selected tag..." aria-label="Search posts within selected tag" disabled />
+          </div>
+          <div id="posts-container" class="posts-container" aria-live="polite"></div>
+        </section>
+      </div>
+      <noscript>
+        <div class="no-js-fallback">
+          <p>JavaScript is disabled. A simple list of tags is shown below:</p>
+          <div class="tag-cloud-fallback">
+            {{- range $terms -}}
+              <a href="{{ .Page.RelPermalink }}" class="fallback-tag">{{ .Page.Title }} ({{ .Count }})</a>
+            {{- end -}}
+          </div>
+        </div>
+      </noscript>
+    {{- else -}}
+      {{- /* Fallback to simple rendering for other taxonomies (categories etc.) */ -}}
+      <div class="taxonomy-cloud">
+        {{- range $terms -}}
+          <div class="taxonomy-item">
+            <a href="{{ .Page.RelPermalink }}" class="taxonomy-link">
+              <span class="taxonomy-name">{{ .Page.Title }}</span>
+              <span class="taxonomy-count">({{ .Count }})</span>
+            </a>
+          </div>
+        {{- end -}}
+      </div>
+    {{- end -}}
+  </div>
+{{- end -}}
