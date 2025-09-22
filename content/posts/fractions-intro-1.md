@@ -1,6 +1,6 @@
 ---
 date: '2025-06-15T09:00:00-04:00'
-draft: true
+draft: false
 title: 'Introducing My AI-Powered Fractions App: Built with .NET, Blazor, and Aspire'
 description: 'Building an interactive AI-powered fractions learning app with .NET, Blazor, and Aspire to help kids visualize math concepts while exploring modern development practices in public.'
 summary: 'Building an interactive AI-powered fractions learning app with .NET, Blazor, and Aspire to help kids visualize math concepts while exploring modern development practices in public.'
