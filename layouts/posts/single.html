@@ -63,15 +63,44 @@
             </div>
         </div>
 
-        {{- /* Featured image */ -}}
-        {{- $image := $params.featuredimage -}}
+        {{- /* Featured image with Hugo image processing */ -}}
+        {{- $image := "" -}}
         {{- with .Resources.GetMatch "featured-image" -}}
-            {{- $image = .RelPermalink -}}
+            {{- $image = . -}}
+        {{- else -}}
+            {{- /* Try to get image from assets directory */ -}}
+            {{- with resources.Get $params.featuredimage -}}
+                {{- $image = . -}}
+            {{- end -}}
         {{- end -}}
         {{- with $image -}}
+            {{- /* Process image for WebP with proper sizing */ -}}
+            {{- $webp := $image.Fill "1080x324 webp q80" -}}
+            {{- $png := $image.Fill "1080x324 png q80" -}}
             <div class="featured-image">
-                {{- dict "Src" . "Title" $.Description "Resources" $.Resources | partial "plugin/img.html" -}}
+                <picture>
+                    <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
+                    <source srcset="{{ $png.RelPermalink }}" type="image/png">
+                    <img 
+                        class="lazyload"
+                        src="{{ $png.RelPermalink }}"
+                        alt="{{ $.Title }}"
+                        loading="lazy"
+                        width="1080"
+                        height="324">
+                </picture>
             </div>
+        {{- else -}}
+            {{- /* Fallback to original image if processing fails */ -}}
+            {{- with $params.featuredimage -}}
+                <div class="featured-image">
+                    <img 
+                        class="lazyload"
+                        src="{{ . }}"
+                        alt="{{ $.Title }}"
+                        loading="lazy">
+                </div>
+            {{- end -}}
         {{- end -}}
 
         {{- /* Static TOC */ -}}
@@ -85,7 +114,9 @@
                     {{- dict "Content" .TableOfContents "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
                 </div>
             </div>
-        {{- end -}}        {{- /* Content */ -}}
+        {{- end -}}
+
+        {{- /* Content */ -}}
         <div class="content" id="content">
             {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
         </div>

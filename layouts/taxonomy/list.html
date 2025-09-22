@@ -1,0 +1,65 @@
+{{- /* Interactive single tag page (list) overriding theme for tags only */ -}}
+{{- define "title" -}}
+  {{- .Title }} - {{ T .Data.Singular | default .Data.Singular }} - {{ .Site.Title -}}
+{{- end -}}
+
+{{- define "content" -}}
+  {{- $taxonomy := .Data.Singular -}}
+  {{- if eq $taxonomy "tag" -}}
+    {{- /* Build a unified tags explorer like /tags/ but with a preselected tag */ -}}
+    {{- $terms := .Site.Taxonomies.tags.Alphabetical -}}
+    {{- $active := .Title | urlize -}}
+    {{- /* Build JSON map of all tags to their posts */ -}}
+    {{- $tagMap := dict -}}
+    {{- range $terms -}}
+      {{- $posts := slice -}}
+      {{- range .Pages -}}
+        {{- $posts = $posts | append (dict "title" .Title "permalink" .RelPermalink "date" (.Date.Format "2006-01-02") "summary" .Summary) -}}
+      {{- end -}}
+      {{- $tagMap = merge $tagMap (dict (.Page.Title | urlize) $posts) -}}
+    {{- end -}}
+    <div class="page tags-explorer" data-taxonomy="tags" data-active-tag="{{ $active }}">
+      <h1 class="single-title animate__animated animate__pulse animate__faster"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;All Tags</h1>
+      <script id="tag-data" type="application/json">{{ $tagMap | jsonify }}</script>
+      <div class="tags-layout">
+        <aside class="tags-sidebar">
+          <div class="tags-search-group">
+            <input id="tag-filter" type="text" placeholder="Filter tags..." aria-label="Filter tags" />
+            <div class="tags-count" id="tag-count" aria-live="polite"></div>
+          </div>
+          <div id="tag-list" class="tag-list" aria-label="Tag list" role="list">{{- range $terms -}}<div class="tag-item" role="listitem" data-tag="{{ .Page.Title | urlize }}" data-count="{{ .Count }}"><a href="{{ .Page.RelPermalink }}" class="tag-link">{{ .Page.Title }} <span class="badge">{{ .Count }}</span></a></div>{{- end -}}</div>
+        </aside>
+        <section class="tags-results">
+          <div class="results-toolbar">
+            <div class="active-tag" id="active-tag" aria-live="polite">Loading…</div>
+            <input id="post-search" type="text" placeholder="Search posts in selected tag..." aria-label="Search posts within selected tag" disabled />
+          </div>
+          <div id="posts-container" class="posts-container" aria-live="polite"></div>
+        </section>
+      </div>
+    </div>
+  {{- else -}}
+    {{- /* Non-tag taxonomies fall back to theme default behavior by including original template structure */ -}}
+    <div class="page archive">
+      <h2 class="single-title animate__animated animate__pulse animate__faster">{{ .Title }}</h2>
+      {{- if .Pages -}}
+        {{- $pages := .Pages.GroupByDate "2006" -}}
+        {{- with .Site.Params.list.paginate | default .Site.Params.paginate -}}
+          {{- $pages = $.Paginate $pages . -}}
+        {{- else -}}
+          {{- $pages = .Paginate $pages -}}
+        {{- end -}}
+        {{- range $pages.PageGroups -}}
+          <h3 class="group-title">{{ .Key }}</h3>
+          {{- range .Pages -}}
+            <article class="archive-item">
+              <a href="{{ .RelPermalink }}" class="archive-item-link">{{ .Title | emojify }}</a>
+              <span class="archive-item-date">{{ $.Site.Params.list.dateFormat | default "01-02" | .Date.Format }}</span>
+            </article>
+          {{- end -}}
+        {{- end -}}
+        {{- partial "paginator.html" . -}}
+      {{- end -}}
+    </div>
+  {{- end -}}
+{{- end -}}
