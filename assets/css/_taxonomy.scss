@@ -226,6 +226,35 @@
   font-weight: 600;
 }
 
+.taxonomy-cloud-rich {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.taxonomy-item-rich .taxonomy-link {
+  gap: 0.8rem;
+}
+
+.taxonomy-preview-label {
+  margin-top: auto;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+}
+
+.taxonomy-preview-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--text-color);
+}
+
+.taxonomy-preview-date {
+  font-size: 0.82rem;
+  color: var(--text-color-secondary);
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .taxonomy-page .taxonomy-hero {

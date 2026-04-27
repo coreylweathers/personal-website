@@ -3,6 +3,7 @@ title: "Contact Me"
 date: 2023-05-12T10:00:00-07:00
 draft: false
 description: "Get in touch about speaking, developer relations, collaboration, or general questions."
+heroKicker: "Let's connect"
 ---
 
 ## Let's Connect

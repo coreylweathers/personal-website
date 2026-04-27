@@ -1,0 +1,53 @@
+{{- $item := .item -}}
+{{- $url := $item.url -}}
+{{- $source := $item.source | default ((urls.Parse $url).Host | replaceRE "^www\\." "") -}}
+{{- $kind := $item.kind | default "External feature" -}}
+{{- $summary := $item.summary | default "External appearance." -}}
+{{- $thumbnail := $item.thumbnail | default "" -}}
+{{- $autoThumbnail := cond (isset $item "autoThumbnail") $item.autoThumbnail true -}}
+{{- if and (not $thumbnail) $url $autoThumbnail -}}
+  {{- with try (resources.GetRemote $url) -}}
+    {{- with .Err -}}
+      {{- warnf "Unable to fetch media preview for %s: %s" $url . -}}
+    {{- else with .Value -}}
+      {{- $html := printf "%s" .Content -}}
+      {{- $matches := findRESubmatch `(?is)<meta[^>]+(?:property|name)=["'](?:og:image|twitter:image)["'][^>]+content=["']([^"']+)["']` $html 1 -}}
+      {{- if gt (len $matches) 0 -}}
+        {{- $thumbnail = index (index $matches 0) 1 -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $cta := "Read more" -}}
+{{- if or (in (lower $kind) "podcast") (in (lower $kind) "audio") -}}
+  {{- $cta = "Listen now" -}}
+{{- else if or (in (lower $kind) "video") (in (lower $kind) "interview") (in (lower $kind) "conversation") -}}
+  {{- $cta = "Watch now" -}}
+{{- end -}}
+
+<article class="media-card">
+  <a class="media-card-link" href="{{ $url }}" rel="noopener noreferrer" target="_blank">
+    <div class="media-card-media{{ if not $thumbnail }} media-card-media-fallback{{ end }}">
+      {{- if $thumbnail -}}
+        <img src="{{ $thumbnail }}" alt="{{ $item.title }} thumbnail" loading="lazy">
+      {{- else -}}
+        <div class="media-card-fallback">
+          <span class="media-card-fallback-kind">{{ $kind }}</span>
+          <span class="media-card-fallback-source">{{ $source }}</span>
+        </div>
+      {{- end -}}
+    </div>
+    <div class="media-card-body">
+      <div class="media-card-meta">
+        <span class="media-chip">{{ $kind }}</span>
+        <span class="media-chip media-chip-source">{{ $source }}</span>
+      </div>
+      <h3 class="media-card-title">{{ $item.title }}</h3>
+      <p class="media-card-summary">{{ $summary }}</p>
+      <div class="media-card-footer">
+        <span>{{ $cta }}</span>
+        <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+      </div>
+    </div>
+  </a>
+</article>

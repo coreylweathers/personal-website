@@ -1,6 +1,7 @@
 ---
 title: "About Me"
 description: "Developer, DevRel leader, and storyteller focused on making technology more useful and more human."
+heroKicker: "Who I am"
 date: 2025-04-08T20:05:46-04:00
 draft: false
 ---

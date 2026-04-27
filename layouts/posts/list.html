@@ -3,60 +3,112 @@
 {{- end -}}
 
 {{- define "content" -}}
-    <div class="page archive">
-        {{- if or .Description .Content -}}
-            <section class="section-hero page single special">
-                <div class="section-hero-grid">
-                    <div class="section-hero-main">
-                        <div class="section-kicker">Writing on code, devrel, and life</div>
-                        <div class="single-title animate__animated animate__pulse animate__faster">
-                            <h1>{{ .Title }}</h1>
-                        </div>
+    {{- $posts := .Pages.ByDate.Reverse -}}
+    {{- $featured := "" -}}
+    {{- if gt (len $posts) 0 -}}
+        {{- $featured = index $posts 0 -}}
+    {{- end -}}
+    <div class="page archive section-page">
+        <section class="section-hero page single special">
+            <div class="section-hero-grid">
+                <div class="section-hero-main">
+                    <div class="section-kicker">Writing on code, devrel, and life</div>
+                    <div class="single-title animate__animated animate__pulse animate__faster">
+                        <h1>{{ .Title }}</h1>
                     </div>
-                    <div class="section-hero-side">
-                        <div class="section-hero-copy">
-                            {{- with .Description -}}
-                                <p class="section-hero-description">{{ . }}</p>
-                            {{- else -}}
-                                <p class="section-hero-description">Writing on software, developer relations, and the work behind building in public.</p>
-                            {{- end -}}
+                    {{- with .Description -}}
+                        <p class="section-hero-description section-hero-description-spacious">{{ . }}</p>
+                    {{- end -}}
+                </div>
+                <div class="section-hero-side">
+                    <div class="section-sidebar-card">
+                        <div class="section-sidebar-title">What to expect</div>
+                        {{- with .Content -}}
+                            <div class="content section-sidebar-content" id="content">
+                                {{- . | safeHTML -}}
+                            </div>
+                        {{- end -}}
+                        <div class="section-sidebar-callout">
+                            <strong>Stay updated</strong>
+                            <span>Prefer a feed? Subscribe to <a href="{{ .RelPermalink }}index.xml">RSS</a>.</span>
                         </div>
                     </div>
                 </div>
-            </section>
-        {{- end -}}
-
-        {{- with .Content -}}
-            <div class="content section-main-content" id="content">
-                {{- . | safeHTML -}}
             </div>
-        {{- end -}}
+        </section>
 
-        {{- if .Pages -}}
-            <div class="section-heading">
-                <div class="section-kicker">Latest writing</div>
-                <h2 class="single-title animate__animated animate__pulse animate__faster">Recent Posts</h2>
-            </div>
-            {{- $pages := .Pages.GroupByDate "2006" -}}
-            {{- with .Site.Params.section.paginate | default .Site.Params.paginate -}}
-                {{- $pages = $.Paginate $pages . -}}
-            {{- else -}}
-                {{- $pages = .Paginate $pages -}}
-            {{- end -}}
-            {{- range $pages.PageGroups -}}
-                <h3 class="group-title">{{ .Key }}</h3>
-                {{- range .Pages -}}
-                    <article class="archive-item">
-                        <a href="{{ .RelPermalink }}" class="archive-item-link">
-                            {{- .Title | emojify -}}
+        {{- if $featured -}}
+            <div class="section-layout section-layout-prominent">
+                <div class="section-primary">
+                    <div class="section-heading">
+                        <div class="section-kicker">Featured post</div>
+                        <h2 class="single-title animate__animated animate__pulse animate__faster">Start here</h2>
+                    </div>
+                    <article class="feature-post-card">
+                        <a class="feature-post-media" href="{{ $featured.RelPermalink }}">
+                            {{- with $featured.Params.featuredImagePreview | default $featured.Params.featuredImage -}}
+                                <img src="{{ . | relURL }}" alt="{{ $featured.Params.featuredImageAlt | default $featured.Title }}" loading="lazy">
+                            {{- end -}}
                         </a>
-                        <span class="archive-item-date">
-                            {{- $.Site.Params.section.dateFormat | default "01-02" | .Date.Format -}}
-                        </span>
+                        <div class="feature-post-body">
+                            <div class="feature-post-meta">
+                                <span>{{ $featured.Date.Format (.Site.Params.dateFormat | default "2006-01-02") }}</span>
+                                {{- with index $featured.Params.categories 0 -}}
+                                    <span>{{ . }}</span>
+                                {{- end -}}
+                            </div>
+                            <h3 class="feature-post-title">
+                                <a href="{{ $featured.RelPermalink }}">{{ $featured.Title | emojify }}</a>
+                            </h3>
+                            <p class="feature-post-summary">
+                                {{- $featured.Params.summary | default $featured.Description | default ($featured.Summary | plainify | htmlUnescape | strings.TrimSpace | truncate 210) -}}
+                            </p>
+                            {{- with $featured.Params.tags -}}
+                                <div class="post-tags">
+                                    {{- range first 4 . -}}
+                                        <span class="tag">
+                                            <a href="{{- "/tags/" | relLangURL -}}{{- . | urlize -}}/">#{{- . -}}</a>
+                                        </span>
+                                    {{- end -}}
+                                </div>
+                            {{- end -}}
+                        </div>
                     </article>
-                {{- end -}}
-            {{- end -}}
-            {{- partial "paginator.html" . -}}
+
+                    {{- if gt (len $posts) 1 -}}
+                        <div class="section-heading">
+                            <div class="section-kicker">Recent writing</div>
+                            <h2 class="single-title animate__animated animate__pulse animate__faster">Latest posts</h2>
+                        </div>
+                        <div class="post-card-grid">
+                            {{- range after 1 $posts -}}
+                                {{- $post := . -}}
+                                <article class="post-card">
+                                    {{- with $post.Params.featuredImagePreview | default $post.Params.featuredImage -}}
+                                        <a class="post-card-image" href="{{ $post.RelPermalink }}">
+                                            <img src="{{ . | relURL }}" alt="{{ $post.Params.featuredImageAlt | default $post.Title }}" loading="lazy">
+                                        </a>
+                                    {{- end -}}
+                                    <div class="post-card-body">
+                                        <div class="post-card-meta">
+                                            <span>{{ $post.Date.Format ($.Site.Params.dateFormat | default "2006-01-02") }}</span>
+                                            {{- with index $post.Params.categories 0 -}}
+                                                <span>{{ . }}</span>
+                                            {{- end -}}
+                                        </div>
+                                        <h3 class="post-card-title">
+                                            <a href="{{ $post.RelPermalink }}">{{ $post.Title | emojify }}</a>
+                                        </h3>
+                                        <p class="post-card-summary">
+                                            {{- $post.Params.summary | default $post.Description | default ($post.Summary | plainify | htmlUnescape | strings.TrimSpace | truncate 165) -}}
+                                        </p>
+                                    </div>
+                                </article>
+                            {{- end -}}
+                        </div>
+                    {{- end -}}
+                </div>
+            </div>
         {{- end -}}
     </div>
 {{- end -}}

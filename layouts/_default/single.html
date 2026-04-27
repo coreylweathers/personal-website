@@ -3,11 +3,12 @@
 {{- define "content" -}}
     {{- $params := .Scratch.Get "params" -}}
     {{- $heroSummary := $params.subtitle | default .Description -}}
+    {{- $heroKicker := $params.heroKicker | default "Page overview" -}}
     <div class="page single special">
-        <section class="section-hero page single special page-hero">
+        <section class="section-hero page single special page-hero page-hero-compact">
             <div class="section-hero-grid">
                 <div class="section-hero-main">
-                    <div class="section-kicker">Page overview</div>
+                    <div class="section-kicker">{{ $heroKicker }}</div>
                     <h1 class="single-title animate__animated animate__pulse animate__faster">
                         {{- .Title -}}
                     </h1>
@@ -15,7 +16,9 @@
 
                 {{- with $heroSummary -}}
                     <div class="section-hero-side">
-                        <div class="single-subtitle page-hero-summary">{{ . }}</div>
+                        <div class="page-hero-summary-card">
+                            <div class="single-subtitle page-hero-summary">{{ . }}</div>
+                        </div>
                     </div>
                 {{- end -}}
             </div>

@@ -117,9 +117,10 @@
                   <a href="{{- .RelPermalink -}}">{{- .Title -}}</a>
                 </h2>
               </div>
-              {{- with .Summary -}}
+              {{- $summaryText := .Params.summary | default .Description | default (.Summary | plainify | htmlUnescape | strings.TrimSpace) -}}
+              {{- with $summaryText -}}
                 <div class="archive-post-summary">
-                  {{- . -}}
+                  {{- . | truncate 220 -}}
                 </div>
               {{- end -}}
 

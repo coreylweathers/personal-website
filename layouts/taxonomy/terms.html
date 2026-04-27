@@ -18,18 +18,11 @@
     {{- end -}}
     <script id="tag-data" type="application/json">{{ $tagMap | jsonify }}</script>
   {{- end -}}
-  <div class="page tags-explorer" data-taxonomy="{{ $taxonomies }}">
-    <h1 class="single-title animate__animated animate__pulse animate__faster">
-      {{- if eq $taxonomies "tags" -}}
-        <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;All Tags
-      {{- else if eq $taxonomies "categories" -}}
-        <i class="far fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;All Categories
-      {{- else -}}
-        {{- $taxonomies | title -}}
-      {{- end -}}
-    </h1>
-
+  <div class="page tags-explorer {{ if eq $taxonomies "categories" }}taxonomy-page taxonomy-index-page{{ end }}" data-taxonomy="{{ $taxonomies }}">
     {{- if eq $taxonomies "tags" -}}
+      <h1 class="single-title animate__animated animate__pulse animate__faster">
+        <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;All Tags
+      </h1>
       <div class="tags-layout">
         <aside class="tags-sidebar">
           <div class="tags-search-group">
@@ -47,16 +40,63 @@
           <div id="posts-container" class="posts-container" aria-live="polite"></div>
         </section>
       </div>
-      <noscript>
-        <div class="no-js-fallback">
-          <p>JavaScript is disabled. A simple list of tags is shown below:</p>
+        <noscript>
+          <div class="no-js-fallback">
+            <p>JavaScript is disabled. A simple list of tags is shown below:</p>
           <div class="tag-cloud-fallback">
             {{- range $terms -}}
               <a href="{{ .Page.RelPermalink }}" class="fallback-tag">{{ .Page.Title }} ({{ .Count }})</a>
             {{- end -}}
           </div>
+          </div>
+        </noscript>
+    {{- else if eq $taxonomies "categories" -}}
+      <section class="taxonomy-hero">
+        <div class="section-hero-grid">
+          <div class="section-hero-main">
+            <div class="taxonomy-kicker">Explore categories</div>
+            <h1 class="single-title animate__animated animate__pulse animate__faster">
+              <i class="far fa-folder-open" aria-hidden="true"></i>&nbsp;{{ .Title }}
+            </h1>
+            <div class="taxonomy-meta">
+              <span class="taxonomy-meta-pill">
+                <i class="fas fa-layer-group" aria-hidden="true"></i>{{ len $terms }} categories
+              </span>
+            </div>
+          </div>
+          <div class="section-hero-side">
+            {{- with .Content -}}
+              <div class="single-content taxonomy-lead">{{ . }}</div>
+            {{- else with .Description -}}
+              <p class="taxonomy-lead">{{ . }}</p>
+            {{- else -}}
+              <p class="taxonomy-lead">Browse posts by theme and use each category as a quick way into related writing.</p>
+            {{- end -}}
+          </div>
         </div>
-      </noscript>
+      </section>
+
+      <div class="taxonomy-cloud taxonomy-cloud-rich">
+        {{- range $terms -}}
+          {{- $latest := index (.Pages.ByDate.Reverse) 0 -}}
+          <div class="taxonomy-item taxonomy-item-rich">
+            <a href="{{ .Page.RelPermalink }}" class="taxonomy-link">
+              <span class="taxonomy-card-icon" aria-hidden="true">
+                <i class="far fa-folder-open"></i>
+              </span>
+              <span class="taxonomy-name">{{ .Page.Title }}</span>
+              <span class="taxonomy-count">
+                {{- if eq .Count 1 -}}1 post{{- else -}}{{ .Count }} posts{{- end -}}
+              </span>
+              {{- with $latest -}}
+                <span class="taxonomy-preview-label">Latest</span>
+                <span class="taxonomy-preview-title">{{ .Title }}</span>
+                <span class="taxonomy-preview-date">{{ .Date.Format ($.Site.Params.dateFormat | default "2006-01-02") }}</span>
+              {{- end -}}
+            </a>
+          </div>
+        {{- end -}}
+      </div>
     {{- else -}}
       {{- /* Fallback to simple rendering for other taxonomies (categories etc.) */ -}}
       <div class="taxonomy-cloud">

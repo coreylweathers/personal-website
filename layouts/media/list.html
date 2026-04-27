@@ -3,60 +3,46 @@
 {{- end -}}
 
 {{- define "content" -}}
-    <div class="page archive">
-        {{- if or .Description .Content -}}
-            <section class="section-hero page single special">
-                <div class="section-hero-grid">
-                    <div class="section-hero-main">
-                        <div class="section-kicker">Across podcasts, video, and writing</div>
-                        <div class="single-title animate__animated animate__pulse animate__faster">
-                            <h1>{{ .Title }}</h1>
-                        </div>
+    {{- $appearances := .Params.appearances | default slice -}}
+    <div class="page archive section-page">
+        <section class="section-hero page single special">
+            <div class="section-hero-grid">
+                <div class="section-hero-main">
+                    <div class="section-kicker">Across podcasts, video, and writing</div>
+                    <div class="single-title animate__animated animate__pulse animate__faster">
+                        <h1>{{ .Title }}</h1>
                     </div>
-                    <div class="section-hero-side">
-                        <div class="section-hero-copy">
-                            {{- with .Description -}}
-                                <p class="section-hero-description">{{ . }}</p>
-                            {{- else -}}
-                                <p class="section-hero-description">A snapshot of interviews, guest spots, and conversations published outside this site.</p>
-                            {{- end -}}
+                    {{- with .Description -}}
+                        <p class="section-hero-description section-hero-description-spacious">{{ . }}</p>
+                    {{- end -}}
+                </div>
+                <div class="section-hero-side">
+                    <div class="section-sidebar-card">
+                        <div class="section-sidebar-title">In this archive</div>
+                        {{- with .Content -}}
+                            <div class="content section-sidebar-content" id="content">
+                                {{- . | safeHTML -}}
+                            </div>
+                        {{- end -}}
+                        <div class="section-sidebar-callout">
+                            <strong>{{ len $appearances }} appearances</strong>
+                            <span>Podcast interviews, external features, and guest writing collected in one place.</span>
                         </div>
                     </div>
                 </div>
-            </section>
-        {{- end -}}
-
-        {{- with .Content -}}
-            <div class="content section-main-content" id="content">
-                {{- . | safeHTML -}}
             </div>
-        {{- end -}}
+        </section>
 
-        {{- if .Pages -}}
+        {{- if $appearances -}}
             <div class="section-heading">
-                <div class="section-kicker">Latest additions</div>
-                <h2 class="single-title animate__animated animate__pulse animate__faster">Recent Updates</h2>
+                <div class="section-kicker">Featured elsewhere</div>
+                <h2 class="single-title animate__animated animate__pulse animate__faster">Appearances & features</h2>
             </div>
-            {{- $pages := .Pages.GroupByDate "2006" -}}
-            {{- with .Site.Params.section.paginate | default .Site.Params.paginate -}}
-                {{- $pages = $.Paginate $pages . -}}
-            {{- else -}}
-                {{- $pages = .Paginate $pages -}}
-            {{- end -}}
-            {{- range $pages.PageGroups -}}
-                <h3 class="group-title">{{ .Key }}</h3>
-                {{- range .Pages -}}
-                    <article class="archive-item">
-                        <a href="{{ .RelPermalink }}" class="archive-item-link">
-                            {{- .Title | emojify -}}
-                        </a>
-                        <span class="archive-item-date">
-                            {{- $.Site.Params.section.dateFormat | default "01-02" | .Date.Format -}}
-                        </span>
-                    </article>
+            <div class="media-card-grid">
+                {{- range $appearances -}}
+                    {{- partial "media/card.html" (dict "item" . "page" $) -}}
                 {{- end -}}
-            {{- end -}}
-            {{- partial "paginator.html" . -}}
+            </div>
         {{- end -}}
     </div>
 {{- end -}}
