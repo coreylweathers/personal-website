@@ -6,49 +6,96 @@
   {{- if not $pages -}}
     {{- $pages = .Data.Pages -}}
   {{- end -}}
+  {{- $isTaxonomyIndex := .Data.Terms -}}
+  {{- $isCategoryTerm := and (not $isTaxonomyIndex) (eq .Data.Singular "category") -}}
+  {{- $backLink := printf "/%s/" .Data.Plural | relLangURL -}}
+  {{- $entryCount := len $pages -}}
+  {{- if $isTaxonomyIndex -}}
+    {{- $entryCount = len .Data.Terms -}}
+  {{- end -}}
 
-  <div class="page single special">
-    <h1 class="single-title animate__animated animate__pulse animate__faster">
-      {{- if eq .Data.Singular "category" -}}
-        <i class="far fa-folder-open" aria-hidden="true"></i>&nbsp;{{- .Title -}}
-      {{- else -}}
-        {{- .Title -}}
-      {{- end -}}
-    </h1>
-
-    {{- if .Data.Terms -}}
-      <div class="single-subtitle">
-        <div class="post-meta">
-          <span class="post-meta-item">
-            {{- printf "Browse all %s" (.Data.Plural | lower) -}}
-          </span>
-        </div>
+  <div class="page single special taxonomy-page">
+    <section class="taxonomy-hero">
+      <div class="taxonomy-kicker">
+        {{- if $isTaxonomyIndex -}}
+          {{- printf "Explore %s" (.Data.Plural | title) -}}
+        {{- else -}}
+          {{- printf "%s archive" (.Data.Singular | title) -}}
+        {{- end -}}
       </div>
 
+      <h1 class="single-title animate__animated animate__pulse animate__faster">
+        {{- if $isCategoryTerm -}}
+          <i class="far fa-folder-open" aria-hidden="true"></i>&nbsp;{{- .Title -}}
+        {{- else -}}
+          {{- .Title -}}
+        {{- end -}}
+      </h1>
+
+      <div class="taxonomy-meta">
+        {{- if $isTaxonomyIndex -}}
+          <span class="taxonomy-meta-pill">
+            <i class="fas fa-layer-group" aria-hidden="true"></i>
+            {{- printf "%d %s" $entryCount (.Data.Plural | lower) -}}
+          </span>
+        {{- else -}}
+          <span class="taxonomy-meta-pill">
+            <i class="fas fa-file-alt" aria-hidden="true"></i>
+            {{- if eq $entryCount 1 -}}
+              1 post
+            {{- else -}}
+              {{- printf "%d posts" $entryCount -}}
+            {{- end -}}
+          </span>
+          <a class="taxonomy-back-link" href="{{- $backLink -}}">
+            <i class="fas fa-arrow-left" aria-hidden="true"></i>
+            {{- printf "Back to %s" (.Data.Plural | title) -}}
+          </a>
+        {{- end -}}
+      </div>
+
+      {{- if $isTaxonomyIndex -}}
+        <p class="taxonomy-lead">
+          {{- printf "Browse all %s and jump into the posts behind each topic." (.Data.Plural | lower) -}}
+        </p>
+      {{- else -}}
+        {{- with .Content -}}
+          <div class="single-content taxonomy-lead">
+            {{- . -}}
+          </div>
+        {{- else -}}
+          <p class="taxonomy-lead">
+            {{- printf "Every post currently filed under %s." .Title -}}
+          </p>
+        {{- end -}}
+      {{- end -}}
+    </section>
+
+    {{- if $isTaxonomyIndex -}}
       <div class="taxonomy-cloud">
         {{- range .Data.Terms.Alphabetical -}}
           <div class="taxonomy-item">
             <a href="{{- .Page.RelPermalink -}}" class="taxonomy-link">
+              <span class="taxonomy-card-icon" aria-hidden="true">
+                {{- if eq $.Data.Plural "categories" -}}
+                  <i class="far fa-folder-open"></i>
+                {{- else -}}
+                  <i class="fas fa-hashtag"></i>
+                {{- end -}}
+              </span>
               <span class="taxonomy-name">{{- .Page.Title -}}</span>
-              <span class="taxonomy-count">({{- .Count -}})</span>
+              <span class="taxonomy-count">
+                {{- if eq .Count 1 -}}
+                  1 post
+                {{- else -}}
+                  {{- printf "%d posts" .Count -}}
+                {{- end -}}
+              </span>
             </a>
           </div>
         {{- end -}}
       </div>
     {{- else if $pages -}}
-      <div class="single-subtitle">
-        {{- with .Content -}}
-          <div class="single-content">
-            {{- . -}}
-          </div>
-        {{- end -}}
-        <div class="post-meta">
-          <span class="post-meta-item">
-            {{- printf "%d posts" (len $pages) -}}
-          </span>
-        </div>
-      </div>
-
       <div class="archive-posts">
         {{- range $pages.GroupByDate "2006" -}}
           <h3 class="group-title">{{- .Key -}}</h3>
@@ -85,47 +132,4 @@
       </div>
     {{- end -}}
   </div>
-
-  <style>
-  .taxonomy-cloud {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin: 2rem 0;
-  }
-
-  .taxonomy-item {
-    background: var(--background-color);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 0.5rem 1rem;
-    transition: all 0.3s ease;
-  }
-
-  .taxonomy-item:hover {
-    background: var(--accent-color);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  .taxonomy-link {
-    text-decoration: none;
-    color: var(--text-color);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .taxonomy-name {
-    font-weight: 500;
-  }
-
-  .taxonomy-count {
-    font-size: 0.85em;
-    opacity: 0.7;
-    background: var(--accent-color);
-    padding: 0.2rem 0.5rem;
-    border-radius: 12px;
-  }
-  </style>
 {{- end -}}

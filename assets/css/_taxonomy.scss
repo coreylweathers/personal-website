@@ -1,4 +1,66 @@
 /* Taxonomy page styles */
+.taxonomy-page {
+  .taxonomy-hero {
+    padding: 1.75rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    background:
+      radial-gradient(circle at top right, rgba(26, 84, 144, 0.14), transparent 32%),
+      linear-gradient(135deg, var(--background-color-light), var(--background-color));
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  }
+
+  .taxonomy-kicker {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    background: var(--accent-color-light);
+    color: var(--accent-color);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .taxonomy-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    margin: 1rem 0 0.75rem;
+  }
+
+  .taxonomy-meta-pill,
+  .taxonomy-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.45);
+    color: var(--text-color-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .taxonomy-back-link:hover {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    transform: translateY(-1px);
+  }
+
+  .taxonomy-lead {
+    max-width: 46rem;
+    margin: 0;
+    color: var(--text-color-secondary);
+    line-height: 1.75;
+  }
+}
+
 .archive-posts {
   margin-top: 2rem;
 }
@@ -14,16 +76,18 @@
 
 .archive-post {
   margin-bottom: 1.5rem;
-  padding: 1rem;
+  padding: 1.25rem;
   border: 1px solid var(--border-color);
-  border-radius: 8px;
-  background: var(--background-color-light);
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0)),
+    var(--background-color-light);
   transition: all 0.3s ease;
 }
 
 .archive-post:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
   border-color: var(--accent-color);
 }
 
@@ -37,12 +101,16 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  margin-bottom: 0.2rem;
 }
 
 .archive-post-date {
   font-size: 0.9rem;
   color: var(--text-color-secondary);
   font-weight: 500;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(26, 84, 144, 0.1);
 }
 
 .archive-post-title {
@@ -98,24 +166,25 @@
 /* Taxonomy cloud styles */
 .taxonomy-cloud {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
   margin: 2rem 0;
 }
 
 .taxonomy-item {
-  background: var(--background-color-light);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.46), rgba(255, 255, 255, 0)),
+    var(--background-color-light);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 1rem;
+  border-radius: 18px;
+  padding: 1.25rem;
   transition: all 0.3s ease;
-  text-align: center;
+  text-align: left;
 }
 
 .taxonomy-item:hover {
-  background: var(--accent-color-light);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
   border-color: var(--accent-color);
 }
 
@@ -124,8 +193,21 @@
   color: var(--text-color);
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  gap: 0.7rem;
+  height: 100%;
+}
+
+.taxonomy-card-icon {
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 14px;
+  background: rgba(26, 84, 144, 0.1);
+  color: var(--accent-color);
+  font-size: 1.1rem;
 }
 
 .taxonomy-name {
@@ -135,16 +217,22 @@
 
 .taxonomy-count {
   font-size: 0.85em;
-  opacity: 0.7;
-  background: var(--accent-color);
-  color: var(--background-color);
-  padding: 0.3rem 0.6rem;
+  opacity: 0.9;
+  background: rgba(26, 84, 144, 0.12);
+  color: var(--accent-color);
+  padding: 0.35rem 0.7rem;
   border-radius: 12px;
   min-width: 30px;
+  font-weight: 600;
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
+  .taxonomy-page .taxonomy-hero {
+    padding: 1.25rem;
+    border-radius: 16px;
+  }
+
   .taxonomy-cloud {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 0.75rem;
