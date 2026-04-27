@@ -1,19 +1,9 @@
 {{- $profile := .Site.Params.home.profile -}}
-{{- $avatar := $profile.avatarURL -}}
-{{- with $profile.gravatarEmail -}}
-    {{- $avatar = md5 . | printf "https://www.gravatar.com/avatar/%v?s=240&d=mp" -}}
-{{- end -}}
-
 <div class="home-profile">
     <section class="section-hero home-hero">
         <div class="section-hero-grid">
             <div class="section-hero-main">
                 <div class="home-hero-identity">
-                    {{- if $avatar -}}
-                        <div class="home-hero-avatar">
-                            {{- dict "Src" $avatar | partial "plugin/img.html" -}}
-                        </div>
-                    {{- end -}}
                     <div class="home-hero-copy">
                         <div class="section-kicker">Personal site and blog</div>
                         {{- with $profile.title -}}
@@ -21,24 +11,22 @@
                                 {{- . | safeHTML -}}
                             </h1>
                         {{- end -}}
-                    </div>
-                </div>
-
-                {{- with $profile.subtitle -}}
-                    <div class="home-subtitle section-hero-description">
-                        {{- if $profile.typeit -}}
-                            {{- $id := dict "Content" . "Scratch" $.Scratch | partial "function/id.html" -}}
-                            <div id="{{ $id }}" class="typeit"></div>
-                            {{- dict $id (slice $id) | dict "typeitMap" | merge ($.Scratch.Get "this") | $.Scratch.Set "this" -}}
-                        {{- else -}}
-                            {{- . | safeHTML -}}
+                        {{- with $profile.subtitle -}}
+                            <div class="home-subtitle section-hero-description">
+                                {{- if $profile.typeit -}}
+                                    {{- $id := dict "Content" . "Scratch" $.Scratch | partial "function/id.html" -}}
+                                    <div id="{{ $id }}" class="typeit"></div>
+                                    {{- dict $id (slice $id) | dict "typeitMap" | merge ($.Scratch.Get "this") | $.Scratch.Set "this" -}}
+                                {{- else -}}
+                                    {{- . | safeHTML -}}
+                                {{- end -}}
+                            </div>
+                        {{- end -}}
+                        {{- with $profile.disclaimer -}}
+                            <div class="home-hero-note">{{- . | safeHTML -}}</div>
                         {{- end -}}
                     </div>
-                {{- end -}}
-
-                {{- with $profile.disclaimer -}}
-                    <div class="home-hero-note">{{- . | safeHTML -}}</div>
-                {{- end -}}
+                </div>
             </div>
 
             <div class="section-hero-side">

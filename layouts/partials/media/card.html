@@ -5,6 +5,7 @@
 {{- $summary := $item.summary | default "External appearance." -}}
 {{- $thumbnail := $item.thumbnail | default "" -}}
 {{- $autoThumbnail := cond (isset $item "autoThumbnail") $item.autoThumbnail true -}}
+{{- $isAvailable := cond (isset $item "available") $item.available true -}}
 {{- if and (not $thumbnail) $url $autoThumbnail -}}
   {{- with try (resources.GetRemote $url) -}}
     {{- with .Err -}}
@@ -25,8 +26,12 @@
   {{- $cta = "Watch now" -}}
 {{- end -}}
 
-<article class="media-card">
+<article class="media-card{{ if not $isAvailable }} media-card-unavailable{{ end }}">
+  {{- if $isAvailable -}}
   <a class="media-card-link" href="{{ $url }}" rel="noopener noreferrer" target="_blank">
+  {{- else -}}
+  <div class="media-card-link media-card-link-disabled" aria-disabled="true">
+  {{- end -}}
     <div class="media-card-media{{ if not $thumbnail }} media-card-media-fallback{{ end }}">
       {{- if $thumbnail -}}
         <img src="{{ $thumbnail }}" alt="{{ $item.title }} thumbnail" loading="lazy">
@@ -41,13 +46,22 @@
       <div class="media-card-meta">
         <span class="media-chip">{{ $kind }}</span>
         <span class="media-chip media-chip-source">{{ $source }}</span>
+        {{- if not $isAvailable -}}
+          <span class="media-chip media-chip-warning">Link unavailable</span>
+        {{- end -}}
       </div>
       <h3 class="media-card-title">{{ $item.title }}</h3>
       <p class="media-card-summary">{{ $summary }}</p>
       <div class="media-card-footer">
-        <span>{{ $cta }}</span>
+        <span>{{ if $isAvailable }}{{ $cta }}{{ else }}Source currently unavailable{{ end }}</span>
+        {{- if $isAvailable -}}
         <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+        {{- end -}}
       </div>
     </div>
+  {{- if $isAvailable -}}
   </a>
+  {{- else -}}
+  </div>
+  {{- end -}}
 </article>

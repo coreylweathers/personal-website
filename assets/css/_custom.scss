@@ -457,6 +457,11 @@ body[data-theme] .page.single.special {
     color: $global-font-secondary-color;
 }
 
+.media-chip-warning {
+    background: rgba(193, 99, 30, 0.14);
+    color: #9a4f17;
+}
+
 .media-card-footer {
     display: flex;
     align-items: center;
@@ -467,6 +472,18 @@ body[data-theme] .page.single.special {
     font-size: 0.92rem;
     font-weight: 600;
     color: $brand-primary;
+}
+
+.media-card-link-disabled {
+    cursor: default;
+}
+
+.media-card-unavailable {
+    border-style: dashed;
+}
+
+.media-card-unavailable .media-card-footer {
+    color: $global-font-secondary-color;
 }
 
 [theme="dark"] .section-sidebar-card,
@@ -506,6 +523,11 @@ body[data-theme] .page.single.special {
 [theme="dark"] .media-card-summary,
 [theme="dark"] .media-chip-source {
     color: $global-font-secondary-color-dark;
+}
+
+[theme="dark"] .media-chip-warning {
+    background: rgba(255, 191, 71, 0.16);
+    color: #ffd27d;
 }
 
 [theme="dark"] .feature-post-card {
@@ -708,7 +730,7 @@ body[data-theme] .page.single.special {
 
 .home-hero-identity {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 1.25rem;
 }
 
@@ -723,12 +745,18 @@ body[data-theme] .page.single.special {
 
 .home-hero-avatar img {
     display: block;
-    width: 112px;
-    height: 112px;
-    border-radius: 28px;
+    width: 80px;
+    height: 80px;
+    margin-top: 0.15rem;
+    border-radius: 20px;
     object-fit: cover;
     border: 1px solid rgba($brand-primary, 0.16);
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.home-hero-copy {
+    min-width: 0;
+    max-width: 42rem;
 }
 
 .home-hero .home-title {
@@ -737,7 +765,8 @@ body[data-theme] .page.single.special {
 }
 
 .home-hero .home-subtitle {
-    margin-top: 1rem;
+    margin-top: 0.75rem;
+    max-width: 40rem;
     color: $global-font-secondary-color;
     font-size: 1.04rem;
     line-height: 1.8;
@@ -1128,9 +1157,9 @@ textarea.form-control {
     }
 
     .home-hero-avatar img {
-        width: 92px;
-        height: 92px;
-        border-radius: 24px;
+        width: 68px;
+        height: 68px;
+        border-radius: 18px;
     }
 
     .contact-layout {

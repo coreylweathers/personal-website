@@ -41,12 +41,14 @@ appearances:
     source: "Shake the Cosmos"
     summary: "A wide-ranging conversation on developer advocacy, career growth, and showing up with intention."
     autoThumbnail: false
+    available: false
   - title: "Test All the Things with Corey Weathers"
     date: 2019-06-03
     url: "https://weeklydevtips.com/episodes/050-DdyDLfJf"
     kind: "Video interview"
     source: "Weekly Dev Tips"
     summary: "Testing habits, engineering quality, and practical advice from real-world development work."
+    thumbnail: "https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3otvb2z646ytpt1hl2rv.jpg"
   - title: "Episode 100 - Developer Evangelism with Corey Weathers"
     date: 2019-07-15
     url: "https://6figuredev.com/podcast/episode-100-developer-evangelism-with-corey-weathers/"
@@ -64,6 +66,7 @@ appearances:
     kind: "Guest writing"
     source: "Berkeley Haas"
     summary: "A written perspective on growth, leadership, and the experience of building a career while learning."
+    thumbnail: "https://ewmba.haas.berkeley.edu/hubfs/+EWMBA/Website%20Media/Profiles%20(Module)/2015_06_Weathers%2c-Corey_CoreyWeathers-011-HiRes.jpg"
 ---
 
 This page is a running archive of conversations, interviews, and external features. If you want a quick feel for the kinds of topics I enjoy discussing, this is a good place to start.
