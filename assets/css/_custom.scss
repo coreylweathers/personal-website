@@ -154,6 +154,42 @@ body[data-theme] .page.single.special {
     margin-bottom: 0.45rem;
 }
 
+.section-sidebar-list {
+    margin: 0;
+    padding-left: 1.1rem;
+}
+
+.section-sidebar-list li {
+    margin-bottom: 0.55rem;
+    color: $global-font-secondary-color;
+    line-height: 1.6;
+}
+
+.section-sidebar-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 0.9rem;
+}
+
+.section-sidebar-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45rem 0.8rem;
+    border: 1px solid rgba($brand-primary, 0.16);
+    border-radius: 999px;
+    background: rgba($brand-primary, 0.06);
+    color: $brand-primary;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.section-sidebar-link:hover {
+    border-color: rgba($brand-primary, 0.32);
+    background: rgba($brand-primary, 0.12);
+}
+
 .section-sidebar-callout {
     display: flex;
     flex-direction: column;
@@ -413,6 +449,7 @@ body[data-theme] .page.single.special {
 }
 
 [theme="dark"] .section-sidebar-callout,
+[theme="dark"] .section-sidebar-list li,
 [theme="dark"] .feature-post-summary,
 [theme="dark"] .post-card-summary,
 [theme="dark"] .media-card-summary,
@@ -423,6 +460,12 @@ body[data-theme] .page.single.special {
 [theme="dark"] .feature-post-card {
     background: linear-gradient(135deg, rgba(45, 51, 59, 0.96), rgba(45, 51, 59, 0.78));
     border-color: $global-border-color-dark;
+}
+
+[theme="dark"] .section-sidebar-link {
+    color: $brand-primary-dark;
+    border-color: rgba($brand-primary-dark, 0.22);
+    background: rgba($brand-primary-dark, 0.1);
 }
 
 [theme="dark"] .feature-post-title a,

@@ -22,15 +22,20 @@
                 </div>
                 <div class="section-hero-side">
                     <div class="section-sidebar-card">
-                        <div class="section-sidebar-title">What to expect</div>
-                        {{- with .Content -}}
-                            <div class="content section-sidebar-content" id="content">
-                                {{- . | safeHTML -}}
-                            </div>
-                        {{- end -}}
+                        <div class="section-sidebar-title">Quick scan</div>
+                        <ul class="section-sidebar-list">
+                            <li>Project write-ups and build logs</li>
+                            <li>DevRel, leadership, and developer experience perspective</li>
+                            <li>Lessons from coding, speaking, and building in public</li>
+                        </ul>
+                        <div class="section-sidebar-links">
+                            <a class="section-sidebar-link" href="/categories/">Browse categories</a>
+                            <a class="section-sidebar-link" href="/tags/">Browse tags</a>
+                            <a class="section-sidebar-link" href="/posts/index.xml">RSS feed</a>
+                        </div>
                         <div class="section-sidebar-callout">
                             <strong>Stay updated</strong>
-                            <span>Prefer a feed? Subscribe to <a href="{{ .RelPermalink }}index.xml">RSS</a>.</span>
+                            <span>New posts publish here first, with RSS if you want a cleaner follow.</span>
                         </div>
                     </div>
                 </div>
@@ -44,10 +49,21 @@
                         <div class="section-kicker">Featured post</div>
                         <h2 class="single-title animate__animated animate__pulse animate__faster">Start here</h2>
                     </div>
+                    {{- $featuredImageResource := false -}}
+                    {{- $featuredImageFallback := "" -}}
+                    {{- with $featured.Params.featuredImagePreview | default $featured.Params.featuredImage -}}
+                        {{- $featuredImageFallback = (. | relURL) -}}
+                        {{- $normalized := strings.TrimPrefix "/" . -}}
+                        {{- with resources.Get $normalized -}}
+                            {{- $featuredImageResource = .Fill "1200x675" -}}
+                        {{- end -}}
+                    {{- end -}}
                     <article class="feature-post-card">
                         <a class="feature-post-media" href="{{ $featured.RelPermalink }}">
-                            {{- with $featured.Params.featuredImagePreview | default $featured.Params.featuredImage -}}
-                                <img src="{{ . | relURL }}" alt="{{ $featured.Params.featuredImageAlt | default $featured.Title }}" loading="lazy">
+                            {{- if $featuredImageResource -}}
+                                <img src="{{ $featuredImageResource.RelPermalink }}" alt="{{ $featured.Params.featuredImageAlt | default $featured.Title }}" loading="lazy">
+                            {{- else if $featuredImageFallback -}}
+                                <img src="{{ $featuredImageFallback }}" alt="{{ $featured.Params.featuredImageAlt | default $featured.Title }}" loading="lazy">
                             {{- end -}}
                         </a>
                         <div class="feature-post-body">
@@ -83,10 +99,23 @@
                         <div class="post-card-grid">
                             {{- range after 1 $posts -}}
                                 {{- $post := . -}}
+                                {{- $postImageResource := false -}}
+                                {{- $postImageFallback := "" -}}
+                                {{- with $post.Params.featuredImagePreview | default $post.Params.featuredImage -}}
+                                    {{- $postImageFallback = (. | relURL) -}}
+                                    {{- $normalized := strings.TrimPrefix "/" . -}}
+                                    {{- with resources.Get $normalized -}}
+                                        {{- $postImageResource = .Fill "720x405" -}}
+                                    {{- end -}}
+                                {{- end -}}
                                 <article class="post-card">
-                                    {{- with $post.Params.featuredImagePreview | default $post.Params.featuredImage -}}
+                                    {{- if or $postImageResource $postImageFallback -}}
                                         <a class="post-card-image" href="{{ $post.RelPermalink }}">
-                                            <img src="{{ . | relURL }}" alt="{{ $post.Params.featuredImageAlt | default $post.Title }}" loading="lazy">
+                                            {{- if $postImageResource -}}
+                                                <img src="{{ $postImageResource.RelPermalink }}" alt="{{ $post.Params.featuredImageAlt | default $post.Title }}" loading="lazy">
+                                            {{- else if $postImageFallback -}}
+                                                <img src="{{ $postImageFallback }}" alt="{{ $post.Params.featuredImageAlt | default $post.Title }}" loading="lazy">
+                                            {{- end -}}
                                         </a>
                                     {{- end -}}
                                     <div class="post-card-body">
