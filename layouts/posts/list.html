@@ -16,13 +16,18 @@
                     <div class="single-title animate__animated animate__pulse animate__faster">
                         <h1>{{ .Title }}</h1>
                     </div>
+                    <div class="section-meta-pills">
+                        <span class="section-meta-pill">
+                            <i class="fas fa-file-alt" aria-hidden="true"></i>{{ len $posts }} posts
+                        </span>
+                    </div>
                     {{- with .Description -}}
                         <p class="section-hero-description section-hero-description-spacious">{{ . }}</p>
                     {{- end -}}
                 </div>
                 <div class="section-hero-side">
                     <div class="section-sidebar-card">
-                        <div class="section-sidebar-title">Quick scan</div>
+                        <div class="section-sidebar-title">In this archive</div>
                         <ul class="section-sidebar-list">
                             <li>Project write-ups and build logs</li>
                             <li>DevRel, leadership, and developer experience perspective</li>
