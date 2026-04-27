@@ -4,6 +4,7 @@ description: "Developer, DevRel leader, and storyteller focused on making techno
 heroKicker: "Who I am"
 heroImage: "images/about/corey-about-portrait.png"
 heroImageAlt: "Portrait of Corey Weathers smiling in a red shirt."
+heroImagePlacement: "content"
 date: 2025-04-08T20:05:46-04:00
 draft: false
 ---

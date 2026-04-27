@@ -6,10 +6,11 @@
     {{- $heroKicker := $params.heroKicker | default "Page overview" -}}
     {{- $heroImage := $params.heroImage -}}
     {{- $heroImageAlt := $params.heroImageAlt | default .Title -}}
+    {{- $heroImagePlacement := $params.heroImagePlacement | default "hero" -}}
     {{- $heroImageResource := false -}}
     {{- with $heroImage -}}
         {{- with resources.Get (strings.TrimPrefix "/" .) -}}
-            {{- $heroImageResource = .Fill "720x840" -}}
+            {{- $heroImageResource = .Resize "560x" -}}
         {{- end -}}
     {{- end -}}
     <div class="page single special">
@@ -22,9 +23,9 @@
                     </h1>
                 </div>
 
-                {{- if or $heroSummary $heroImageResource -}}
-                    <div class="section-hero-side{{ if $heroImageResource }} page-hero-side-with-image{{ end }}">
-                        {{- if $heroImageResource -}}
+                {{- if or $heroSummary (and $heroImageResource (ne $heroImagePlacement "content")) -}}
+                    <div class="section-hero-side{{ if and $heroImageResource (ne $heroImagePlacement "content") }} page-hero-side-with-image{{ end }}">
+                        {{- if and $heroImageResource (ne $heroImagePlacement "content") -}}
                             <div class="page-hero-media-card">
                                 <img src="{{ $heroImageResource.RelPermalink }}" alt="{{ $heroImageAlt }}" loading="lazy">
                             </div>
@@ -38,6 +39,14 @@
                 {{- end -}}
             </div>
         </section>
+
+        {{- if and $heroImageResource (eq $heroImagePlacement "content") -}}
+            <div class="page-feature-media">
+                <div class="page-feature-media-card">
+                    <img src="{{ $heroImageResource.RelPermalink }}" alt="{{ $heroImageAlt }}" loading="lazy">
+                </div>
+            </div>
+        {{- end -}}
 
         <div class="content" id="content">
             {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}

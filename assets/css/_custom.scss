@@ -237,6 +237,25 @@ body[data-theme] .page.single.special {
     height: auto;
 }
 
+.page-feature-media {
+    max-width: 360px;
+    margin: 0 auto 1.75rem;
+}
+
+.page-feature-media-card {
+    overflow: hidden;
+    border-radius: 22px;
+    border: 1px solid rgba($brand-primary, 0.12);
+    background: rgba($brand-primary, 0.06);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+}
+
+.page-feature-media-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
 .feature-post-card {
     display: grid;
     grid-template-columns: minmax(240px, 0.95fr) minmax(0, 1.05fr);
@@ -460,6 +479,11 @@ body[data-theme] .page.single.special {
 }
 
 [theme="dark"] .page-hero-media-card {
+    border-color: rgba($brand-primary-dark, 0.22);
+    background: rgba($brand-primary-dark, 0.1);
+}
+
+[theme="dark"] .page-feature-media-card {
     border-color: rgba($brand-primary-dark, 0.22);
     background: rgba($brand-primary-dark, 0.1);
 }
@@ -1159,6 +1183,29 @@ body .post-tags a { font-style: italic; }
     color: var(--accent-color);
     font-weight: 600;
     text-decoration: none;
+}
+
+[theme="dark"] #tag-filter,
+[theme="dark"] #post-search,
+[theme="dark"] .tag-link,
+[theme="dark"] .posts-container .post-card,
+[theme="dark"] .no-results-static,
+[theme="dark"] .tags-results-shell {
+    background: rgba(45, 51, 59, 0.84);
+    border-color: $global-border-color-dark;
+}
+
+[theme="dark"] .tag-link .badge {
+    background: rgba($brand-primary-dark, 0.16);
+    color: $brand-primary-dark;
+}
+
+[theme="dark"] .tags-results-shell {
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+}
+
+[theme="dark"] .no-results-static {
+    color: $global-font-secondary-color-dark;
 }
 
 @media (max-width: 960px) {
