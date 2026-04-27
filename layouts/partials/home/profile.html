@@ -1,0 +1,115 @@
+{{- $profile := .Site.Params.home.profile -}}
+{{- $avatar := $profile.avatarURL -}}
+{{- with $profile.gravatarEmail -}}
+    {{- $avatar = md5 . | printf "https://www.gravatar.com/avatar/%v?s=240&d=mp" -}}
+{{- end -}}
+
+<div class="home-profile">
+    <section class="section-hero home-hero">
+        <div class="section-hero-grid">
+            <div class="section-hero-main">
+                <div class="home-hero-identity">
+                    {{- if $avatar -}}
+                        <div class="home-hero-avatar">
+                            {{- dict "Src" $avatar | partial "plugin/img.html" -}}
+                        </div>
+                    {{- end -}}
+                    <div class="home-hero-copy">
+                        <div class="section-kicker">Personal site and blog</div>
+                        {{- with $profile.title -}}
+                            <h1 class="home-title">
+                                {{- . | safeHTML -}}
+                            </h1>
+                        {{- end -}}
+                    </div>
+                </div>
+
+                {{- with $profile.subtitle -}}
+                    <div class="home-subtitle section-hero-description">
+                        {{- if $profile.typeit -}}
+                            {{- $id := dict "Content" . "Scratch" $.Scratch | partial "function/id.html" -}}
+                            <div id="{{ $id }}" class="typeit"></div>
+                            {{- dict $id (slice $id) | dict "typeitMap" | merge ($.Scratch.Get "this") | $.Scratch.Set "this" -}}
+                        {{- else -}}
+                            {{- . | safeHTML -}}
+                        {{- end -}}
+                    </div>
+                {{- end -}}
+
+                {{- with $profile.disclaimer -}}
+                    <div class="home-hero-note">{{- . | safeHTML -}}</div>
+                {{- end -}}
+            </div>
+
+            <div class="section-hero-side">
+                <div class="section-sidebar-card home-hero-sidebar">
+                    <div class="section-sidebar-title">Find me online</div>
+                    {{- if $profile.social -}}
+                        <div class="home-hero-social">
+                            <div class="links">
+                                {{- $socialMap := resources.Get "data/social.yml" | transform.Unmarshal -}}
+                                {{- $socialArr := slice -}}
+                                {{- range $key, $value := .Site.Params.social -}}
+                                    {{- $social := $key | lower | index $socialMap | default dict -}}
+                                    {{- with $social.Alias -}}
+                                        {{- $social = index $socialMap . | default dict -}}
+                                    {{- end -}}
+                                    {{- if $value -}}
+                                        {{- if reflect.IsMap $value -}}
+                                            {{- with $value.weight -}}
+                                                {{- $social = dict "Weight" . | merge $social -}}
+                                            {{- end -}}
+                                            {{- with $value.prefix -}}
+                                                {{- $social = dict "Prefix" . | merge $social -}}
+                                            {{- end -}}
+                                            {{- with index $value "template" -}}
+                                                {{- $social = dict "Template" . | merge $social -}}
+                                            {{- end -}}
+                                            {{- with $value.id -}}
+                                                {{- $social = dict "Id" . | merge $social -}}
+                                            {{- end -}}
+                                            {{- with $value.url -}}
+                                                {{- $social = dict "Url" . | merge $social -}}
+                                            {{- end -}}
+                                            {{- with $value.title -}}
+                                                {{- $social = dict "Title" . | merge $social -}}
+                                            {{- end -}}
+                                            {{- with $value.newtab -}}
+                                                {{- $social = dict "Newtab" . | merge $social -}}
+                                            {{- end -}}
+                                            {{- with $value.icon -}}
+                                                {{- $social = dict "Icon" . | merge $social -}}
+                                            {{- end -}}
+                                            {{- with $value.rel -}}
+                                                {{- $social = dict "Rel" . | merge $social -}}
+                                            {{- end -}}
+                                        {{- else if ne $value true -}}
+                                            {{- $social = dict "Id" $value | merge $social -}}
+                                        {{- end -}}
+                                        {{- if $social.Icon.Simpleicons -}}
+                                            {{- $prefix := ($.Scratch.Get "cdn" | default dict).simpleIconsPrefix -}}
+                                            {{- $social = dict "Prefix" $prefix | dict "Icon" | merge $social -}}
+                                        {{- end -}}
+                                        {{- $socialArr = $socialArr | append $social -}}
+                                    {{- end -}}
+                                {{- end -}}
+                                {{- range sort $socialArr "Weight" -}}
+                                    {{- partial "plugin/social.html" . -}}
+                                {{- end -}}
+                            </div>
+                        </div>
+                    {{- end -}}
+                    <div class="section-sidebar-links">
+                        <a class="section-sidebar-link" href="/posts/">Read the blog</a>
+                        <a class="section-sidebar-link" href="/media/">Media</a>
+                        <a class="section-sidebar-link" href="/contact/">Contact</a>
+                    </div>
+                    <div class="section-sidebar-callout">
+                        <strong>What you'll find here</strong>
+                        <span>Writing on modern .NET, developer relations, building in public, and life alongside the work.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

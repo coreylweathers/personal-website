@@ -1,0 +1,65 @@
+{{- define "title" }}{{ .Title }} - {{ .Site.Title }}{{ end -}}
+
+{{- define "content" -}}
+    {{- $params := .Scratch.Get "params" -}}
+    {{- $heroSummary := $params.subtitle | default .Description -}}
+    {{- $heroKicker := $params.heroKicker | default "Page overview" -}}
+    {{- $heroImage := $params.heroImage -}}
+    {{- $heroImageAlt := $params.heroImageAlt | default .Title -}}
+    {{- $heroImagePlacement := $params.heroImagePlacement | default "hero" -}}
+    {{- $heroImageResource := false -}}
+    {{- $email := .Site.Params.author.email | default .Site.Params.social.Email -}}
+    {{- with $heroImage -}}
+        {{- with resources.Get (strings.TrimPrefix "/" .) -}}
+            {{- $heroImageResource = .Fill "560x620 Top" -}}
+        {{- end -}}
+    {{- end -}}
+    <div class="page single special contact-page">
+        <section class="section-hero page single special page-hero page-hero-compact">
+            <div class="section-hero-grid">
+                <div class="section-hero-main">
+                    <div class="section-kicker">{{ $heroKicker }}</div>
+                    <h1 class="single-title animate__animated animate__pulse animate__faster">
+                        {{- .Title -}}
+                    </h1>
+                </div>
+
+                {{- if or $heroSummary (and $heroImageResource (ne $heroImagePlacement "content")) -}}
+                    <div class="section-hero-side{{ if and $heroImageResource (ne $heroImagePlacement "content") }} page-hero-side-with-image{{ end }}">
+                        {{- if and $heroImageResource (ne $heroImagePlacement "content") -}}
+                            <div class="page-hero-media-card">
+                                <img src="{{ $heroImageResource.RelPermalink }}" alt="{{ $heroImageAlt }}" loading="lazy">
+                            </div>
+                        {{- end -}}
+                        {{- with $heroSummary -}}
+                            <div class="page-hero-summary-card">
+                                <div class="single-subtitle page-hero-summary">{{ . }}</div>
+                            </div>
+                        {{- end -}}
+                    </div>
+                {{- end -}}
+            </div>
+        </section>
+
+        <div class="contact-layout">
+            <section class="section-sidebar-card contact-panel contact-panel-intro">
+                <div class="section-sidebar-title">Reach out directly</div>
+                <div class="content contact-copy" id="content">
+                    {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
+                </div>
+                <div class="contact-actions">
+                    {{- with $email -}}
+                        <a class="section-sidebar-link" href="mailto:{{ . }}">Email Corey</a>
+                    {{- end -}}
+                    <a class="section-sidebar-link" href="/media/">See media appearances</a>
+                </div>
+            </section>
+
+            <section class="contact-panel">
+                {{- partial "contact/form.html" . -}}
+            </section>
+        </div>
+
+        {{- partial "comment.html" . -}}
+    </div>
+{{- end -}}

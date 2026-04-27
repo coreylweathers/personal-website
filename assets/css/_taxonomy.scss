@@ -6,8 +6,8 @@
     border: 1px solid var(--border-color);
     border-radius: 20px;
     background:
-      radial-gradient(circle at top right, rgba(26, 84, 144, 0.14), transparent 32%),
-      linear-gradient(135deg, var(--background-color-light), var(--background-color));
+      radial-gradient(circle at top right, rgba(26, 84, 144, 0.12), transparent 32%),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.3));
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
   }
 
@@ -59,6 +59,13 @@
     color: var(--text-color-secondary);
     line-height: 1.75;
   }
+}
+
+[theme="dark"] .taxonomy-page .taxonomy-hero {
+  background:
+    radial-gradient(circle at top right, rgba(108, 155, 209, 0.16), transparent 32%),
+    linear-gradient(135deg, rgba(45, 51, 59, 0.95), rgba(45, 51, 59, 0.65));
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
 }
 
 .archive-posts {
@@ -230,6 +237,56 @@
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
 }
 
+.categories-layout {
+  margin-top: 1rem;
+  align-items: stretch;
+}
+
+.categories-layout .tags-sidebar {
+  width: 320px;
+}
+
+.categories-results-shell {
+  padding: 1.15rem;
+}
+
+.categories-results-shell .taxonomy-cloud {
+  margin: 0;
+}
+
+.categories-sidebar-list {
+  margin-bottom: 1rem;
+}
+
+.categories-summary-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.categories-summary-pill {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.48);
+}
+
+.categories-summary-pill strong {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.categories-summary-pill span {
+  font-size: 0.82rem;
+  color: var(--text-color-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
 .taxonomy-item-rich .taxonomy-link {
   gap: 0.8rem;
 }
@@ -277,6 +334,14 @@
   
   .group-title {
     font-size: 1.3rem;
+  }
+
+  .categories-layout .tags-sidebar {
+    width: 100%;
+  }
+
+  .categories-summary-strip {
+    grid-template-columns: 1fr;
   }
 }
 

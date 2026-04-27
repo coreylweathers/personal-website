@@ -4,6 +4,17 @@
 
 {{- define "content" -}}
     {{- $appearances := .Params.appearances | default slice -}}
+    {{- $datedAppearances := slice -}}
+    {{- $undatedAppearances := slice -}}
+    {{- range $appearances -}}
+        {{- if isset . "date" -}}
+            {{- $datedAppearances = $datedAppearances | append . -}}
+        {{- else -}}
+            {{- $undatedAppearances = $undatedAppearances | append . -}}
+        {{- end -}}
+    {{- end -}}
+    {{- $appearances = sort $datedAppearances "date" "desc" -}}
+    {{- $appearances = $appearances | append $undatedAppearances -}}
     <div class="page archive section-page">
         <section class="section-hero page single special">
             <div class="section-hero-grid">

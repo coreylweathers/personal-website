@@ -77,26 +77,61 @@
         </div>
       </section>
 
-      <div class="taxonomy-cloud taxonomy-cloud-rich">
-        {{- range $terms -}}
-          {{- $latest := index (.Pages.ByDate.Reverse) 0 -}}
-          <div class="taxonomy-item taxonomy-item-rich">
-            <a href="{{ .Page.RelPermalink }}" class="taxonomy-link">
-              <span class="taxonomy-card-icon" aria-hidden="true">
-                <i class="far fa-folder-open"></i>
-              </span>
-              <span class="taxonomy-name">{{ .Page.Title }}</span>
-              <span class="taxonomy-count">
-                {{- if eq .Count 1 -}}1 post{{- else -}}{{ .Count }} posts{{- end -}}
-              </span>
-              {{- with $latest -}}
-                <span class="taxonomy-preview-label">Latest</span>
-                <span class="taxonomy-preview-title">{{ .Title }}</span>
-                <span class="taxonomy-preview-date">{{ .Date.Format ($.Site.Params.dateFormat | default "2006-01-02") }}</span>
-              {{- end -}}
-            </a>
+      {{- $postCount := len (where .Site.RegularPages "Type" "posts") -}}
+      <div class="tags-layout tags-layout-polished categories-layout">
+        <aside class="tags-sidebar">
+          <div class="section-sidebar-card categories-sidebar-card">
+            <div class="section-sidebar-title">Browse by theme</div>
+            <ul class="section-sidebar-list categories-sidebar-list">
+              <li>Use categories to scan broader themes instead of individual topics.</li>
+              <li>Each card below shows the newest post in that category so you can jump in quickly.</li>
+              <li>Use tags when you want a more granular cross-section of related ideas.</li>
+            </ul>
+            <div class="categories-summary-strip">
+              <div class="categories-summary-pill">
+                <strong>{{ len $terms }}</strong>
+                <span>categories</span>
+              </div>
+              <div class="categories-summary-pill">
+                <strong>{{ $postCount }}</strong>
+                <span>posts</span>
+              </div>
+            </div>
+            <div class="section-sidebar-links">
+              <a class="section-sidebar-link" href="/tags/">Browse tags</a>
+              <a class="section-sidebar-link" href="/posts/">Browse posts</a>
+            </div>
           </div>
-        {{- end -}}
+        </aside>
+
+        <section class="tags-results">
+          <div class="tags-results-shell categories-results-shell">
+            <div class="results-toolbar">
+              <div class="active-tag" aria-live="polite">Choose a category to explore a broader theme</div>
+            </div>
+            <div class="taxonomy-cloud taxonomy-cloud-rich taxonomy-cloud-categories">
+              {{- range $terms -}}
+                {{- $latest := index (.Pages.ByDate.Reverse) 0 -}}
+                <div class="taxonomy-item taxonomy-item-rich">
+                  <a href="{{ .Page.RelPermalink }}" class="taxonomy-link">
+                    <span class="taxonomy-card-icon" aria-hidden="true">
+                      <i class="far fa-folder-open"></i>
+                    </span>
+                    <span class="taxonomy-name">{{ .Page.Title }}</span>
+                    <span class="taxonomy-count">
+                      {{- if eq .Count 1 -}}1 post{{- else -}}{{ .Count }} posts{{- end -}}
+                    </span>
+                    {{- with $latest -}}
+                      <span class="taxonomy-preview-label">Latest</span>
+                      <span class="taxonomy-preview-title">{{ .Title }}</span>
+                      <span class="taxonomy-preview-date">{{ .Date.Format ($.Site.Params.dateFormat | default "2006-01-02") }}</span>
+                    {{- end -}}
+                  </a>
+                </div>
+              {{- end -}}
+            </div>
+          </div>
+        </section>
       </div>
     {{- else -}}
       {{- /* Fallback to simple rendering for other taxonomies (categories etc.) */ -}}
