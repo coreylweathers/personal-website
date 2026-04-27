@@ -1,0 +1,92 @@
+{{- define "title" -}}
+  {{- .Params.Title | default (T .Data.Plural) | default .Data.Plural | dict "Some" | T "allSome" }} - {{ .Site.Title -}}
+{{- end -}}
+
+{{- define "content" -}}
+  {{- $terms := .Data.Terms.ByCount -}}
+  {{- $tagMap := dict -}}
+  {{- range $terms -}}
+    {{- $tagSlug := strings.TrimSuffix "/" .Page.RelPermalink | path.Base -}}
+    {{- $posts := slice -}}
+    {{- range .Pages -}}
+      {{- $summaryText := .Params.summary | default .Description | default (.Summary | plainify | htmlUnescape | strings.TrimSpace | truncate 180) -}}
+      {{- $posts = $posts | append (dict "title" .Title "permalink" .RelPermalink "date" (.Date.Format "2006-01-02") "summary" $summaryText) -}}
+    {{- end -}}
+    {{- $tagMap = merge $tagMap (dict $tagSlug $posts) -}}
+  {{- end -}}
+
+  <div class="page tags-explorer tags-explorer-page" data-taxonomy="tags">
+    <script id="tag-data" type="application/json">{{ $tagMap | jsonify | safeJS }}</script>
+
+    <section class="section-hero taxonomy-hero tags-hero">
+      <div class="section-hero-grid">
+        <div class="section-hero-main">
+          <div class="taxonomy-kicker">Explore tags</div>
+          <h1 class="single-title animate__animated animate__pulse animate__faster">
+            <i class="fas fa-tags" aria-hidden="true"></i>&nbsp;{{ .Title }}
+          </h1>
+          <div class="taxonomy-meta">
+            <span class="taxonomy-meta-pill">
+              <i class="fas fa-hashtag" aria-hidden="true"></i>{{ len $terms }} tags
+            </span>
+          </div>
+        </div>
+        <div class="section-hero-side">
+          {{- with .Content -}}
+            <div class="single-content taxonomy-lead">{{ . }}</div>
+          {{- else with .Description -}}
+            <p class="taxonomy-lead">{{ . }}</p>
+          {{- else -}}
+            <p class="taxonomy-lead">Browse recurring topics, filter the tag list, and pull up related posts without leaving the page.</p>
+          {{- end -}}
+        </div>
+      </div>
+    </section>
+
+    <div class="tags-layout tags-layout-polished">
+      <aside class="tags-sidebar">
+        <div class="section-sidebar-card tags-sidebar-card">
+          <div class="section-sidebar-title">Browse topics</div>
+          <div class="tags-search-group">
+            <input id="tag-filter" type="text" placeholder="Filter tags..." aria-label="Filter tags">
+            <div class="tags-count" id="tag-count" aria-live="polite"></div>
+          </div>
+          <div id="tag-list" class="tag-list" aria-label="Tag list" role="list">
+            {{- range $terms -}}
+              {{- $tagSlug := strings.TrimSuffix "/" .Page.RelPermalink | path.Base -}}
+              <div class="tag-item" role="listitem" data-tag="{{ $tagSlug }}" data-count="{{ .Count }}">
+                <a href="{{ .Page.RelPermalink }}" class="tag-link">
+                  <span>{{ .Page.Title }}</span>
+                  <span class="badge">{{ .Count }}</span>
+                </a>
+              </div>
+            {{- end -}}
+          </div>
+        </div>
+      </aside>
+
+      <section class="tags-results">
+        <div class="tags-results-shell">
+          <div class="results-toolbar">
+            <div class="active-tag" id="active-tag" aria-live="polite">Select a tag to view posts</div>
+            <input id="post-search" type="text" placeholder="Search posts in selected tag..." aria-label="Search posts within selected tag" disabled>
+          </div>
+          <div id="posts-container" class="posts-container" aria-live="polite">
+            <div class="no-results no-results-static">Choose a tag on the left to explore related posts.</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <noscript>
+      <div class="section-sidebar-card no-js-fallback">
+        <p>JavaScript is disabled. A simple list of tags is shown below.</p>
+        <div class="tag-cloud-fallback">
+          {{- range $terms -}}
+            <a href="{{ .Page.RelPermalink }}" class="fallback-tag">{{ .Page.Title }} ({{ .Count }})</a>
+          {{- end -}}
+        </div>
+      </div>
+    </noscript>
+  </div>
+{{- end -}}

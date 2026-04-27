@@ -8,26 +8,27 @@
   {{- if eq $taxonomy "tag" -}}
     {{- /* Build a unified tags explorer like /tags/ but with a preselected tag */ -}}
     {{- $terms := .Site.Taxonomies.tags.Alphabetical -}}
-    {{- $active := .Title | urlize -}}
+    {{- $active := strings.TrimSuffix "/" .RelPermalink | path.Base -}}
     {{- /* Build JSON map of all tags to their posts */ -}}
     {{- $tagMap := dict -}}
     {{- range $terms -}}
+      {{- $tagSlug := strings.TrimSuffix "/" .Page.RelPermalink | path.Base -}}
       {{- $posts := slice -}}
       {{- range .Pages -}}
         {{- $posts = $posts | append (dict "title" .Title "permalink" .RelPermalink "date" (.Date.Format "2006-01-02") "summary" .Summary) -}}
       {{- end -}}
-      {{- $tagMap = merge $tagMap (dict (.Page.Title | urlize) $posts) -}}
+      {{- $tagMap = merge $tagMap (dict $tagSlug $posts) -}}
     {{- end -}}
     <div class="page tags-explorer" data-taxonomy="tags" data-active-tag="{{ $active }}">
       <h1 class="single-title animate__animated animate__pulse animate__faster"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;All Tags</h1>
-      <script id="tag-data" type="application/json">{{ $tagMap | jsonify }}</script>
+      <script id="tag-data" type="application/json">{{ $tagMap | jsonify | safeJS }}</script>
       <div class="tags-layout">
         <aside class="tags-sidebar">
           <div class="tags-search-group">
             <input id="tag-filter" type="text" placeholder="Filter tags..." aria-label="Filter tags" />
             <div class="tags-count" id="tag-count" aria-live="polite"></div>
           </div>
-          <div id="tag-list" class="tag-list" aria-label="Tag list" role="list">{{- range $terms -}}<div class="tag-item" role="listitem" data-tag="{{ .Page.Title | urlize }}" data-count="{{ .Count }}"><a href="{{ .Page.RelPermalink }}" class="tag-link">{{ .Page.Title }} <span class="badge">{{ .Count }}</span></a></div>{{- end -}}</div>
+          <div id="tag-list" class="tag-list" aria-label="Tag list" role="list">{{- range $terms -}}{{- $tagSlug := strings.TrimSuffix "/" .Page.RelPermalink | path.Base -}}<div class="tag-item" role="listitem" data-tag="{{ $tagSlug }}" data-count="{{ .Count }}"><a href="{{ .Page.RelPermalink }}" class="tag-link">{{ .Page.Title }} <span class="badge">{{ .Count }}</span></a></div>{{- end -}}</div>
         </aside>
         <section class="tags-results">
           <div class="results-toolbar">

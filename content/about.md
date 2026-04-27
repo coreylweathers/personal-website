@@ -2,6 +2,8 @@
 title: "About Me"
 description: "Developer, DevRel leader, and storyteller focused on making technology more useful and more human."
 heroKicker: "Who I am"
+heroImage: "images/about/corey-about-portrait.png"
+heroImageAlt: "Portrait of Corey Weathers smiling in a red shirt."
 date: 2025-04-08T20:05:46-04:00
 draft: false
 ---

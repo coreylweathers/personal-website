@@ -10,13 +10,14 @@
   {{- if eq $taxonomies "tags" -}}
     {{- $tagMap := dict -}}
     {{- range $terms -}}
+      {{- $tagSlug := strings.TrimSuffix "/" .Page.RelPermalink | path.Base -}}
       {{- $posts := slice -}}
       {{- range .Pages -}}
         {{- $posts = $posts | append (dict "title" .Title "permalink" .RelPermalink "date" (.Date.Format "2006-01-02") "summary" .Summary) -}}
       {{- end -}}
-      {{- $tagMap = merge $tagMap (dict (.Page.Title | urlize) $posts) -}}
+      {{- $tagMap = merge $tagMap (dict $tagSlug $posts) -}}
     {{- end -}}
-    <script id="tag-data" type="application/json">{{ $tagMap | jsonify }}</script>
+    <script id="tag-data" type="application/json">{{ $tagMap | jsonify | safeJS }}</script>
   {{- end -}}
   <div class="page tags-explorer {{ if eq $taxonomies "categories" }}taxonomy-page taxonomy-index-page{{ end }}" data-taxonomy="{{ $taxonomies }}">
     {{- if eq $taxonomies "tags" -}}
@@ -30,7 +31,7 @@
             <div class="tags-count" id="tag-count" aria-live="polite"></div>
           </div>
           {{- /* Use div-based list to avoid strict lint issues with whitespace in ul/li */ -}}
-          <div id="tag-list" class="tag-list" aria-label="Tag list" role="list">{{- range $terms -}}<div class="tag-item" role="listitem" data-tag="{{ .Page.Title | urlize }}" data-count="{{ .Count }}"><a href="{{ .Page.RelPermalink }}" class="tag-link">{{ .Page.Title }} <span class="badge">{{ .Count }}</span></a></div>{{- end -}}</div>
+          <div id="tag-list" class="tag-list" aria-label="Tag list" role="list">{{- range $terms -}}{{- $tagSlug := strings.TrimSuffix "/" .Page.RelPermalink | path.Base -}}<div class="tag-item" role="listitem" data-tag="{{ $tagSlug }}" data-count="{{ .Count }}"><a href="{{ .Page.RelPermalink }}" class="tag-link">{{ .Page.Title }} <span class="badge">{{ .Count }}</span></a></div>{{- end -}}</div>
         </aside>
         <section class="tags-results">
           <div class="results-toolbar">

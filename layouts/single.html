@@ -30,21 +30,19 @@
                             </div>
                         {{- end -}}
                         {{- with $heroSummary -}}
-                        <div class="page-hero-summary-card">
-                            <div class="single-subtitle page-hero-summary">{{ . }}</div>
-                        </div>
+                            <div class="page-hero-summary-card">
+                                <div class="single-subtitle page-hero-summary">{{ . }}</div>
+                            </div>
                         {{- end -}}
                     </div>
                 {{- end -}}
             </div>
         </section>
 
-        {{- /* Content */ -}}
         <div class="content" id="content">
             {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
         </div>
 
-        {{- /* Comment */ -}}
         {{- partial "comment.html" . -}}
     </div>
 {{- end -}}
