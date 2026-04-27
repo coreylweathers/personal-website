@@ -52,12 +52,62 @@ body[data-theme] .page.single.special {
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
 }
 
+.section-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+    gap: 2rem;
+    align-items: start;
+}
+
+.section-hero-main {
+    min-width: 0;
+}
+
+.section-hero-side {
+    min-width: 0;
+    padding-left: 1.5rem;
+    border-left: 1px solid rgba($brand-primary, 0.14);
+}
+
+.section-hero-content,
+.page-hero-summary {
+    margin: 0;
+}
+
+.section-hero-content > *:first-child,
+.page-hero-summary > *:first-child {
+    margin-top: 0;
+}
+
+.section-hero-copy {
+    margin: 0;
+}
+
+.section-hero-description {
+    margin: 0;
+    color: $global-font-secondary-color;
+    font-size: 1.03rem;
+    line-height: 1.8;
+}
+
+[theme="dark"] .section-hero-description {
+    color: $global-font-secondary-color-dark;
+}
+
+.section-main-content {
+    margin: 0 0 2rem;
+}
+
 [theme="dark"] .section-hero {
     border-color: $global-border-color-dark;
     background:
         radial-gradient(circle at top right, rgba($brand-primary-dark, 0.16), transparent 32%),
         linear-gradient(135deg, rgba(45, 51, 59, 0.95), rgba(45, 51, 59, 0.65));
     box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+}
+
+[theme="dark"] .section-hero-side {
+    border-left-color: rgba($brand-primary-dark, 0.22);
 }
 
 .section-kicker {
@@ -440,6 +490,22 @@ textarea.form-control {
     .section-hero {
         padding: 1.25rem;
         border-radius: 16px;
+    }
+
+    .section-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .section-hero-side {
+        padding-left: 0;
+        padding-top: 1rem;
+        border-left: none;
+        border-top: 1px solid rgba($brand-primary, 0.14);
+    }
+
+    [theme="dark"] .section-hero-side {
+        border-top-color: rgba($brand-primary-dark, 0.22);
     }
 
     .contact-form {
