@@ -1,71 +1,131 @@
 {{- define "content" -}}
-<div class="page single special">
-  <h1 class="single-title animate__animated animate__pulse animate__faster">
-    {{- .Title -}}
-  </h1>
-  
-  <div class="single-subtitle">
-    <div class="post-meta">
-      <span class="post-meta-item">
-        {{- printf "Browse all %s" (.Data.Plural | lower) -}}
-      </span>
-    </div>
+  {{- $pages := .RegularPages -}}
+  {{- if not $pages -}}
+    {{- $pages = .Pages -}}
+  {{- end -}}
+  {{- if not $pages -}}
+    {{- $pages = .Data.Pages -}}
+  {{- end -}}
+
+  <div class="page single special">
+    <h1 class="single-title animate__animated animate__pulse animate__faster">
+      {{- if eq .Data.Singular "category" -}}
+        <i class="far fa-folder-open" aria-hidden="true"></i>&nbsp;{{- .Title -}}
+      {{- else -}}
+        {{- .Title -}}
+      {{- end -}}
+    </h1>
+
+    {{- if .Data.Terms -}}
+      <div class="single-subtitle">
+        <div class="post-meta">
+          <span class="post-meta-item">
+            {{- printf "Browse all %s" (.Data.Plural | lower) -}}
+          </span>
+        </div>
+      </div>
+
+      <div class="taxonomy-cloud">
+        {{- range .Data.Terms.Alphabetical -}}
+          <div class="taxonomy-item">
+            <a href="{{- .Page.RelPermalink -}}" class="taxonomy-link">
+              <span class="taxonomy-name">{{- .Page.Title -}}</span>
+              <span class="taxonomy-count">({{- .Count -}})</span>
+            </a>
+          </div>
+        {{- end -}}
+      </div>
+    {{- else if $pages -}}
+      <div class="single-subtitle">
+        {{- with .Content -}}
+          <div class="single-content">
+            {{- . -}}
+          </div>
+        {{- end -}}
+        <div class="post-meta">
+          <span class="post-meta-item">
+            {{- printf "%d posts" (len $pages) -}}
+          </span>
+        </div>
+      </div>
+
+      <div class="archive-posts">
+        {{- range $pages.GroupByDate "2006" -}}
+          <h3 class="group-title">{{- .Key -}}</h3>
+          {{- range .Pages -}}
+            <article class="archive-post">
+              <div class="archive-post-header">
+                <div class="archive-post-meta">
+                  <time class="archive-post-date">
+                    {{- .Date.Format (.Site.Params.dateFormat | default "2006-01-02") -}}
+                  </time>
+                </div>
+                <h2 class="archive-post-title">
+                  <a href="{{- .RelPermalink -}}">{{- .Title -}}</a>
+                </h2>
+              </div>
+              {{- with .Summary -}}
+                <div class="archive-post-summary">
+                  {{- . -}}
+                </div>
+              {{- end -}}
+
+              {{- if .Params.tags -}}
+                <div class="post-tags">
+                  {{- range .Params.tags -}}
+                    <span class="tag">
+                      <a href="{{- "/tags/" | relLangURL -}}{{- . | urlize -}}/">#{{- . -}}</a>
+                    </span>
+                  {{- end -}}
+                </div>
+              {{- end -}}
+            </article>
+          {{- end -}}
+        {{- end -}}
+      </div>
+    {{- end -}}
   </div>
 
-  {{- if .Data.Terms -}}
-    <div class="taxonomy-cloud">
-      {{- range .Data.Terms.Alphabetical -}}
-        <div class="taxonomy-item">
-          <a href="{{- .Page.RelPermalink -}}" class="taxonomy-link">
-            <span class="taxonomy-name">{{- .Page.Title -}}</span>
-            <span class="taxonomy-count">({{- .Count -}})</span>
-          </a>
-        </div>
-      {{- end -}}
-    </div>
-  {{- end -}}
-</div>
+  <style>
+  .taxonomy-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 2rem 0;
+  }
 
-<style>
-.taxonomy-cloud {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin: 2rem 0;
-}
+  .taxonomy-item {
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+  }
 
-.taxonomy-item {
-  background: var(--background-color);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
-  transition: all 0.3s ease;
-}
+  .taxonomy-item:hover {
+    background: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
 
-.taxonomy-item:hover {
-  background: var(--accent-color);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
+  .taxonomy-link {
+    text-decoration: none;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
 
-.taxonomy-link {
-  text-decoration: none;
-  color: var(--text-color);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
+  .taxonomy-name {
+    font-weight: 500;
+  }
 
-.taxonomy-name {
-  font-weight: 500;
-}
-
-.taxonomy-count {
-  font-size: 0.85em;
-  opacity: 0.7;
-  background: var(--accent-color);
-  padding: 0.2rem 0.5rem;
-  border-radius: 12px;
-}
-</style>
+  .taxonomy-count {
+    font-size: 0.85em;
+    opacity: 0.7;
+    background: var(--accent-color);
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+  }
+  </style>
 {{- end -}}
