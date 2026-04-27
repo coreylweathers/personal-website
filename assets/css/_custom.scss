@@ -38,6 +38,77 @@ body[data-theme] .page.single.special {
 }
 
 /* ==========================================================================
+   PAGE SHELLS & CONTENT RHYTHM
+   ========================================================================== */
+
+.section-hero {
+    padding: 1.75rem 1.75rem 1.25rem;
+    margin-bottom: 2rem;
+    border: 1px solid $global-border-color;
+    border-radius: 20px;
+    background:
+        radial-gradient(circle at top right, rgba($brand-primary, 0.12), transparent 32%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.3));
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+[theme="dark"] .section-hero {
+    border-color: $global-border-color-dark;
+    background:
+        radial-gradient(circle at top right, rgba($brand-primary-dark, 0.16), transparent 32%),
+        linear-gradient(135deg, rgba(45, 51, 59, 0.95), rgba(45, 51, 59, 0.65));
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+}
+
+.section-kicker {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.8rem;
+    margin-bottom: 0.85rem;
+    border-radius: 999px;
+    background-color: rgba($brand-primary, 0.12);
+    color: $brand-primary;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+[theme="dark"] .section-kicker {
+    background-color: rgba($brand-primary-dark, 0.18);
+    color: $brand-primary-dark;
+}
+
+.section-heading {
+    margin: 0 0 1.25rem;
+}
+
+.page.single.special .content,
+.page.archive .content {
+    max-width: 60rem;
+}
+
+.page.single.special .content p,
+.page.archive .content p {
+    line-height: 1.75;
+}
+
+.page.single.special .content ul,
+.page.archive .content ul {
+    padding-left: 1.2rem;
+}
+
+.page.single.special .content li,
+.page.archive .content li {
+    margin-bottom: 0.55rem;
+}
+
+.page.single.special .content h2,
+.page.archive .content h2 {
+    margin-top: 2rem;
+}
+
+/* ==========================================================================
    ENHANCED SOCIAL MEDIA ICONS
    ========================================================================== */
 
@@ -366,6 +437,11 @@ textarea.form-control {
    ========================================================================== */
 
 @media (max-width: 768px) {
+    .section-hero {
+        padding: 1.25rem;
+        border-radius: 16px;
+    }
+
     .contact-form {
         margin: 1rem;
         padding: 1.5rem;

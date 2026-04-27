@@ -2,14 +2,14 @@
 title: "Contact Me"
 date: 2023-05-12T10:00:00-07:00
 draft: false
-description: "Get in touch with me for inquiries or collaboration opportunities"
+description: "Get in touch about speaking, developer relations, collaboration, or general questions."
 ---
 
 ## Let's Connect
 
-Have a question or want to work together? Get in touch, and I'll get back to you as soon as possible.
+If you want to talk about developer relations, speaking, content, or collaboration, I would love to hear from you.
 
-You can reach me at: [corey.weathers@outlook.com](mailto:corey.weathers@outlook.com)
+You can email me directly at [corey.weathers@outlook.com](mailto:corey.weathers@outlook.com), or use the form below.
 
 ---
 

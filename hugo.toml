@@ -146,7 +146,7 @@ enableRobotsTXT = true
       # title shown in home page
       title = "Corey's Syntax & Stories"
       # subtitle shown in home page
-      subtitle = "Corey's Syntax & Stories is where I document my journey—through code, creativity, and life as a developer and parent. From debugging software to navigating the challenges of DevRel and fatherhood, I share insights, lessons, and personal reflections along the way."
+      subtitle = "Thoughts on developer relations, modern .NET, building in public, and the work of raising a family while making software."
       # whether to use typeit animation for subtitle
       typeit = true
       # whether to show social links

@@ -6,22 +6,23 @@
     <div class="page archive">
         {{- /* Display the content from _index.md */ -}}
         {{- if .Content -}}
-            <div class="page single special">
+            <section class="section-hero page single special">
+                <div class="section-kicker">Writing on code, devrel, and life</div>
                 <div class="single-title animate__animated animate__pulse animate__faster">
                     <h1>{{ .Title }}</h1>
                 </div>
                 <div class="content" id="content">
                     {{- .Content | safeHTML -}}
                 </div>
-            </div>
-            <hr style="margin: 2rem 0;">
+            </section>
         {{- end -}}
 
         {{- /* Display list of posts */ -}}
         {{- if .Pages -}}
-            <h2 class="single-title animate__animated animate__pulse animate__faster">
-                Recent Posts
-            </h2>
+            <div class="section-heading">
+                <div class="section-kicker">Latest writing</div>
+                <h2 class="single-title animate__animated animate__pulse animate__faster">Recent Posts</h2>
+            </div>
             {{- $pages := .Pages.GroupByDate "2006" -}}
             {{- with .Site.Params.section.paginate | default .Site.Params.paginate -}}
                 {{- $pages = $.Paginate $pages . -}}
