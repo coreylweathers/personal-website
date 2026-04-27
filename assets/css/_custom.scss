@@ -238,8 +238,10 @@ body[data-theme] .page.single.special {
 }
 
 .page-feature-media {
-    max-width: 360px;
-    margin: 0 auto 1.75rem;
+    float: right;
+    width: 42%;
+    max-width: 320px;
+    margin: 0 0 1.5rem 1.5rem;
 }
 
 .page-feature-media-card {
@@ -581,6 +583,12 @@ body[data-theme] .page.single.special {
 .page.single.special .content h2,
 .page.archive .content h2 {
     margin-top: 2rem;
+}
+
+.page.single.special .content::after {
+    content: "";
+    display: block;
+    clear: both;
 }
 
 /* ==========================================================================
@@ -936,6 +944,13 @@ textarea.form-control {
     .page-hero-summary-card,
     .section-sidebar-card {
         padding: 0.9rem;
+    }
+
+    .page-feature-media {
+        float: none;
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto 1.25rem;
     }
 
     .feature-post-card {

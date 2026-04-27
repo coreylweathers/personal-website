@@ -10,7 +10,7 @@
     {{- $heroImageResource := false -}}
     {{- with $heroImage -}}
         {{- with resources.Get (strings.TrimPrefix "/" .) -}}
-            {{- $heroImageResource = .Resize "560x" -}}
+            {{- $heroImageResource = .Fill "560x620 Top" -}}
         {{- end -}}
     {{- end -}}
     <div class="page single special">
