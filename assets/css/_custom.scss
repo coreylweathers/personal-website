@@ -29,12 +29,12 @@ h1.home-title {
     text-align: left !important;
 }
 
-.page.archive .page.single.special,
-body[data-theme] .page.single.special {
+.page.archive,
+body[data-theme] .page.single.special,
+body[data-theme] .page.tags-explorer,
+body[data-theme] .post-single-layout {
     width: 100%;
-    max-width: 1080px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: none;
 }
 
 /* Hide author icons in blog post listings */
@@ -247,6 +247,10 @@ body[data-theme] .page.single.special {
 
 .post-toc-mobile {
     display: block;
+    width: 100%;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 1.25rem;
 }
 
