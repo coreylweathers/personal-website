@@ -212,6 +212,7 @@ h1.home-title {
 
 .post-single-layout .featured-image {
     width: 100%;
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -267,7 +268,7 @@ h1.home-title {
 }
 
 .post-toc-mobile {
-    display: none;
+    display: none !important;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -1358,7 +1359,7 @@ textarea.form-control {
     }
 
     .post-toc-mobile {
-        display: block;
+        display: block !important;
     }
 }
 

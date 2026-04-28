@@ -70,8 +70,8 @@
                 {{- end -}}
                 {{- with $image -}}
                     {{- /* Process image for WebP with proper sizing */ -}}
-                    {{- $webp := $image.Fill "1800x560 webp q80" -}}
-                    {{- $png := $image.Fill "1800x560 png q80" -}}
+                    {{- $webp := $image.Fill "1400x420 webp q80" -}}
+                    {{- $png := $image.Fill "1400x420 png q80" -}}
                     <div class="featured-image">
                         <picture>
                             <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
@@ -81,8 +81,8 @@
                                 src="{{ $png.RelPermalink }}"
                                 alt="{{ $.Title }}"
                                 loading="lazy"
-                                width="1800"
-                                height="560">
+                                width="1400"
+                                height="420">
                         </picture>
                     </div>
                 {{- else -}}
