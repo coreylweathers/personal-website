@@ -8,55 +8,55 @@
             
             <button class="share-btn share-twitter" 
                     title="Share on Twitter/X"
-                    onclick="shareToTwitter()" data-url="{{ $url }}" data-title="{{ $title }}">
+                    onclick="shareToTwitter(this)" data-url="{{ $url }}" data-title="{{ $title }}">
                 <i class="fab fa-x-twitter" aria-hidden="true"></i>
                 <span>X</span>
             </button>
             
             <button class="share-btn share-linkedin" 
                     title="Share on LinkedIn"
-                    onclick="shareToLinkedIn()" data-url="{{ $url }}">
+                    onclick="shareToLinkedIn(this)" data-url="{{ $url }}">
                 <i class="fab fa-linkedin" aria-hidden="true"></i>
                 <span>LinkedIn</span>
             </button>
             
             <button class="share-btn share-facebook" 
                     title="Share on Facebook"
-                    onclick="shareToFacebook()" data-url="{{ $url }}">
+                    onclick="shareToFacebook(this)" data-url="{{ $url }}">
                 <i class="fab fa-facebook" aria-hidden="true"></i>
                 <span>Facebook</span>
             </button>
 
             <button class="share-btn share-hn" 
                     title="Share on Hacker News"
-                    onclick="shareToHN()" data-url="{{ $url }}" data-title="{{ $title }}">
+                    onclick="shareToHN(this)" data-url="{{ $url }}" data-title="{{ $title }}">
                 <i class="fab fa-y-combinator" aria-hidden="true"></i>
                 <span>HN</span>
             </button>
 
             <button class="share-btn share-threads" 
                     title="Share on Threads"
-                    onclick="shareToThreads()" data-url="{{ $url }}" data-title="{{ $title }}">
+                    onclick="shareToThreads(this)" data-url="{{ $url }}" data-title="{{ $title }}">
                 <i class="fab fa-threads" aria-hidden="true"></i>
                 <span>Threads</span>
             </button>
 
             <button class="share-btn share-bluesky" 
                     title="Share on Bluesky"
-                    onclick="shareToBluesky()" data-url="{{ $url }}" data-title="{{ $title }}">
+                    onclick="shareToBluesky(this)" data-url="{{ $url }}" data-title="{{ $title }}">
                 <i class="fas fa-cloud" aria-hidden="true"></i>
                 <span>Bluesky</span>
             </button>
 
             <button class="share-btn share-mastodon" 
                     title="Share on Mastodon"
-                    onclick="shareToMastodon()" data-url="{{ $url }}" data-title="{{ $title }}">
+                    onclick="shareToMastodon(this)" data-url="{{ $url }}" data-title="{{ $title }}">
                 <i class="fab fa-mastodon" aria-hidden="true"></i>
                 <span>Mastodon</span>
             </button>
             
             <button class="share-btn share-copy" 
-                    onclick="copyToClipboard('{{ $url | safeJS }}')" 
+                    onclick="copyToClipboard(this, '{{ $url | safeJS }}')" 
                     title="Copy link to clipboard">
                 <i class="fas fa-link" aria-hidden="true"></i>
                 <span>Copy</span>
@@ -65,7 +65,7 @@
             <button class="share-btn share-like like-btn" 
                     id="like-btn" 
                     title="Like this post"
-                    onclick="toggleLike()">
+                    onclick="toggleLike(this)">
                 <i class="fas fa-heart" aria-hidden="true"></i>
                 <span id="like-count">0</span>
             </button>
@@ -161,6 +161,11 @@
     transform: scale(1.2);
 }
 
+.like-btn.like-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 @media (max-width: 640px) {
     .post-social-sharing {
         padding: 1rem;
@@ -198,38 +203,33 @@ function shareClick(btn, url) {
     window.open(url, '_blank', 'noopener,noreferrer');
 }
 
-function shareToTwitter() {
-    const btn = event.target.closest('.share-twitter');
+function shareToTwitter(btn) {
     const url = btn.dataset.url;
     const title = btn.dataset.title;
     const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}&via=coreylweathers`;
     shareClick(btn, shareUrl);
 }
 
-function shareToLinkedIn() {
-    const btn = event.target.closest('.share-linkedin');
+function shareToLinkedIn(btn) {
     const url = btn.dataset.url;
     const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
     shareClick(btn, shareUrl);
 }
 
-function shareToFacebook() {
-    const btn = event.target.closest('.share-facebook');
+function shareToFacebook(btn) {
     const url = btn.dataset.url;
     const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
     shareClick(btn, shareUrl);
 }
 
-function shareToHN() {
-    const btn = event.target.closest('.share-hn');
+function shareToHN(btn) {
     const url = btn.dataset.url;
     const title = btn.dataset.title;
     const shareUrl = `https://news.ycombinator.com/submitlink?u=${encodeURIComponent(url)}&t=${encodeURIComponent(title)}`;
     shareClick(btn, shareUrl);
 }
 
-function shareToThreads() {
-    const btn = event.target.closest('.share-threads');
+function shareToThreads(btn) {
     const url = btn.dataset.url;
     const title = btn.dataset.title;
     const text = `${decodeURIComponent(title)}\n\n${url}`;
@@ -237,8 +237,7 @@ function shareToThreads() {
     shareClick(btn, shareUrl);
 }
 
-function shareToBluesky() {
-    const btn = event.target.closest('.share-bluesky');
+function shareToBluesky(btn) {
     const url = btn.dataset.url;
     const title = btn.dataset.title;
     const text = `${decodeURIComponent(title)}\n\n${url}`;
@@ -246,8 +245,7 @@ function shareToBluesky() {
     shareClick(btn, shareUrl);
 }
 
-function shareToMastodon() {
-    const btn = event.target.closest('.share-mastodon');
+function shareToMastodon(btn) {
     const url = btn.dataset.url;
     const title = btn.dataset.title;
     const text = `${decodeURIComponent(title)}\n\n${url}`;
@@ -256,43 +254,113 @@ function shareToMastodon() {
     shareClick(btn, shareUrl);
 }
 
-function copyToClipboard(url) {
-    navigator.clipboard.writeText(url).then(() => {
-        const btn = event.target.closest('.share-copy');
-        const originalText = btn.textContent;
-        btn.textContent = '✓ Copied!';
-        setTimeout(() => {
-            btn.innerHTML = '<i class="fas fa-link" aria-hidden="true"></i><span>Copy</span>';
-        }, 2000);
-    }).catch(err => {
-        console.error('Failed to copy:', err);
-    });
+function setCopyButtonState(btn, text) {
+    btn.innerHTML = text;
+    setTimeout(() => {
+        btn.innerHTML = '<i class="fas fa-link" aria-hidden="true"></i><span>Copy</span>';
+    }, 2000);
+}
+
+function fallbackCopyText(url) {
+    const input = document.createElement('textarea');
+    input.value = url;
+    input.setAttribute('readonly', '');
+    input.style.position = 'absolute';
+    input.style.left = '-9999px';
+    document.body.appendChild(input);
+    input.select();
+    const copied = document.execCommand('copy');
+    document.body.removeChild(input);
+    return copied;
+}
+
+function copyToClipboard(btn, url) {
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(url).then(() => {
+            setCopyButtonState(btn, '✓ Copied!');
+        }).catch(() => {
+            if (fallbackCopyText(url)) {
+                setCopyButtonState(btn, '✓ Copied!');
+            }
+        });
+        return;
+    }
+
+    if (fallbackCopyText(url)) {
+        setCopyButtonState(btn, '✓ Copied!');
+    }
 }
 
 function getLikeKey() {
     return 'like_' + window.location.pathname;
 }
 
+function getLikeStorage() {
+    try {
+        const testKey = '__like_storage_test__';
+        window.localStorage.setItem(testKey, '1');
+        window.localStorage.removeItem(testKey);
+        return window.localStorage;
+    } catch (error) {
+        return null;
+    }
+}
+
 function getLikeCount() {
-    const stored = localStorage.getItem(getLikeKey());
+    const storage = getLikeStorage();
+    if (!storage) {
+        return 0;
+    }
+
+    const stored = storage.getItem(getLikeKey());
     return stored ? parseInt(stored) : 0;
 }
 
 function setLikeCount(count) {
-    localStorage.setItem(getLikeKey(), Math.max(0, count));
+    const storage = getLikeStorage();
+    if (!storage) {
+        return;
+    }
+
+    storage.setItem(getLikeKey(), Math.max(0, count));
 }
 
 function isLiked() {
-    return localStorage.getItem(getLikeKey() + '_user') === 'true';
+    const storage = getLikeStorage();
+    if (!storage) {
+        return false;
+    }
+
+    return storage.getItem(getLikeKey() + '_user') === 'true';
 }
 
 function setLiked(liked) {
-    localStorage.setItem(getLikeKey() + '_user', liked ? 'true' : 'false');
+    const storage = getLikeStorage();
+    if (!storage) {
+        return;
+    }
+
+    storage.setItem(getLikeKey() + '_user', liked ? 'true' : 'false');
 }
 
 function updateLikeUI() {
     const btn = document.getElementById('like-btn');
     const count = document.getElementById('like-count');
+    const storage = getLikeStorage();
+
+    if (!btn || !count) {
+        return;
+    }
+
+    if (!storage) {
+        btn.disabled = true;
+        btn.setAttribute('aria-disabled', 'true');
+        btn.title = 'Likes are unavailable in this browser mode';
+        count.textContent = '0';
+        btn.classList.add('like-disabled');
+        return;
+    }
+
     const liked = isLiked();
     
     count.textContent = getLikeCount();
@@ -303,7 +371,11 @@ function updateLikeUI() {
     }
 }
 
-function toggleLike() {
+ function toggleLike(btn) {
+    if (btn.classList.contains('like-disabled')) {
+        return;
+    }
+
     const liked = isLiked();
     const currentCount = getLikeCount();
     
