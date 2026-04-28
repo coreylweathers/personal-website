@@ -4,7 +4,7 @@
         <div class="sharing-label">Share this post:</div>
         <div class="sharing-actions">
             {{- $title := .Title | urlquery -}}
-            {{- $url := .Permalink -}}
+            {{- $url := .Permalink | urlquery -}}
             {{- $summary := .Params.summary | default .Description | urlquery -}}
             
             <a href="https://twitter.com/intent/tweet?text={{ $title }}&url={{ $url }}&via=coreylweathers" 
@@ -40,7 +40,7 @@
             </a>
             
             <button class="share-btn share-copy" 
-                    onclick="copyToClipboard('{{ $url }}')" 
+                    onclick="copyToClipboard('{{ $url | safeJS }}')" 
                     title="Copy link to clipboard">
                 <i class="fas fa-link" aria-hidden="true"></i>
                 <span>Copy</span>

@@ -236,6 +236,27 @@ substackCanonicalUrl: "https://coreylweathers.com/posts/2025/06/example/"
 
 The workflow `.github/workflows/substack-export.yml` builds the site and uploads a `substack-export` artifact containing the manifest plus per-post export files.
 
+## Social sharing and likes
+
+Blog posts now include social sharing and a like button at the end of each post.
+
+### Features
+
+- **Share buttons**: Readers can share posts directly to Twitter/X, LinkedIn, Facebook, and Hacker News
+- **Copy link**: Quick button to copy the post URL to clipboard
+- **Like button**: Heart icon to like a post; likes are stored in the reader's browser (no authentication required)
+
+### How it works
+
+- Share buttons are one-click—no login needed. They open the platform's share dialog with the post title and URL pre-filled.
+- The like button uses browser `localStorage` to remember likes per-post per-device. Likes persist across sessions but are device-specific.
+- No backend, analytics, or tracking—it's purely client-side and stateless from the server perspective.
+- The like count resets if the reader clears their browser data or visits from a different device.
+
+### Styling
+
+The sharing section appears at the bottom of each post before the license footer. It's styled to match the site theme and is fully responsive on mobile (buttons collapse to icons on small screens).
+
 ## Git Workflow
 
 This project uses a standard Git workflow. The following directories/files are ignored in Git:
