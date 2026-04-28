@@ -1,15 +1,16 @@
 name: Build Substack export
 
 on:
-  push:
-    branches: ["main"]
-    paths:
-      - ".github/workflows/substack-export.yml"
-      - "archetypes/**"
-      - "content/posts/**"
-      - "layouts/**"
-      - "hugo.toml"
   workflow_dispatch:
+    # This workflow is disabled. Uncomment push trigger to re-enable.
+    # push:
+    #   branches: ["main"]
+    #   paths:
+    #     - ".github/workflows/substack-export.yml"
+    #     - "archetypes/**"
+    #     - "content/posts/**"
+    #     - "layouts/**"
+    #     - "hugo.toml"
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
