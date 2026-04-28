@@ -217,6 +217,10 @@ h1.home-title {
     margin-right: auto;
 }
 
+.post-feature-mobile {
+    display: none;
+}
+
 .post-content-shell {
     max-width: none;
     padding: 1.4rem 1.5rem;
@@ -265,6 +269,18 @@ h1.home-title {
 
 .post-sidebar-toc-content a:hover {
     color: $brand-primary;
+}
+
+.post-sidebar-image {
+    margin-top: 1rem;
+    overflow: hidden;
+}
+
+.post-sidebar-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
 }
 
 .post-toc-mobile {
@@ -1352,6 +1368,10 @@ textarea.form-control {
 
     .post-single-sidebar {
         display: none;
+    }
+
+    .post-feature-mobile {
+        display: block;
     }
 
     .post-content-shell {

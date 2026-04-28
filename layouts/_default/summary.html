@@ -4,18 +4,22 @@
     {{- /* Featured image for blog listing with Hugo image processing */ -}}
     {{- $image := "" -}}
     {{- $preview := $params.featuredimagepreview | default $params.featuredimage -}}
+    {{- $imageFallback := "" -}}
     {{- with .Resources.GetMatch "featured-image-preview" -}}
         {{- $image = . -}}
     {{- else -}}
         {{- with .Resources.GetMatch "featured-image" -}}
             {{- $image = . -}}
         {{- else -}}
-            {{- with resources.Get $preview -}}
-                {{- $image = . -}}
+            {{- with $preview -}}
+                {{- $imageFallback = . | relURL -}}
+                {{- with resources.Get . -}}
+                    {{- $image = . -}}
+                {{- end -}}
             {{- end -}}
         {{- end -}}
     {{- end -}}
-    {{- with $image -}}
+    {{- if $image -}}
         {{- $webp := $image.Fill "1080x324 webp q80" -}}
         {{- $png := $image.Fill "1080x324 png q80" -}}
         <div class="featured-image-preview">
@@ -31,6 +35,16 @@
                         width="1080"
                         height="324">
                 </picture>
+            </a>
+        </div>
+    {{- else if $imageFallback -}}
+        <div class="featured-image-preview">
+            <a href="{{ $.RelPermalink }}">
+                <img
+                    class="lazyload"
+                    src="{{ $imageFallback }}"
+                    alt="{{ $.Title }}"
+                    loading="lazy">
             </a>
         </div>
     {{- end -}}

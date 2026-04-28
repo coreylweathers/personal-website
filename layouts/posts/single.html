@@ -20,6 +20,19 @@
         {{- $hasTOC = gt (len (strings.TrimSpace (plainify .TableOfContents))) 0 -}}
     {{- end -}}
 
+    {{- $image := "" -}}
+    {{- $imageFallback := "" -}}
+    {{- with .Resources.GetMatch "featured-image" -}}
+        {{- $image = . -}}
+    {{- else -}}
+        {{- with $params.featuredimage -}}
+            {{- $imageFallback = . -}}
+            {{- with resources.Get . -}}
+                {{- $image = . -}}
+            {{- end -}}
+        {{- end -}}
+    {{- end -}}
+
     <article class="page single post-single-layout">
         <section class="section-hero post-single-hero">
             <div class="section-hero-main">
@@ -58,21 +71,10 @@
 
         <div class="post-single-grid{{ if not $hasTOC }} post-single-grid-full{{ end }}">
             <div class="post-single-main">
-                {{- /* Featured image with Hugo image processing */ -}}
-                {{- $image := "" -}}
-                {{- with .Resources.GetMatch "featured-image" -}}
-                    {{- $image = . -}}
-                {{- else -}}
-                    {{- /* Try to get image from assets directory */ -}}
-                    {{- with resources.Get $params.featuredimage -}}
-                        {{- $image = . -}}
-                    {{- end -}}
-                {{- end -}}
-                {{- with $image -}}
-                    {{- /* Process image for WebP with proper sizing */ -}}
-                    {{- $webp := $image.Fill "1400x420 webp q80" -}}
-                    {{- $png := $image.Fill "1400x420 png q80" -}}
-                    <div class="featured-image">
+                {{- if $image -}}
+                    {{- $webp := $image.Fill "1200x360 webp q80" -}}
+                    {{- $png := $image.Fill "1200x360 png q80" -}}
+                    <div class="featured-image post-feature-mobile">
                         <picture>
                             <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
                             <source srcset="{{ $png.RelPermalink }}" type="image/png">
@@ -81,21 +83,18 @@
                                 src="{{ $png.RelPermalink }}"
                                 alt="{{ $.Title }}"
                                 loading="lazy"
-                                width="1400"
-                                height="420">
+                                width="1200"
+                                height="360">
                         </picture>
                     </div>
-                {{- else -}}
-                    {{- /* Fallback to original image if processing fails */ -}}
-                    {{- with $params.featuredimage -}}
-                        <div class="featured-image">
-                            <img 
-                                class="lazyload"
-                                src="{{ . }}"
-                                alt="{{ $.Title }}"
-                                loading="lazy">
-                        </div>
-                        {{- end -}}
+                {{- else if $imageFallback -}}
+                    <div class="featured-image post-feature-mobile">
+                        <img 
+                            class="lazyload"
+                            src="{{ $imageFallback }}"
+                            alt="{{ $.Title }}"
+                            loading="lazy">
+                    </div>
                 {{- end -}}
 
                 <div class="content post-content-shell" id="content">
@@ -120,6 +119,31 @@
                             {{- dict "Content" .TableOfContents "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
                         </div>
                     </div>
+                    {{- if $image -}}
+                        {{- $webp := $image.Fill "360x220 webp q80" -}}
+                        {{- $png := $image.Fill "360x220 png q80" -}}
+                        <div class="section-sidebar-card post-sidebar-image">
+                            <picture>
+                                <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
+                                <source srcset="{{ $png.RelPermalink }}" type="image/png">
+                                <img
+                                    class="lazyload"
+                                    src="{{ $png.RelPermalink }}"
+                                    alt="{{ $.Title }}"
+                                    loading="lazy"
+                                    width="360"
+                                    height="220">
+                            </picture>
+                        </div>
+                    {{- else if $imageFallback -}}
+                        <div class="section-sidebar-card post-sidebar-image">
+                            <img
+                                class="lazyload"
+                                src="{{ $imageFallback }}"
+                                alt="{{ $.Title }}"
+                                loading="lazy">
+                        </div>
+                    {{- end -}}
                 </aside>
             {{- end -}}
         </div>
