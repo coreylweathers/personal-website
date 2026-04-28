@@ -22,51 +22,24 @@
 
     <article class="page single post-single-layout">
         <section class="section-hero post-single-hero">
-            <div class="section-hero-grid">
-                <div class="section-hero-main">
-                    <div class="section-kicker">Blog post</div>
-                    <h1 class="single-title animate__animated animate__flipInX">{{ .Title | emojify }}</h1>
-                    {{- with $params.subtitle -}}
-                        <h2 class="single-subtitle">{{ . }}</h2>
+            <div class="section-hero-main">
+                <div class="section-kicker">Blog post</div>
+                <h1 class="single-title animate__animated animate__flipInX">{{ .Title | emojify }}</h1>
+                {{- with $params.subtitle -}}
+                    <h2 class="single-subtitle">{{ . }}</h2>
+                {{- end -}}
+                {{- with $summary -}}
+                    <p class="section-hero-description section-hero-description-spacious">{{ . }}</p>
+                {{- end -}}
+                <div class="section-meta-pills post-hero-meta">
+                    {{- with .Site.Params.dateformat | default "2006-01-02" | .PublishDate.Format -}}
+                        <span class="section-meta-pill"><i class="far fa-calendar-alt" aria-hidden="true"></i><time datetime="{{ . }}">{{ . }}</time></span>
                     {{- end -}}
-                    {{- with $summary -}}
-                        <p class="section-hero-description section-hero-description-spacious">{{ . }}</p>
+                    <span class="section-meta-pill"><i class="fas fa-pencil-alt" aria-hidden="true"></i>{{ T "wordCount" .WordCount }}</span>
+                    <span class="section-meta-pill"><i class="far fa-clock" aria-hidden="true"></i>{{ T "readingTime" .ReadingTime }}</span>
+                    {{- with $primaryCategory -}}
+                        <span class="section-meta-pill"><i class="far fa-folder-open" aria-hidden="true"></i>{{ . }}</span>
                     {{- end -}}
-                    <div class="section-meta-pills post-hero-meta">
-                        {{- with .Site.Params.dateformat | default "2006-01-02" | .PublishDate.Format -}}
-                            <span class="section-meta-pill"><i class="far fa-calendar-alt" aria-hidden="true"></i><time datetime="{{ . }}">{{ . }}</time></span>
-                        {{- end -}}
-                        <span class="section-meta-pill"><i class="fas fa-pencil-alt" aria-hidden="true"></i>{{ T "wordCount" .WordCount }}</span>
-                        <span class="section-meta-pill"><i class="far fa-clock" aria-hidden="true"></i>{{ T "readingTime" .ReadingTime }}</span>
-                        {{- with $primaryCategory -}}
-                            <span class="section-meta-pill"><i class="far fa-folder-open" aria-hidden="true"></i>{{ . }}</span>
-                        {{- end -}}
-                    </div>
-                </div>
-                <div class="section-hero-side">
-                    <div class="section-sidebar-card">
-                        <div class="section-sidebar-title">Navigate this post</div>
-                        <ul class="section-sidebar-list">
-                            <li>Use the table of contents to jump straight to the section you need.</li>
-                            <li>Start with the overview above if you want the short version first.</li>
-                            <li>Use the links below to move back to the broader writing archive.</li>
-                        </ul>
-                        <div class="section-sidebar-links">
-                            <a class="section-sidebar-link" href="/posts/">Back to blog</a>
-                            {{- with $primaryCategory -}}
-                                {{- $categoryPage := partialCached "function/path.html" . . | printf "/categories/%v" | $.Site.GetPage -}}
-                                {{- with $categoryPage -}}
-                                    <a class="section-sidebar-link" href="{{ .RelPermalink }}">More in {{ .Title }}</a>
-                                {{- end -}}
-                            {{- end -}}
-                        </div>
-                        {{- if $hasTOC -}}
-                            <div class="section-sidebar-callout">
-                                <strong>{{ T "contents" }}</strong>
-                                <span>This post includes a section-by-section table of contents alongside the article.</span>
-                            </div>
-                        {{- end -}}
-                    </div>
                 </div>
             </div>
         </section>
@@ -123,32 +96,19 @@
             </div>
         {{- end -}}
 
-        <div class="post-single-grid{{ if not $hasTOC }} post-single-grid-full{{ end }}">
-            <div class="post-single-main">
-                <div class="content post-content-shell" id="content">
-                    {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
-                </div>
-
-                {{- /* Series Navigation */ -}}
-                {{- partial "single/series-navigation.html" . -}}
-
-                {{- /* Footer */ -}}
-                {{- partial "single/footer.html" . -}}
-
-                {{- /* Comment */ -}}
-                {{- partial "comment.html" . -}}
+        <div class="post-single-main">
+            <div class="content post-content-shell" id="content">
+                {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
             </div>
 
-            {{- if $hasTOC -}}
-                <aside class="post-single-sidebar">
-                    <div class="section-sidebar-card post-sidebar-toc">
-                        <div class="section-sidebar-title">On this page</div>
-                        <div class="post-sidebar-toc-content">
-                            {{- dict "Content" .TableOfContents "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
-                        </div>
-                    </div>
-                </aside>
-            {{- end -}}
+            {{- /* Series Navigation */ -}}
+            {{- partial "single/series-navigation.html" . -}}
+
+            {{- /* Footer */ -}}
+            {{- partial "single/footer.html" . -}}
+
+            {{- /* Comment */ -}}
+            {{- partial "comment.html" . -}}
         </div>
     </article>
 {{- end -}}

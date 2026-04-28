@@ -1,21 +1,13 @@
 /* ==========================================================================
-   AGGRESSIVE CONTAINER OVERRIDES
+   LAYOUT CONTAINER OVERRIDES
+   Keep content centered while allowing the header to breathe.
    ========================================================================== */
 
-.container {
-    max-width: 100% !important;
-    width: 100% !important;
-    padding: 0 1rem !important;
-    margin: 0 !important;
-}
-
-/* Override any theme constraints */
-.wrapper {
-    max-width: 100% !important;
-}
-
-main {
-    max-width: 100% !important;
+.wrapper > main > .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
 /* Header should take full width */
@@ -37,6 +29,12 @@ main {
 }
 
 /* Desktop menu only - don't override mobile header behavior */
+#header-desktop .header-wrapper {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
 #header-desktop .menu {
     flex: 1;
     display: flex !important;

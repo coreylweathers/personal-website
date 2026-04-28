@@ -31,7 +31,10 @@ h1.home-title {
 
 .page.archive .page.single.special,
 body[data-theme] .page.single.special {
-    width: 100% !important;
+    width: 100%;
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Hide author icons in blog post listings */
@@ -175,6 +178,9 @@ body[data-theme] .page.single.special {
 }
 
 .post-single-layout .section-hero {
+    max-width: 860px;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 1.5rem;
 }
 
@@ -182,28 +188,15 @@ body[data-theme] .page.single.special {
     margin-top: 1.15rem;
 }
 
-.post-single-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 300px;
-    gap: 1.5rem;
-    align-items: start;
-}
-
-.post-single-grid-full {
-    grid-template-columns: minmax(0, 1fr);
-}
-
 .post-single-main {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
     min-width: 0;
 }
 
-.post-single-sidebar {
-    position: sticky;
-    top: 6rem;
-}
-
 .post-content-shell {
-    max-width: none !important;
+    max-width: none;
     padding: 1.4rem 1.5rem;
     border: 1px solid $global-border-color;
     border-radius: 20px;
@@ -253,7 +246,7 @@ body[data-theme] .page.single.special {
 }
 
 .post-toc-mobile {
-    display: none;
+    display: block;
     margin-bottom: 1.25rem;
 }
 
