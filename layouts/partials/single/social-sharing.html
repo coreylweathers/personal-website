@@ -33,6 +33,27 @@
                 <i class="fab fa-y-combinator" aria-hidden="true"></i>
                 <span>HN</span>
             </button>
+
+            <button class="share-btn share-threads" 
+                    title="Share on Threads"
+                    onclick="shareToThreads()" data-url="{{ $url }}" data-title="{{ $title }}">
+                <i class="fab fa-threads" aria-hidden="true"></i>
+                <span>Threads</span>
+            </button>
+
+            <button class="share-btn share-bluesky" 
+                    title="Share on Bluesky"
+                    onclick="shareToBluesky()" data-url="{{ $url }}" data-title="{{ $title }}">
+                <i class="fas fa-cloud" aria-hidden="true"></i>
+                <span>Bluesky</span>
+            </button>
+
+            <button class="share-btn share-mastodon" 
+                    title="Share on Mastodon"
+                    onclick="shareToMastodon()" data-url="{{ $url }}" data-title="{{ $title }}">
+                <i class="fab fa-mastodon" aria-hidden="true"></i>
+                <span>Mastodon</span>
+            </button>
             
             <button class="share-btn share-copy" 
                     onclick="copyToClipboard('{{ $url | safeJS }}')" 
@@ -204,6 +225,34 @@ function shareToHN() {
     const url = btn.dataset.url;
     const title = btn.dataset.title;
     const shareUrl = `https://news.ycombinator.com/submitlink?u=${encodeURIComponent(url)}&t=${encodeURIComponent(title)}`;
+    shareClick(btn, shareUrl);
+}
+
+function shareToThreads() {
+    const btn = event.target.closest('.share-threads');
+    const url = btn.dataset.url;
+    const title = btn.dataset.title;
+    const text = `${decodeURIComponent(title)}\n\n${url}`;
+    const shareUrl = `https://www.threads.net/intent/post?text=${encodeURIComponent(text)}`;
+    shareClick(btn, shareUrl);
+}
+
+function shareToBluesky() {
+    const btn = event.target.closest('.share-bluesky');
+    const url = btn.dataset.url;
+    const title = btn.dataset.title;
+    const text = `${decodeURIComponent(title)}\n\n${url}`;
+    const shareUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(text)}`;
+    shareClick(btn, shareUrl);
+}
+
+function shareToMastodon() {
+    const btn = event.target.closest('.share-mastodon');
+    const url = btn.dataset.url;
+    const title = btn.dataset.title;
+    const text = `${decodeURIComponent(title)}\n\n${url}`;
+    // Mastodon uses a web intent pattern that works across instances
+    const shareUrl = `https://mastodon.social/share?text=${encodeURIComponent(text)}`;
     shareClick(btn, shareUrl);
 }
 
