@@ -5,6 +5,7 @@ draft: false
 featuredImage: "/images/posts/intro-post-header.png"
 categories: ["Personal"]
 tags: ["DevRel", "Introduction", "Career", "Parenting", "C#"]
+slug: "welcome-to-syntax-and-stories"
 ---
 
 ## Why Syntax? Why Stories? And Why Now?
