@@ -4,40 +4,35 @@
         <div class="sharing-label">Share this post:</div>
         <div class="sharing-actions">
             {{- $title := .Title | urlquery -}}
-            {{- $url := .Permalink | urlquery -}}
-            {{- $summary := .Params.summary | default .Description | urlquery -}}
+            {{- $url := .Permalink -}}
             
-            <a href="https://twitter.com/intent/tweet?text={{ $title }}&url={{ $url }}&via=coreylweathers" 
-               class="share-btn share-twitter" 
-               title="Share on Twitter/X"
-               target="_blank" rel="noopener noreferrer">
+            <button class="share-btn share-twitter" 
+                    title="Share on Twitter/X"
+                    onclick="shareToTwitter()" data-url="{{ $url }}" data-title="{{ $title }}">
                 <i class="fab fa-x-twitter" aria-hidden="true"></i>
                 <span>X</span>
-            </a>
+            </button>
             
-            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ $url }}" 
-               class="share-btn share-linkedin" 
-               title="Share on LinkedIn"
-               target="_blank" rel="noopener noreferrer">
+            <button class="share-btn share-linkedin" 
+                    title="Share on LinkedIn"
+                    onclick="shareToLinkedIn()" data-url="{{ $url }}">
                 <i class="fab fa-linkedin" aria-hidden="true"></i>
                 <span>LinkedIn</span>
-            </a>
+            </button>
             
-            <a href="https://www.facebook.com/sharer/sharer.php?u={{ $url }}" 
-               class="share-btn share-facebook" 
-               title="Share on Facebook"
-               target="_blank" rel="noopener noreferrer">
+            <button class="share-btn share-facebook" 
+                    title="Share on Facebook"
+                    onclick="shareToFacebook()" data-url="{{ $url }}">
                 <i class="fab fa-facebook" aria-hidden="true"></i>
                 <span>Facebook</span>
-            </a>
+            </button>
 
-            <a href="https://news.ycombinator.com/submitlink?u={{ $url }}&t={{ $title }}" 
-               class="share-btn share-hn" 
-               title="Share on Hacker News"
-               target="_blank" rel="noopener noreferrer">
+            <button class="share-btn share-hn" 
+                    title="Share on Hacker News"
+                    onclick="shareToHN()" data-url="{{ $url }}" data-title="{{ $title }}">
                 <i class="fab fa-y-combinator" aria-hidden="true"></i>
                 <span>HN</span>
-            </a>
+            </button>
             
             <button class="share-btn share-copy" 
                     onclick="copyToClipboard('{{ $url | safeJS }}')" 
@@ -105,6 +100,15 @@
     box-shadow: 0 4px 12px rgba(138, 90, 0, 0.15);
 }
 
+.share-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(138, 90, 0, 0.1);
+}
+
+.share-btn.sharing {
+    opacity: 0.7;
+}
+
 .share-btn i {
     font-size: 1rem;
 }
@@ -165,6 +169,44 @@
 </style>
 
 <script>
+function shareClick(btn, url) {
+    btn.classList.add('sharing');
+    setTimeout(() => {
+        btn.classList.remove('sharing');
+    }, 600);
+    window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+function shareToTwitter() {
+    const btn = event.target.closest('.share-twitter');
+    const url = btn.dataset.url;
+    const title = btn.dataset.title;
+    const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}&via=coreylweathers`;
+    shareClick(btn, shareUrl);
+}
+
+function shareToLinkedIn() {
+    const btn = event.target.closest('.share-linkedin');
+    const url = btn.dataset.url;
+    const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+    shareClick(btn, shareUrl);
+}
+
+function shareToFacebook() {
+    const btn = event.target.closest('.share-facebook');
+    const url = btn.dataset.url;
+    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+    shareClick(btn, shareUrl);
+}
+
+function shareToHN() {
+    const btn = event.target.closest('.share-hn');
+    const url = btn.dataset.url;
+    const title = btn.dataset.title;
+    const shareUrl = `https://news.ycombinator.com/submitlink?u=${encodeURIComponent(url)}&t=${encodeURIComponent(title)}`;
+    shareClick(btn, shareUrl);
+}
+
 function copyToClipboard(url) {
     navigator.clipboard.writeText(url).then(() => {
         const btn = event.target.closest('.share-copy');
