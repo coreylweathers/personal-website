@@ -1,0 +1,37 @@
+{{- $subtitle := .Params.substackSubtitle | default .Params.summary | default .Description | default (.Summary | plainify | htmlUnescape | strings.TrimSpace) -}}
+{{- $canonical := .Params.substackCanonicalUrl | default .Permalink -}}
+{{- $publishMode := .Params.substackPublishMode | default "manual-review" -}}
+{{- $sendEmail := .Params.substackSendEmail | default false -}}
+{{- $enabled := true -}}
+{{- if isset .Params "substackenable" -}}
+    {{- $enabled = .Params.substackEnable -}}
+{{- end -}}
+{{- $featuredImage := "" -}}
+{{- with .Params.featuredImagePreview | default .Params.featuredImage -}}
+    {{- $featuredImage = absURL (strings.TrimPrefix "/" .) -}}
+{{- end -}}
+{{- $exportHtml := "" -}}
+{{- with .OutputFormats.Get "substack" -}}
+    {{- $exportHtml = .Permalink -}}
+{{- end -}}
+{{- $data := dict
+    "title" .Title
+    "date" (.Date.Format "2006-01-02T15:04:05Z07:00")
+    "draft" .Draft
+    "substackEnabled" $enabled
+    "sourceUrl" .Permalink
+    "canonicalUrl" $canonical
+    "summary" $subtitle
+    "publishMode" $publishMode
+    "sendEmail" $sendEmail
+    "section" (.Params.substackSection | default "")
+    "publication" (.Params.substackPublication | default "")
+    "featuredImage" $featuredImage
+    "featuredImageAlt" (.Params.featuredImageAlt | default .Title)
+    "categories" (.Params.categories | default (slice))
+    "tags" (.Params.tags | default (slice))
+    "series" (.Params.series | default (slice))
+    "exportHtmlUrl" $exportHtml
+    "license" "CC BY-NC-ND 4.0"
+-}}
+{{- $data | jsonify (dict "indent" "  ") -}}

@@ -1,0 +1,232 @@
+{{- /* Social sharing and like buttons for blog posts */ -}}
+<div class="post-social-sharing">
+    <div class="sharing-buttons">
+        <div class="sharing-label">Share this post:</div>
+        <div class="sharing-actions">
+            {{- $title := .Title | urlquery -}}
+            {{- $url := .Permalink -}}
+            {{- $summary := .Params.summary | default .Description | urlquery -}}
+            
+            <a href="https://twitter.com/intent/tweet?text={{ $title }}&url={{ $url }}&via=coreylweathers" 
+               class="share-btn share-twitter" 
+               title="Share on Twitter/X"
+               target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-x-twitter" aria-hidden="true"></i>
+                <span>X</span>
+            </a>
+            
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ $url }}" 
+               class="share-btn share-linkedin" 
+               title="Share on LinkedIn"
+               target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-linkedin" aria-hidden="true"></i>
+                <span>LinkedIn</span>
+            </a>
+            
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ $url }}" 
+               class="share-btn share-facebook" 
+               title="Share on Facebook"
+               target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-facebook" aria-hidden="true"></i>
+                <span>Facebook</span>
+            </a>
+
+            <a href="https://news.ycombinator.com/submitlink?u={{ $url }}&t={{ $title }}" 
+               class="share-btn share-hn" 
+               title="Share on Hacker News"
+               target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-y-combinator" aria-hidden="true"></i>
+                <span>HN</span>
+            </a>
+            
+            <button class="share-btn share-copy" 
+                    onclick="copyToClipboard('{{ $url }}')" 
+                    title="Copy link to clipboard">
+                <i class="fas fa-link" aria-hidden="true"></i>
+                <span>Copy</span>
+            </button>
+
+            <button class="share-btn share-like like-btn" 
+                    id="like-btn" 
+                    title="Like this post"
+                    onclick="toggleLike()">
+                <i class="fas fa-heart" aria-hidden="true"></i>
+                <span id="like-count">0</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+.post-social-sharing {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #f5f1e8 0%, #faf8f5 100%);
+    border-radius: 0.75rem;
+    border: 1px solid #e7decf;
+}
+
+.sharing-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.sharing-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    background: white;
+    border: 1px solid #d4b277;
+    border-radius: 0.5rem;
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.share-btn:hover {
+    background: #f0ede5;
+    border-color: #8a5a00;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(138, 90, 0, 0.15);
+}
+
+.share-btn i {
+    font-size: 1rem;
+}
+
+.share-twitter { color: #1da1f2; }
+.share-linkedin { color: #0a66c2; }
+.share-facebook { color: #1877f2; }
+.share-hn { color: #ff6600; }
+.share-copy { color: #666; }
+
+.like-btn {
+    margin-left: auto;
+    background: #fff5f0;
+    border-color: #ff6b6b;
+}
+
+.like-btn i {
+    color: #ff6b6b;
+    transition: transform 0.2s ease;
+}
+
+.like-btn:hover {
+    background: #ffe0e0;
+    border-color: #cc5555;
+}
+
+.like-btn.liked i {
+    color: #ff1744;
+    transform: scale(1.2);
+}
+
+@media (max-width: 640px) {
+    .post-social-sharing {
+        padding: 1rem;
+    }
+    
+    .sharing-actions {
+        gap: 0.5rem;
+    }
+    
+    .share-btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+    }
+    
+    .share-btn span {
+        display: none;
+    }
+    
+    .share-btn i {
+        font-size: 0.9rem;
+    }
+    
+    .like-btn {
+        margin-left: auto;
+    }
+}
+</style>
+
+<script>
+function copyToClipboard(url) {
+    navigator.clipboard.writeText(url).then(() => {
+        const btn = event.target.closest('.share-copy');
+        const originalText = btn.textContent;
+        btn.textContent = '✓ Copied!';
+        setTimeout(() => {
+            btn.innerHTML = '<i class="fas fa-link" aria-hidden="true"></i><span>Copy</span>';
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy:', err);
+    });
+}
+
+function getLikeKey() {
+    return 'like_' + window.location.pathname;
+}
+
+function getLikeCount() {
+    const stored = localStorage.getItem(getLikeKey());
+    return stored ? parseInt(stored) : 0;
+}
+
+function setLikeCount(count) {
+    localStorage.setItem(getLikeKey(), Math.max(0, count));
+}
+
+function isLiked() {
+    return localStorage.getItem(getLikeKey() + '_user') === 'true';
+}
+
+function setLiked(liked) {
+    localStorage.setItem(getLikeKey() + '_user', liked ? 'true' : 'false');
+}
+
+function updateLikeUI() {
+    const btn = document.getElementById('like-btn');
+    const count = document.getElementById('like-count');
+    const liked = isLiked();
+    
+    count.textContent = getLikeCount();
+    if (liked) {
+        btn.classList.add('liked');
+    } else {
+        btn.classList.remove('liked');
+    }
+}
+
+function toggleLike() {
+    const liked = isLiked();
+    const currentCount = getLikeCount();
+    
+    if (liked) {
+        setLikeCount(currentCount - 1);
+        setLiked(false);
+    } else {
+        setLikeCount(currentCount + 1);
+        setLiked(true);
+    }
+    
+    updateLikeUI();
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', updateLikeUI);
+</script>

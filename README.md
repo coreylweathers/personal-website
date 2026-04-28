@@ -200,6 +200,42 @@ Quick local build:
 hugo --minify --environment production
 ```
 
+## Substack export
+
+The repo now includes a **site-first Substack export path** that keeps Hugo as the source of truth and produces reviewable artifacts for Substack.
+
+### What gets generated
+
+When you run a production-style Hugo build, posts under `content/posts/` now emit:
+
+- `public/posts/substack.json` - section-level manifest of exportable posts
+- `public/posts/<year>/<month>/<slug>/substack.html` - Substack-ready HTML artifact for a single post
+- `public/posts/<year>/<month>/<slug>/substack.json` - metadata for that post (canonical URL, title, summary, tags, featured image, publish mode, and export URL)
+
+This is intentionally a **supported-first workflow**: it prepares clean export artifacts for manual review/import in Substack rather than relying on unofficial publishing automation.
+
+### Optional front matter
+
+Posts in `content/posts/` inherit Substack defaults automatically, but you can override behavior per post with flat front matter fields such as:
+
+```yaml
+substackEnable: true
+substackPublishMode: manual-review
+substackSubtitle: "Optional deck for Substack"
+substackSendEmail: false
+substackSection: ""
+substackPublication: ""
+substackCanonicalUrl: "https://coreylweathers.com/posts/2025/06/example/"
+```
+
+- Set `substackEnable: false` to opt a post out of the export manifest and workflow discovery list.
+- Use `substackSubtitle` when you want a Substack-specific deck without changing the site's description/summary.
+- Leave `substackCanonicalUrl` empty to default to the live site permalink.
+
+### GitHub Actions artifact
+
+The workflow `.github/workflows/substack-export.yml` builds the site and uploads a `substack-export` artifact containing the manifest plus per-post export files.
+
 ## Git Workflow
 
 This project uses a standard Git workflow. The following directories/files are ignored in Git:

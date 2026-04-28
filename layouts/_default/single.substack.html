@@ -1,0 +1,67 @@
+{{- $subtitle := .Params.substackSubtitle | default .Params.summary | default .Description | default (.Summary | plainify | htmlUnescape | strings.TrimSpace) -}}
+{{- $publishMode := .Params.substackPublishMode | default "manual-review" -}}
+{{- $sendEmail := .Params.substackSendEmail | default false -}}
+{{- $canonical := .Params.substackCanonicalUrl | default .Permalink -}}
+{{- $section := .Params.substackSection | default "" -}}
+{{- $publication := .Params.substackPublication | default "" -}}
+<!doctype html>
+<html lang="{{ .Site.Language.Lang | default "en" }}">
+<head>
+    <meta charset="utf-8">
+    <title>{{ .Title }} | Substack export</title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root { color-scheme: light; }
+        body { font-family: Georgia, "Times New Roman", serif; line-height: 1.65; margin: 0; background: #f7f4ee; color: #171717; }
+        main { max-width: 780px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+        .eyebrow { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.78rem; color: #8a5a00; margin-bottom: 0.75rem; }
+        .deck { font-size: 1.15rem; color: #444; margin: 0 0 1.5rem; }
+        .meta { background: #fff; border: 1px solid #e7decf; border-radius: 0.75rem; padding: 1rem 1.25rem; margin: 0 0 2rem; }
+        .meta dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.4rem 0.85rem; margin: 0; }
+        .meta dt { font-weight: 700; }
+        .meta dd { margin: 0; word-break: break-word; }
+        article { background: #fff; border: 1px solid #e7decf; border-radius: 1rem; padding: 2rem; }
+        article h1 { margin-top: 0; line-height: 1.2; }
+        article figure { margin: 0 0 1.5rem; }
+        article img { max-width: 100%; height: auto; border-radius: 0.75rem; }
+        article a { color: #8a5a00; }
+        article blockquote { border-left: 4px solid #d4b277; margin-left: 0; padding-left: 1rem; color: #4d4d4d; }
+        article pre { overflow-x: auto; background: #f6f6f6; padding: 1rem; border-radius: 0.75rem; }
+        article code { background: #f6f6f6; padding: 0.1rem 0.3rem; border-radius: 0.25rem; }
+        @media (max-width: 640px) { article { padding: 1.25rem; } .meta dl { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="eyebrow">Substack export</div>
+        <div class="meta">
+            <dl>
+                <dt>Source</dt>
+                <dd><a href="{{ .Permalink }}">{{ .Permalink }}</a></dd>
+                <dt>Canonical</dt>
+                <dd><a href="{{ $canonical }}">{{ $canonical }}</a></dd>
+                <dt>Publish mode</dt>
+                <dd>{{ $publishMode }}</dd>
+                <dt>Send email</dt>
+                <dd>{{ if $sendEmail }}yes{{ else }}no{{ end }}</dd>
+                {{- with $section }}
+                <dt>Section</dt>
+                <dd>{{ . }}</dd>
+                {{- end }}
+                {{- with $publication }}
+                <dt>Publication</dt>
+                <dd>{{ . }}</dd>
+                {{- end }}
+            </dl>
+        </div>
+        <article>
+            <h1>{{ .Title }}</h1>
+            {{- with $subtitle }}
+            <p class="deck">{{ . }}</p>
+            {{- end }}
+            {{- partial "substack/export-body.html" . -}}
+        </article>
+    </main>
+</body>
+</html>

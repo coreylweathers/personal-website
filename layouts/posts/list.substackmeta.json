@@ -1,0 +1,48 @@
+{{- $items := slice -}}
+{{- range .RegularPages.ByDate.Reverse -}}
+    {{- $enabled := true -}}
+    {{- if isset .Params "substackenable" -}}
+        {{- $enabled = .Params.substackEnable -}}
+    {{- end -}}
+    {{- if and (not .Draft) $enabled -}}
+        {{- $subtitle := .Params.substackSubtitle | default .Params.summary | default .Description | default (.Summary | plainify | htmlUnescape | strings.TrimSpace) -}}
+        {{- $canonical := .Params.substackCanonicalUrl | default .Permalink -}}
+        {{- $featuredImage := "" -}}
+        {{- with .Params.featuredImagePreview | default .Params.featuredImage -}}
+            {{- $featuredImage = absURL (strings.TrimPrefix "/" .) -}}
+        {{- end -}}
+        {{- $exportHtml := "" -}}
+        {{- with .OutputFormats.Get "substack" -}}
+            {{- $exportHtml = .Permalink -}}
+        {{- end -}}
+        {{- $exportJson := "" -}}
+        {{- with .OutputFormats.Get "substackmeta" -}}
+            {{- $exportJson = .Permalink -}}
+        {{- end -}}
+        {{- $item := dict
+            "title" .Title
+            "date" (.Date.Format "2006-01-02T15:04:05Z07:00")
+            "sourceUrl" .Permalink
+            "canonicalUrl" $canonical
+            "summary" $subtitle
+            "publishMode" (.Params.substackPublishMode | default "manual-review")
+            "sendEmail" (.Params.substackSendEmail | default false)
+            "section" (.Params.substackSection | default "")
+            "publication" (.Params.substackPublication | default "")
+            "featuredImage" $featuredImage
+            "featuredImageAlt" (.Params.featuredImageAlt | default .Title)
+            "tags" (.Params.tags | default (slice))
+            "categories" (.Params.categories | default (slice))
+            "series" (.Params.series | default (slice))
+            "exportHtmlUrl" $exportHtml
+            "exportJsonUrl" $exportJson
+        -}}
+        {{- $items = $items | append $item -}}
+    {{- end -}}
+{{- end -}}
+{{- dict
+    "generatedAt" (now.UTC.Format "2006-01-02T15:04:05Z")
+    "baseUrl" .Site.BaseURL
+    "count" (len $items)
+    "posts" $items
+| jsonify (dict "indent" "  ") -}}

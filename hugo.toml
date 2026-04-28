@@ -271,6 +271,19 @@ enableRobotsTXT = true
     isPlainText = true
     isHTML = false
     protocol = ""
+  [outputFormats.substack]
+    mediaType = "text/html"
+    baseName = "substack"
+    isHTML = true
+    rel = "alternate"
+    protocol = ""
+  [outputFormats.substackmeta]
+    mediaType = "application/json"
+    baseName = "substack"
+    isPlainText = true
+    isHTML = false
+    rel = "alternate"
+    protocol = ""
 
 # RSS Configuration
 [params.rss]

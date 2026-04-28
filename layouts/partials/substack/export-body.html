@@ -1,0 +1,17 @@
+{{- $baseURL := strings.TrimSuffix "/" .Site.BaseURL -}}
+{{- $body := .Content -}}
+{{- $body = replace $body "src=\"/" (printf "src=\"%s/" $baseURL) -}}
+{{- $body = replace $body "href=\"/" (printf "href=\"%s/" $baseURL) -}}
+{{- $body = replace $body "srcset=\"/" (printf "srcset=\"%s/" $baseURL) -}}
+{{- $body = replace $body " style=\"list-style: none; padding-left: 0;\"" "" -}}
+{{- $body = replace $body " style=list-style:none;padding-left:0" "" -}}
+{{- $body = replaceRE `\sstyle="padding-bottom:\s*0\.5rem;"` "" $body -}}
+{{- $body = replaceRE `\sstyle=padding-bottom:\.5rem` "" $body -}}
+{{- $body = replaceRE `(?s)<div class="details admonition [^"]+">\s*<div class="details-summary admonition-title">\s*(?:<i[^>]*></i>)?\s*([^<]+?)\s*(?:<i[^>]*></i>)?\s*</div>\s*<div class="details-content">\s*<div class="admonition-content">\s*(.*?)\s*</div>\s*</div>\s*</div>` "<blockquote><p><strong>$1</strong></p><p>$2</p></blockquote>" $body -}}
+{{- $featuredImage := "" -}}
+{{- with .Params.featuredImagePreview | default .Params.featuredImage -}}
+    {{- $featuredPath := strings.TrimPrefix "/" . -}}
+    {{- $featuredAlt := $.Params.featuredImageAlt | default $.Title -}}
+    {{- $featuredImage = printf "<figure><img src=\"%s\" alt=\"%s\"></figure>" (absURL $featuredPath) ($featuredAlt | htmlEscape) -}}
+{{- end -}}
+{{- printf "%s%s" $featuredImage $body | safeHTML -}}
