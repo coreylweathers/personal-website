@@ -36,7 +36,8 @@ main {
     flex-shrink: 0;
 }
 
-.menu {
+/* Desktop menu only - don't override mobile header behavior */
+#header-desktop .menu {
     flex: 1;
     display: flex !important;
     flex-wrap: wrap;
@@ -45,35 +46,32 @@ main {
     align-items: center;
 }
 
-.menu-item {
+#header-desktop .menu-item {
     white-space: nowrap;
     font-size: 0.9rem;
 }
 
-/* Search optimization */
-.search {
+/* Search optimization - desktop only */
+#header-desktop .search {
     flex: 1 1 200px;
     min-width: 200px;
 }
 
-@media (max-width: 1200px) {
-    .menu-item {
+/* Desktop responsive: 1200px and above */
+@media (min-width: 681px) and (max-width: 1200px) {
+    #header-desktop .menu-item {
         font-size: 0.85rem;
         padding: 0.25rem 0.5rem;
     }
     
-    .header-wrapper {
+    #header-desktop .header-wrapper {
         gap: 0.5rem !important;
     }
 }
 
-@media (max-width: 640px) {
-    .header-wrapper {
-        padding: 0.5rem 0.75rem !important;
-    }
-    
-    .menu-item {
-        font-size: 0.8rem;
-        padding: 0.2rem 0.4rem;
+/* Desktop small screens (but not mobile cutoff) */
+@media (min-width: 681px) {
+    #header-desktop {
+        display: block !important;
     }
 }
