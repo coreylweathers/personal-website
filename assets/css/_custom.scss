@@ -5,6 +5,7 @@
 
 @import "_override";
 @import "_taxonomy";
+@import "extended/viewport";
 
 /* ==========================================================================
    TYPOGRAPHY & LAYOUT OVERRIDES
@@ -94,12 +95,12 @@ body[data-theme] .page.single.special {
     color: $global-font-secondary-color-dark;
 }
 
-[theme="dark"] .section-breadcrumbs,
-[theme="dark"] .section-meta-pill {
+[theme="dark"] .section-breadcrumbs {
     color: $global-font-secondary-color-dark;
 }
 
 [theme="dark"] .section-meta-pill {
+    color: $global-font-secondary-color-dark;
     border-color: rgba($brand-primary-dark, 0.22);
     background: rgba(45, 51, 59, 0.78);
 }
@@ -111,16 +112,13 @@ body[data-theme] .page.single.special {
 }
 
 [theme="dark"] .section-meta-pill i,
-[theme="dark"] .section-breadcrumbs a:hover {
+[theme="dark"] .section-breadcrumbs a:hover,
+[theme="dark"] .post-sidebar-toc-content a:hover {
     color: $brand-primary-dark;
 }
 
 [theme="dark"] .post-sidebar-toc-content a {
     color: $global-font-secondary-color-dark;
-}
-
-[theme="dark"] .post-sidebar-toc-content a:hover {
-    color: $brand-primary-dark;
 }
 
 .section-main-content {
