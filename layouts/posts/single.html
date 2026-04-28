@@ -56,59 +56,72 @@
             </div>
         {{- end -}}
 
-        {{- /* Featured image with Hugo image processing */ -}}
-        {{- $image := "" -}}
-        {{- with .Resources.GetMatch "featured-image" -}}
-            {{- $image = . -}}
-        {{- else -}}
-            {{- /* Try to get image from assets directory */ -}}
-            {{- with resources.Get $params.featuredimage -}}
-                {{- $image = . -}}
-            {{- end -}}
-        {{- end -}}
-        {{- with $image -}}
-            {{- /* Process image for WebP with proper sizing */ -}}
-            {{- $webp := $image.Fill "1800x560 webp q80" -}}
-            {{- $png := $image.Fill "1800x560 png q80" -}}
-            <div class="featured-image">
-                <picture>
-                    <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
-                    <source srcset="{{ $png.RelPermalink }}" type="image/png">
-                    <img 
-                        class="lazyload"
-                        src="{{ $png.RelPermalink }}"
-                        alt="{{ $.Title }}"
-                        loading="lazy"
-                        width="1800"
-                        height="560">
-                </picture>
-            </div>
-        {{- else -}}
-            {{- /* Fallback to original image if processing fails */ -}}
-            {{- with $params.featuredimage -}}
-                <div class="featured-image">
-                    <img 
-                        class="lazyload"
-                        src="{{ . }}"
-                        alt="{{ $.Title }}"
-                        loading="lazy">
-                </div>
+        <div class="post-single-grid{{ if not $hasTOC }} post-single-grid-full{{ end }}">
+            <div class="post-single-main">
+                {{- /* Featured image with Hugo image processing */ -}}
+                {{- $image := "" -}}
+                {{- with .Resources.GetMatch "featured-image" -}}
+                    {{- $image = . -}}
+                {{- else -}}
+                    {{- /* Try to get image from assets directory */ -}}
+                    {{- with resources.Get $params.featuredimage -}}
+                        {{- $image = . -}}
+                    {{- end -}}
                 {{- end -}}
-        {{- end -}}
+                {{- with $image -}}
+                    {{- /* Process image for WebP with proper sizing */ -}}
+                    {{- $webp := $image.Fill "1800x560 webp q80" -}}
+                    {{- $png := $image.Fill "1800x560 png q80" -}}
+                    <div class="featured-image">
+                        <picture>
+                            <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
+                            <source srcset="{{ $png.RelPermalink }}" type="image/png">
+                            <img 
+                                class="lazyload"
+                                src="{{ $png.RelPermalink }}"
+                                alt="{{ $.Title }}"
+                                loading="lazy"
+                                width="1800"
+                                height="560">
+                        </picture>
+                    </div>
+                {{- else -}}
+                    {{- /* Fallback to original image if processing fails */ -}}
+                    {{- with $params.featuredimage -}}
+                        <div class="featured-image">
+                            <img 
+                                class="lazyload"
+                                src="{{ . }}"
+                                alt="{{ $.Title }}"
+                                loading="lazy">
+                        </div>
+                        {{- end -}}
+                {{- end -}}
 
-        <div class="post-single-main">
-            <div class="content post-content-shell" id="content">
-                {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
+                <div class="content post-content-shell" id="content">
+                    {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
+                </div>
+
+                {{- /* Series Navigation */ -}}
+                {{- partial "single/series-navigation.html" . -}}
+
+                {{- /* Footer */ -}}
+                {{- partial "single/footer.html" . -}}
+
+                {{- /* Comment */ -}}
+                {{- partial "comment.html" . -}}
             </div>
 
-            {{- /* Series Navigation */ -}}
-            {{- partial "single/series-navigation.html" . -}}
-
-            {{- /* Footer */ -}}
-            {{- partial "single/footer.html" . -}}
-
-            {{- /* Comment */ -}}
-            {{- partial "comment.html" . -}}
+            {{- if $hasTOC -}}
+                <aside class="post-single-sidebar">
+                    <div class="section-sidebar-card post-sidebar-toc">
+                        <div class="section-sidebar-title">On this page</div>
+                        <div class="post-sidebar-toc-content">
+                            {{- dict "Content" .TableOfContents "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
+                        </div>
+                    </div>
+                </aside>
+            {{- end -}}
         </div>
     </article>
 {{- end -}}

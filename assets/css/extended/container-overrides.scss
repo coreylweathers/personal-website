@@ -11,10 +11,27 @@
 #header-desktop .header-title {
     flex: 0 0 auto;
     min-width: auto;
+    margin-right: 1rem;
 }
 
 #header-desktop .menu {
     flex: 1 1 auto;
     min-width: 0;
+    overflow: visible;
+    white-space: normal;
+}
+
+#header-desktop .menu .menu-inner {
+    float: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#header-desktop .menu .menu-item {
+    margin: 0;
+    white-space: nowrap;
 }
 

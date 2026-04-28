@@ -30,11 +30,11 @@ h1.home-title {
 }
 
 .page.archive,
-body[data-theme] .page.single.special,
-body[data-theme] .page.tags-explorer,
-body[data-theme] .post-single-layout {
+.page.single.special,
+.page.tags-explorer,
+.post-single-layout {
     width: 100%;
-    max-width: none;
+    max-width: none !important;
 }
 
 /* Hide author icons in blog post listings */
@@ -188,10 +188,26 @@ body[data-theme] .post-single-layout {
     margin-top: 1.15rem;
 }
 
+.post-single-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.post-single-grid-full {
+    grid-template-columns: minmax(0, 1fr);
+}
+
 .post-single-main {
     width: 100%;
     margin: 0 auto;
     min-width: 0;
+}
+
+.post-single-sidebar {
+    position: sticky;
+    top: 6rem;
 }
 
 .post-single-layout .featured-image {
@@ -251,7 +267,7 @@ body[data-theme] .post-single-layout {
 }
 
 .post-toc-mobile {
-    display: block;
+    display: none;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
