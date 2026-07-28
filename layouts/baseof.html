@@ -15,16 +15,27 @@
     <body data-header-desktop="{{ .Site.Params.header.desktopMode }}" data-header-mobile="{{ .Site.Params.header.mobileMode }}">
         {{- $theme := .Site.Params.defaulttheme -}}
         <script>
-          const query = window.matchMedia('(prefers-color-scheme: dark)');
-          function applyTheme() {
-            let theme = window.localStorage?.getItem('theme') || '{{ $theme }}';
-            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
-            document.body.setAttribute('theme', isDark? 'dark' : 'light');
-            document.body.setAttribute('cfg-theme', theme);
-          }
+          (() => {
+            const query = window.matchMedia('(prefers-color-scheme: dark)');
+            const getStoredTheme = () => {
+              try {
+                return window.localStorage.getItem('theme');
+              } catch {
+                return null;
+              }
+            };
+            const applyTheme = () => {
+              const theme = getStoredTheme() || '{{ $theme }}';
+              const isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+              document.body.setAttribute('theme', isDark ? 'dark' : 'light');
+              document.body.setAttribute('cfg-theme', theme);
+              document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
+            };
 
-          applyTheme();
-          query.addEventListener('change', applyTheme);
+            applyTheme();
+            if (query.addEventListener) query.addEventListener('change', applyTheme);
+            else query.addListener(applyTheme);
+          })();
         </script>
 
         <div id="mask"></div>

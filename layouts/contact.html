@@ -2,7 +2,7 @@
 {{- define "content" -}}
 {{- $params := .Scratch.Get "params" -}}
 {{- $email := .Site.Params.author.email | default .Site.Params.social.Email -}}
-<main class="study-page">
+<div class="study-page">
   {{ partial "study/hero.html" (dict
     "kicker" (.Params.heroKicker | default "The next stop")
     "title" "Let’s talk."
@@ -15,13 +15,13 @@
         {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
       </div>
       <div class="study-chips study-mt-4">
-        {{- with $email }}<a class="study-chip" href="mailto:{{ . }}">Email Corey</a>{{ end }}
-        <a class="study-chip" href="/media/">Speaking &amp; media</a>
+        {{- with $email }}<a class="study-chip" href="mailto:{{ . }}">Email Corey L Weathers</a>{{ end }}
+        <a class="study-chip" href="{{ "/media/" | relLangURL }}">Speaking &amp; media</a>
       </div>
     </section>
     <aside class="study-aside">
       {{- partial "contact/form.html" . -}}
     </aside>
   </div>
-</main>
+</div>
 {{- end -}}

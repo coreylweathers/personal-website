@@ -1,5 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
     const themeToggle = document.querySelector('.study-theme-toggle');
+    const safelyStoreTheme = theme => {
+        try {
+            window.localStorage.setItem('theme', theme);
+        } catch {
+            // Theme persistence can be unavailable in privacy-restricted contexts.
+        }
+    };
     const syncThemeToggle = () => {
         const dark = document.body.getAttribute('theme') === 'dark';
         themeToggle?.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
@@ -9,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const next = document.body.getAttribute('theme') === 'dark' ? 'light' : 'dark';
         document.body.setAttribute('theme', next);
         document.body.setAttribute('cfg-theme', next);
-        window.localStorage?.setItem('theme', next);
+        safelyStoreTheme(next);
         syncThemeToggle();
     });
     syncThemeToggle();
@@ -32,6 +39,9 @@ document.addEventListener('DOMContentLoaded', function() {
             menuToggle?.focus();
         }
     });
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 960) setMenuOpen(false);
+    });
 
     const logo = document.querySelector('.header-title .logo, .header-title img');
     if (logo) {
@@ -50,6 +60,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const activeTagEl = document.getElementById('active-tag');
     const tagCountEl = document.getElementById('tag-count');
     const embeddedDataEl = document.getElementById('tag-data');
+    if (!tagFilterInput || !postSearchInput || !tagList || !postsContainer || !activeTagEl || !tagCountEl) return;
+
     let embeddedTagData = {};
     if (embeddedDataEl) {
         try { embeddedTagData = JSON.parse(embeddedDataEl.textContent || '{}'); } catch { embeddedTagData = {}; }
@@ -57,8 +69,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Check if we're on a specific tag page and should auto-activate
     const activeTagSlug = tagsExplorer.getAttribute('data-active-tag');
-
-    if (!tagList) return;
 
     const allTagItems = Array.from(tagList.querySelectorAll('.tag-item'));
 
@@ -119,18 +129,6 @@ document.addEventListener('DOMContentLoaded', function() {
     tagFilterInput?.addEventListener('input', filterTags);
     updateTagCount();
 
-    // Auto-activate tag if we're on a specific tag page
-    if (activeTagSlug && embeddedTagData[activeTagSlug]) {
-        const targetTagItem = tagList.querySelector(`[data-tag="${activeTagSlug}"]`);
-        if (targetTagItem) {
-            const tagLink = targetTagItem.querySelector('.tag-link');
-            if (tagLink) {
-                targetTagItem.classList.add('active');
-                loadPostsFromEmbeddedData(activeTagSlug, tagLink.textContent.replace(/\s+\d+$/, ''));
-            }
-        }
-    }
-
     async function loadPostsForTag(tagLink) {
         if (!tagLink) return;
         const url = tagLink.getAttribute('href');
@@ -147,6 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Fallback network fetch path
         try {
             const res = await fetch(url);
+            if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
             const html = await res.text();
             const doc = new DOMParser().parseFromString(html, 'text/html');
             // Support both original theme list (.archive-item) and custom term layout (.archive-post)
@@ -207,12 +206,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderPosts(posts) {
-        postsContainer.innerHTML = posts.map(p => `
-            <div class="post-card" data-title="${p.title.toLowerCase()}" data-text="${(p.text || '').replace(/"/g,'&quot;')}">
-                <h3 class="post-card-title"><a href="${p.href}">${p.title}</a></h3>
-                ${p.date ? `<div class="post-card-date">${p.date}</div>` : ''}
-                ${p.summary ? `<div class="post-card-summary">${p.summary}</div>` : ''}
-            </div>`).join('');
+        const fragment = document.createDocumentFragment();
+        posts.forEach(post => {
+            const card = document.createElement('article');
+            card.className = 'post-card';
+            card.dataset.title = (post.title || '').toLowerCase();
+            card.dataset.text = post.text || '';
+
+            const heading = document.createElement('h3');
+            heading.className = 'post-card-title';
+            const link = document.createElement('a');
+            link.href = post.href;
+            link.textContent = post.title;
+            heading.appendChild(link);
+            card.appendChild(heading);
+
+            if (post.date) {
+                const date = document.createElement('div');
+                date.className = 'post-card-date';
+                date.textContent = post.date;
+                card.appendChild(date);
+            }
+            if (post.summary) {
+                const summary = document.createElement('div');
+                summary.className = 'post-card-summary';
+                summary.textContent = post.summary;
+                card.appendChild(summary);
+            }
+            fragment.appendChild(card);
+        });
+        postsContainer.replaceChildren(fragment);
     }
 
     function filterPosts() {

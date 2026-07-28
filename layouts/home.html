@@ -1,50 +1,60 @@
 {{- define "content" -}}
-{{- $posts := where .Site.RegularPages "Type" "posts" -}}
-{{- $latest := index $posts 0 -}}
+{{- $posts := (where .Site.RegularPages "Type" "posts").ByDate.Reverse -}}
+{{- $latest := false -}}
+{{- if gt (len $posts) 0 }}{{ $latest = index $posts 0 }}{{ end -}}
 <div class="terminal-home">
   <section class="terminal-hero">
     <div class="terminal-hero-copy">
       <p class="terminal-label">Developer · DevRel leader · Father</p>
       <h1>Exploring the ideas that shape how we build, lead, and live.</h1>
-      <p class="terminal-lede">I’m Corey Weathers—a C#/.NET developer, developer relations leader, and builder focused on making technology more useful, approachable, and human.</p>
+      <p class="terminal-lede">I’m Corey L Weathers—a C#/.NET developer, developer relations leader, and builder focused on making technology more useful, approachable, and human.</p>
       <p class="terminal-aside">This is where the technical and personal meet: what I’m learning, what I’m building, and what it looks like to do meaningful work while raising a family.</p>
       <div class="terminal-actions">
-        <a class="terminal-button" href="{{ $latest.RelPermalink }}">Read latest essay</a>
-        <a class="terminal-text-link" href="/posts/">Explore the notebook <span>→</span></a>
+        {{- with $latest }}<a class="terminal-button" href="{{ .RelPermalink }}">Read latest essay</a>{{ end }}
+        <a class="terminal-text-link" href="{{ "/posts/" | relLangURL }}">Explore the notebook <span>→</span></a>
       </div>
       <div class="terminal-experience">
         <span>Experience includes</span>
-        <div><strong>MICROSOFT</strong><strong>TWILIO</strong><strong>OKTA</strong></div>
+        <div class="terminal-company-logos" role="list" aria-label="Companies Corey L Weathers has worked with">
+          <span role="listitem"><img src="{{ "/images/company-logos/deepgram.svg" | relURL }}" alt="Deepgram" decoding="async"></span>
+          <span role="listitem"><img src="{{ "/images/company-logos/auth0.svg" | relURL }}" alt="Auth0" decoding="async"></span>
+          <span role="listitem"><img src="{{ "/images/company-logos/okta.png" | relURL }}" alt="Okta" decoding="async"></span>
+          <span role="listitem"><img src="{{ "/images/company-logos/twilio.svg" | relURL }}" alt="Twilio" decoding="async"></span>
+          <span role="listitem"><img src="{{ "/images/company-logos/microsoft.svg" | relURL }}" alt="Microsoft" decoding="async"></span>
+          <span role="listitem"><img src="{{ "/images/company-logos/intapp.png" | relURL }}" alt="Intapp" decoding="async"></span>
+        </div>
       </div>
     </div>
     <figure class="terminal-hero-image">
-      <img src="/images/about/corey-about-portrait.png" alt="Corey Weathers smiling in a red shirt.">
+      <img src="{{ "/images/about/corey-about-portrait.png" | relURL }}" alt="Corey L Weathers smiling in a red shirt." fetchpriority="high">
       <figcaption><i></i> Brooklyn roots · Building in public</figcaption>
     </figure>
   </section>
 
   <div class="terminal-route" aria-hidden="true"><i></i><span></span><i></i></div>
 
+  {{- with $latest }}
   <section class="terminal-current">
     <div class="terminal-current-main">
       <p class="terminal-label terminal-live"><i></i>Latest dispatch</p>
-      <h2><a href="{{ $latest.RelPermalink }}">{{ $latest.Title }}</a></h2>
-      <p>{{ $latest.Summary | default $latest.Description | plainify | truncate 210 }}</p>
-      <div class="terminal-meta">{{ $latest.Date.Format "02 Jan 2006" | upper }} · {{ $latest.ReadingTime }} MIN READ</div>
+      <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+      <p>{{ .Summary | default .Description | plainify | truncate 210 }}</p>
+      <div class="terminal-meta">{{ .Date.Format "02 Jan 2006" | upper }} · {{ .ReadingTime }} MIN READ</div>
     </div>
     <aside>
       <p class="terminal-label">Start here</p>
-      <a href="/about/">Who I am and why this site exists</a>
-      <a href="/posts/">Browse every essay and field note</a>
-      <a href="/contact/">Invite me to speak or collaborate</a>
+      <a href="{{ "/about/" | relLangURL }}">Who I am and why this site exists</a>
+      <a href="{{ "/posts/" | relLangURL }}">Browse every essay and field note</a>
+      <a href="{{ "/contact/" | relLangURL }}">Invite me to speak or collaborate</a>
     </aside>
   </section>
+  {{- end }}
 
   <section class="terminal-gateways" aria-label="Explore">
-    <a href="/posts/"><span><i></i>01. [ READ ]</span><h2>Essays &amp; Journal</h2><p>Long-form thinking on developer relations, leadership, software, and the work around the work.</p><b>Enter →</b></a>
-    <a href="/tags/building-in-public/"><span><i></i>02. [ BUILD ]</span><h2>Code &amp; Projects</h2><p>Experiments, .NET applications, voice ideas, and honest notes from building in public.</p><b>Enter →</b></a>
-    <a href="/media/"><span><i></i>03. [ SPEAK ]</span><h2>Stage &amp; Media</h2><p>Talks, livestreams, podcasts, and conversations about technology and developer communities.</p><b>Enter →</b></a>
-    <a href="/about/"><span><i></i>04. [ ABOUT ]</span><h2>The Journey</h2><p>The person behind the work—Brooklyn roots, leadership, parenthood, curiosity, and craft.</p><b>Enter →</b></a>
+    <a href="{{ "/posts/" | relLangURL }}"><span><i></i>01. [ READ ]</span><h2>Essays &amp; Journal</h2><p>Long-form thinking on developer relations, leadership, software, and the work around the work.</p><b>Enter →</b></a>
+    <a href="{{ "/tags/building-in-public/" | relLangURL }}"><span><i></i>02. [ BUILD ]</span><h2>Code &amp; Projects</h2><p>Experiments, .NET applications, voice ideas, and honest notes from building in public.</p><b>Enter →</b></a>
+    <a href="{{ "/media/" | relLangURL }}"><span><i></i>03. [ SPEAK ]</span><h2>Stage &amp; Media</h2><p>Talks, livestreams, podcasts, and conversations about technology and developer communities.</p><b>Enter →</b></a>
+    <a href="{{ "/about/" | relLangURL }}"><span><i></i>04. [ ABOUT ]</span><h2>The Journey</h2><p>The person behind the work—Brooklyn roots, leadership, parenthood, curiosity, and craft.</p><b>Enter →</b></a>
   </section>
 
   {{- with $latest }}
@@ -66,12 +76,12 @@
       <header><h2>From the Notebook</h2><span></span><i></i></header>
       {{- range first 4 $posts }}
       <article>
-        <div class="terminal-meta">{{ with index .Params.categories 0 }}[ {{ upper . }} ] · {{ end }}{{ .Date.Format "02 Jan 2006" | upper }}</div>
+        <div class="terminal-meta">{{ with .Params.categories }}[ {{ index . 0 | upper }} ] · {{ end }}{{ .Date.Format "02 Jan 2006" | upper }}</div>
         <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
         <p>{{ .Summary | default .Description | plainify | truncate 170 }}</p>
       </article>
       {{- end }}
-      <a class="terminal-text-link" href="/posts/">Read every entry <span>→</span></a>
+      <a class="terminal-text-link" href="{{ "/posts/" | relLangURL }}">Read every entry <span>→</span></a>
     </div>
     <aside class="terminal-now">
       <i class="terminal-dot"></i>
@@ -89,7 +99,7 @@
   <section class="terminal-quote">
     <span>“</span>
     <blockquote>The best developer advocacy isn’t about talking about developers; it’s about building with them.</blockquote>
-    <cite>Corey Weathers</cite>
+    <cite>Corey L Weathers</cite>
   </section>
 
   <section class="terminal-contact">
@@ -97,8 +107,8 @@
     <h2>Working through a hard developer, community, product, or storytelling problem?</h2>
     <p>I’m always interested in thoughtful conversations, speaking opportunities, and collaborations built around genuinely useful work.</p>
     <div class="terminal-actions">
-      <a class="terminal-button" href="/contact/">Start a conversation</a>
-      <a class="terminal-text-link" href="/about/">More about my work <span>→</span></a>
+      <a class="terminal-button" href="{{ "/contact/" | relLangURL }}">Start a conversation</a>
+      <a class="terminal-text-link" href="{{ "/about/" | relLangURL }}">More about my work <span>→</span></a>
     </div>
   </section>
 </div>

@@ -1747,7 +1747,12 @@ body[theme="dark"] .terminal-gateways > a:hover p { color: #4d4540; }
 .terminal-text-link:hover span { transform: translateX(5px); }
 .terminal-experience { margin-top: auto; padding-top: 3rem; border-top: 1px solid var(--study-line); }
 .terminal-experience > span { color: var(--study-muted); font: .62rem "IBM Plex Mono"; text-transform: uppercase; letter-spacing: .08em; }
-.terminal-experience div { display: flex; flex-wrap: wrap; gap: 2.4rem; margin-top: 1rem; color: var(--study-muted); opacity: .55; }
+.terminal-company-logos { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); align-items: center; gap: 1.25rem; margin-top: 1rem; }
+.terminal-company-logos span { display: flex; align-items: center; justify-content: center; min-width: 0; min-height: 3.25rem; padding: .65rem; border: 1px solid rgba(2, 17, 35, .09); background: #fff; border-radius: .35rem; }
+.terminal-company-logos img { display: block; width: 100%; max-width: 4.5rem; max-height: 1.65rem; object-fit: contain; opacity: 1; transition: transform .2s ease; }
+.terminal-company-logos span:first-child img { max-width: 5rem; }
+.terminal-company-logos span:last-child img { max-width: 4.75rem; }
+.terminal-company-logos span:hover img { transform: translateY(-1px); }
 .terminal-hero-image { position: relative; margin: 0; overflow: hidden; border-left: 1px solid var(--study-line); background: var(--study-paper-deep); }
 .terminal-hero-image img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: grayscale(1) sepia(.12); transition: filter .8s, transform .8s; }
 .terminal-hero-image:hover img { filter: none; transform: scale(1.015); }
@@ -1817,16 +1822,17 @@ body[theme="dark"] .terminal-gateways > a:hover p { color: #4d4540; }
 .terminal-contact h2 { max-width: 850px; margin: 1rem 0; font-size: clamp(2.5rem, 4vw, 4rem); line-height: 1.05; }
 .terminal-contact > p:not(.terminal-label) { max-width: 700px; color: var(--study-muted); line-height: 1.7; }
 
-.terminal-footer { padding: 4rem; display: grid; grid-template-columns: 1.2fr 1fr .8fr; gap: 4rem; align-items: start; background: var(--study-night); color: #d0c4bd; border-top: 1px solid var(--study-copper); }
-.terminal-footer-brand { color: #fff !important; font-size: 1.35rem; text-transform: uppercase; text-decoration: none !important; }
-.terminal-footer p { line-height: 1.55; }
-.terminal-social { display: flex; gap: 1rem; }
+.terminal-footer { box-sizing: border-box; width: 100%; max-width: 100%; padding: 4rem; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, .8fr); gap: 4rem; align-items: start; background: var(--study-night); color: #d0c4bd; border-top: 1px solid var(--study-copper); }
+.terminal-footer > * { min-width: 0; max-width: 100%; }
+.terminal-footer-brand { display: inline-block; max-width: 100%; color: #fff !important; font-size: 1.35rem; line-height: 1.15; overflow-wrap: anywhere; text-transform: uppercase; text-decoration: none !important; }
+.terminal-footer p { max-width: 38rem; line-height: 1.55; overflow-wrap: anywhere; }
+.terminal-social { display: flex; flex-wrap: wrap; gap: .5rem 1rem; }
 .terminal-footer a { color: #d0c4bd; text-decoration: none; }
 .terminal-footer a:hover { color: #fe9661; }
-.terminal-footer-links { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-.terminal-footer-links div { display: flex; flex-direction: column; gap: .8rem; }
+.terminal-footer-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; }
+.terminal-footer-links div { min-width: 0; display: flex; flex-direction: column; gap: .8rem; }
 .terminal-footer-links span { margin-bottom: .4rem; color: #fe9661; font: 500 .65rem "IBM Plex Mono"; letter-spacing: .1em; text-transform: uppercase; }
-.terminal-footer-links a, .terminal-social a, .terminal-copyright { font: .7rem/1.6 "IBM Plex Mono"; letter-spacing: .04em; }
+.terminal-footer-links a, .terminal-social a, .terminal-copyright { font: .7rem/1.6 "IBM Plex Mono"; letter-spacing: .04em; overflow-wrap: anywhere; }
 .terminal-copyright { text-align: right; color: #8c827d; }
 .sr-only { position: absolute; width: 1px; height: 1px; clip: rect(0,0,0,0); overflow: hidden; }
 
@@ -1851,7 +1857,7 @@ body[theme="dark"] .terminal-gateways > a:hover p { color: #4d4540; }
     .terminal-notebook-list { padding: 4rem 1.25rem; border-right: 0; }
     .terminal-now { padding: 4rem 1.25rem; }
     .terminal-contact { padding: 5rem 1.25rem; }
-    .terminal-footer { padding: 4rem 1.25rem; grid-template-columns: 1fr 1fr; }
+    .terminal-footer { padding: 4rem 1.25rem; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3rem 2rem; }
     .terminal-copyright { text-align: left; }
 }
 
@@ -1865,13 +1871,14 @@ body[theme="dark"] .terminal-gateways > a:hover p { color: #4d4540; }
     .terminal-lede, .terminal-aside { max-width: 100%; }
     .terminal-actions { align-items: flex-start; gap: 1rem 1.35rem; }
     .terminal-button { flex: 0 0 auto; }
-    .terminal-experience div { gap: 1.25rem 1.75rem; }
+    .terminal-company-logos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem 1.75rem; }
     .terminal-hero-image { height: 420px; }
     .terminal-gateways { grid-template-columns: 1fr; }
     .terminal-gateways > a { min-height: 290px; }
     .terminal-feature-image { aspect-ratio: 1/1; }
     .terminal-notebook-list header h2 { font-size: 2rem; }
-    .terminal-footer { grid-template-columns: 1fr; gap: 2.5rem; }
+    .terminal-footer { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; padding-bottom: calc(3rem + env(safe-area-inset-bottom)); }
+    .terminal-footer-links { gap: 1.25rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

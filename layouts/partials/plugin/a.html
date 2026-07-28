@@ -1,0 +1,12 @@
+{{- $rel := "" -}}
+{{- $external := or ((urls.Parse .Destination).Host) .Newtab -}}
+{{- if $external }}{{ $rel = "noopener noreferrer" }}{{ end -}}
+<a href="{{ .Destination | safeURL }}"
+  {{- with .Title }} title="{{ . }}"{{ end }}
+  {{- if $external }} target="_blank"{{ end }}
+  {{- with .Rel }}{{ $rel = strings.TrimSpace (printf "%s %s" $rel .) }}{{ end }}
+  {{- with $rel }} rel="{{ . }}"{{ end }}
+  {{- with .Class }} class="{{ . }}"{{ end }}>
+  {{- with .Icon }}{{ partial "plugin/icon.html" . }}{{ end -}}
+  {{- with .Content }}{{ . | safeHTML }}{{ end -}}
+</a>

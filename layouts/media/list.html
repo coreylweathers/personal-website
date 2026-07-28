@@ -5,7 +5,7 @@
 {{- range $appearances }}{{ if isset . "date" }}{{ $dated = $dated | append . }}{{ else }}{{ $undated = $undated | append . }}{{ end }}{{ end -}}
 {{- $appearances = (sort $dated "date" "desc") | append $undated -}}
 {{- $live := .Site.Params.live -}}
-<main class="study-page media-page">
+<div class="study-page media-page">
   {{ partial "study/hero.html" (dict
     "kicker" "Live · Podcasts · Interviews · Guest work"
     "title" "Speaking & Media"
@@ -54,5 +54,5 @@
       {{- range $appearances }}{{ partial "media/card.html" (dict "item" . "page" $) }}{{ end }}
     </div>
   </section>
-</main>
+</div>
 {{- end -}}

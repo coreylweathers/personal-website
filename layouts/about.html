@@ -1,17 +1,17 @@
-{{- define "title" }}About Corey - {{ .Site.Title }}{{ end -}}
+{{- define "title" }}About Corey L Weathers - {{ .Site.Title }}{{ end -}}
 {{- define "content" -}}
 {{- $params := .Scratch.Get "params" -}}
 {{- $image := .Params.heroImage -}}
 {{- with $image }}{{ $path := strings.TrimPrefix "/" . }}{{ with resources.Get $path }}{{ $image = .RelPermalink }}{{ else }}{{ $image = printf "/%s" $path }}{{ end }}{{ end -}}
-<main class="study-page about-page">
+<div class="study-page about-page">
   <header class="about-hero">
     <div class="about-hero__copy">
       <p class="study-label">Developer · Leader · Builder · Father</p>
-      <h1 class="study-title">I’m Corey.<br>I build the bridge between people and technology.</h1>
+      <h1 class="study-title">I’m Corey L Weathers.<br>I build the bridge between people and technology.</h1>
       <p class="study-lede">{{ .Description }}</p>
       <div class="terminal-actions">
-        <a class="study-button" href="/contact/">Start a conversation</a>
-        <a class="study-link" href="/posts/">Read the notebook →</a>
+        <a class="study-button" href="{{ "/contact/" | relLangURL }}">Start a conversation</a>
+        <a class="study-link" href="{{ "/posts/" | relLangURL }}">Read the notebook →</a>
       </div>
     </div>
     <figure class="about-hero__portrait">
@@ -49,7 +49,7 @@
   <section class="about-next">
     <p class="study-label">Where next?</p>
     <h2 class="study-heading">Ideas become more useful when they move between people.</h2>
-    <div><a class="study-button" href="/media/">Watch &amp; listen</a><a class="study-link" href="/contact/">Work with me →</a></div>
+    <div><a class="study-button" href="{{ "/media/" | relLangURL }}">Watch &amp; listen</a><a class="study-link" href="{{ "/contact/" | relLangURL }}">Work with me →</a></div>
   </section>
-</main>
+</div>
 {{- end -}}

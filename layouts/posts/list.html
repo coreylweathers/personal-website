@@ -1,13 +1,16 @@
 {{- define "title" }}{{ .Title }} - {{ .Site.Title }}{{ end -}}
 {{- define "content" -}}
 {{- $posts := .Pages.ByDate.Reverse -}}
-{{- $featured := index $posts 0 -}}
+{{- $featured := false -}}
+{{- if gt (len $posts) 0 }}{{ $featured = index $posts 0 }}{{ end -}}
 {{- $featuredImage := "" -}}
-{{- with $featured.Params.featuredImagePreview | default $featured.Params.featuredImage -}}
-  {{- $path := strings.TrimPrefix "/" . -}}
-  {{- with resources.Get $path }}{{ $featuredImage = .RelPermalink }}{{ else }}{{ $featuredImage = printf "/%s" $path }}{{ end -}}
+{{- with $featured -}}
+  {{- with .Params.featuredImagePreview | default .Params.featuredImage -}}
+    {{- $path := strings.TrimPrefix "/" . -}}
+    {{- with resources.Get $path }}{{ $featuredImage = .RelPermalink }}{{ else }}{{ $featuredImage = printf "/%s" $path }}{{ end -}}
+  {{- end -}}
 {{- end -}}
-<main class="study-page writing-page">
+<div class="study-page writing-page">
   {{ partial "study/hero.html" (dict
     "kicker" "Essays · Journal · Build logs"
     "title" "Writing"
@@ -30,7 +33,7 @@
         <p>{{ .Params.summary | default .Description | default (.Summary | plainify) }}</p>
         <div class="writing-feature__actions">
           <a class="study-button" href="{{ .RelPermalink }}">Read latest essay</a>
-          {{- with index (.GetTerms "categories") 0 }}<a class="study-link" href="{{ .RelPermalink }}">More {{ .LinkTitle }} →</a>{{ end }}
+          {{- with .GetTerms "categories" }}{{ with index . 0 }}<a class="study-link" href="{{ .RelPermalink }}">More {{ .LinkTitle }} →</a>{{ end }}{{ end }}
         </div>
       </div>
     </article>
@@ -43,9 +46,9 @@
       <h2 class="study-subheading">Browse by the idea, not only the date.</h2>
     </div>
     <div class="study-chips">
-      <a class="study-chip" href="/categories/">Browse categories</a>
-      <a class="study-chip" href="/tags/">Explore topics</a>
-      <a class="study-chip" href="/posts/index.xml">Follow via RSS</a>
+      <a class="study-chip" href="{{ "/categories/" | relLangURL }}">Browse categories</a>
+      <a class="study-chip" href="{{ "/tags/" | relLangURL }}">Explore topics</a>
+      <a class="study-chip" href="{{ "/posts/index.xml" | relLangURL }}">Follow via RSS</a>
     </div>
   </section>
 
@@ -60,5 +63,5 @@
     </div>
     {{- else }}<div class="study-empty">More writing is on the way.</div>{{ end }}
   </section>
-</main>
+</div>
 {{- end -}}

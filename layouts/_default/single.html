@@ -6,7 +6,7 @@
   {{- $path := strings.TrimPrefix "/" . -}}
   {{- with resources.Get $path }}{{ $image = .RelPermalink }}{{ else }}{{ $image = printf "/%s" $path }}{{ end -}}
 {{- end -}}
-<main class="study-page">
+<div class="study-page">
   {{ partial "study/hero.html" (dict
     "kicker" (.Params.heroKicker | default "About this work")
     "title" .Title
@@ -20,5 +20,5 @@
     </div>
   </section>
   {{- partial "comment.html" . -}}
-</main>
+</div>
 {{- end -}}

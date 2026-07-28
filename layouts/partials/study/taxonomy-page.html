@@ -3,7 +3,7 @@
 {{- if not $pages }}{{ $pages = .Pages.ByDate.Reverse }}{{ end -}}
 {{- $plural := .Data.Plural | default "topics" -}}
 {{- $singular := .Data.Singular | default "topic" -}}
-<main class="study-page">
+<div class="study-page">
   {{- if $isIndex }}
     {{ partial "study/hero.html" (dict
       "kicker" (printf "The catalog · %s" $plural)
@@ -32,10 +32,10 @@
       "meta" (printf "%d entries" (len $pages))
     ) }}
     <section class="study-section">
-      <a class="study-link" href="/{{ $plural }}/">← All {{ $plural }}</a>
+      <a class="study-link" href="{{ printf "/%s/" $plural | relLangURL }}">← All {{ $plural }}</a>
       <div class="study-list study-mt-4">
         {{- range $pages }}{{ partial "study/post-row.html" . }}{{ end }}
       </div>
     </section>
   {{- end }}
-</main>
+</div>

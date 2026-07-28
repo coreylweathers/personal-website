@@ -4,13 +4,13 @@ layout: "about"
 description: "Developer, DevRel leader, and storyteller focused on making technology more useful and more human."
 heroKicker: "Who I am"
 heroImage: "images/about/corey-about-portrait.png"
-heroImageAlt: "Portrait of Corey Weathers smiling in a red shirt."
+heroImageAlt: "Portrait of Corey L Weathers smiling in a red shirt."
 heroImagePlacement: "content"
 date: 2025-04-08T20:05:46-04:00
 draft: false
 ---
 
-I am Corey Weathers: a **C# / .NET developer**, **DevRel leader**, and **builder in public** who cares deeply about making technology more useful, more approachable, and more human.
+I am Corey L Weathers: a **C# / .NET developer**, **DevRel leader**, and **builder in public** who cares deeply about making technology more useful, more approachable, and more human.
 
 I grew up in Brooklyn, and I still carry that same energy into my work: stay curious, build boldly, and make room for other people to grow.
 
@@ -38,4 +38,4 @@ If you are here for devrel perspective, .NET ideas, or a more grounded view of b
 
 This site uses icons and graphics from open-source projects.
 
-- **Home Icon**: The home icon used on this site is from [SVG Repo](https://www.svgrepo.com/svg/521156/home-4), licensed under [CC Attribution License](https://www.svgrepo.com/page/licensing/#CC%20Attribution). SVG Repo provides free, open-licensed SVG vectors for developers and designers.
+- **Home Icon**: The home icon used on this site is from [SVG Repo](https://www.svgrepo.com/svg/521156/home-4), licensed under the [CC Attribution License](https://www.svgrepo.com/page/licensing/#CC%20Attribution). SVG Repo provides free, open-licensed SVG vectors for developers and designers.

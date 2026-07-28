@@ -1,5 +1,5 @@
 <article class="study-card">
-  <p class="study-label">{{ with index .Params.categories 0 }}{{ . }}{{ else }}Notebook{{ end }}</p>
+  <p class="study-label">{{ with .Params.categories }}{{ index . 0 }}{{ else }}Notebook{{ end }}</p>
   <div class="study-meta">{{ .Date.Format "02 Jan 2006" | upper }} · {{ .ReadingTime }} min read</div>
   <h2 class="study-card__title"><a href="{{ .RelPermalink }}">{{ .Title | emojify }}</a></h2>
   <p class="study-card__summary">{{ .Params.summary | default .Description | default (.Summary | plainify) | truncate 180 }}</p>

@@ -1,6 +1,6 @@
 {{- $post := . -}}
 {{- $categorySlug := "notebook" -}}
-{{- with index ($post.Params.categories | default slice) 0 }}{{ $categorySlug = . | urlize }}{{ end -}}
+{{- with $post.Params.categories }}{{ with index . 0 }}{{ $categorySlug = . | urlize }}{{ end }}{{ end -}}
 <article class="study-list-item study-post-row study-accent--{{ $categorySlug }}">
   <div class="study-meta">{{ $post.Date.Format "02 Jan 2006" | upper }}</div>
   <div>

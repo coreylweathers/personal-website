@@ -4,7 +4,7 @@
   {{- if gt (len $seriesPages) 1 -}}
   <nav class="study-series" aria-label="{{ $currentSeries }} series">
     <p class="study-label">Part of a series</p>
-    <h2 class="study-subheading"><a href="/series/{{ $currentSeries | urlize }}/">{{ $currentSeries }}</a></h2>
+    <h2 class="study-subheading"><a href="{{ printf "/series/%s/" ($currentSeries | urlize) | relLangURL }}">{{ $currentSeries }}</a></h2>
     <ol>
       {{- range $seriesPages.ByDate }}
       <li>{{ if eq .RelPermalink $.RelPermalink }}<strong>{{ .Title }}</strong>{{ else }}<a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ end }}</li>

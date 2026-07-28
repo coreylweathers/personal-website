@@ -3,7 +3,7 @@ baseURL = "https://coreylweathers.com/"
 defaultContentLanguage = "en"
 # language code
 locale = "en-US"
-title = "Corey Weathers"
+title = "Corey L Weathers"
 
 # Change the default theme to LoveIt
 theme = "LoveIt"
@@ -43,7 +43,7 @@ enableRobotsTXT = true
   # site description
   description = "Corey's Syntax & Stories is where I document my journey—through code, creativity, and life as a developer and parent. From debugging software to navigating the challenges of DevRel and fatherhood, I share insights, lessons, and personal reflections along the way."
   # site keywords
-  keywords = ["syntax and stories", "Corey L. Weathers", "Corey Weathers", "coding blog", "developer relations", "devrel insights", "programming stories", "debugging life", "software engineering reflections", "coding lessons", "developer journey", "tech storytelling", "developer advocacy", "work-life balance", "parenting in tech", "coding advice for developers", ".net development", "c# programming", "asp.net core", "blazor development", "dotnet"]
+  keywords = ["syntax and stories", "Corey L Weathers", "coding blog", "developer relations", "devrel insights", "programming stories", "debugging life", "software engineering reflections", "coding lessons", "developer journey", "tech storytelling", "developer advocacy", "work-life balance", "parenting in tech", "coding advice for developers", ".net development", "c# programming", "asp.net core", "blazor development", "dotnet"]
   # site default theme ("light", "dark", "auto")
   defaultTheme = "auto"
   # public git repo url only then enableGitInfo is true
@@ -53,7 +53,7 @@ enableRobotsTXT = true
   # Contact form configuration will be read from HUGO_PARAMS_CONTACT_FORM_ID environment variable
 
   [params.author]
-  name = "Corey"
+  name = "Corey L Weathers"
   email = "corey.weathers@outlook.com"
   link = ""
   
@@ -262,4 +262,4 @@ enableRobotsTXT = true
   fullContent = true
 
 # Copyright for RSS feeds
-copyright = "Copyright © 2025 Corey's Syntax & Stories"
+copyright = "Copyright © Corey L Weathers"
