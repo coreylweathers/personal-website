@@ -1,59 +1,24 @@
 {{- define "title" }}{{ .Title }} - {{ .Site.Title }}{{ end -}}
-
 {{- define "content" -}}
-    {{- $params := .Scratch.Get "params" -}}
-    {{- $heroSummary := $params.subtitle | default .Description -}}
-    {{- $heroKicker := $params.heroKicker | default "Page overview" -}}
-    {{- $heroImage := $params.heroImage -}}
-    {{- $heroImageAlt := $params.heroImageAlt | default .Title -}}
-    {{- $heroImagePlacement := $params.heroImagePlacement | default "hero" -}}
-    {{- $heroImageResource := false -}}
-    {{- with $heroImage -}}
-        {{- with resources.Get (strings.TrimPrefix "/" .) -}}
-            {{- $heroImageResource = .Fill "560x620 Top" -}}
-        {{- end -}}
-    {{- end -}}
-    <div class="page single special">
-        <section class="section-hero page single special page-hero page-hero-compact">
-            <div class="section-hero-grid">
-                <div class="section-hero-main">
-                    <div class="section-kicker">{{ $heroKicker }}</div>
-                    <h1 class="single-title animate__animated animate__pulse animate__faster">
-                        {{- .Title -}}
-                    </h1>
-                </div>
-
-                {{- if or $heroSummary (and $heroImageResource (ne $heroImagePlacement "content")) -}}
-                    <div class="section-hero-side{{ if and $heroImageResource (ne $heroImagePlacement "content") }} page-hero-side-with-image{{ end }}">
-                        {{- if and $heroImageResource (ne $heroImagePlacement "content") -}}
-                            <div class="page-hero-media-card">
-                                <img src="{{ $heroImageResource.RelPermalink }}" alt="{{ $heroImageAlt }}" loading="lazy">
-                            </div>
-                        {{- end -}}
-                        {{- with $heroSummary -}}
-                        <div class="page-hero-summary-card">
-                            <div class="single-subtitle page-hero-summary">{{ . }}</div>
-                        </div>
-                        {{- end -}}
-                    </div>
-                {{- end -}}
-            </div>
-        </section>
-
-        {{- if and $heroImageResource (eq $heroImagePlacement "content") -}}
-            <div class="page-feature-media">
-                <div class="page-feature-media-card">
-                    <img src="{{ $heroImageResource.RelPermalink }}" alt="{{ $heroImageAlt }}" loading="lazy">
-                </div>
-            </div>
-        {{- end -}}
-
-        {{- /* Content */ -}}
-        <div class="content" id="content">
-            {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
-        </div>
-
-        {{- /* Comment */ -}}
-        {{- partial "comment.html" . -}}
+{{- $params := .Scratch.Get "params" -}}
+{{- $image := .Params.heroImage -}}
+{{- with $image }}
+  {{- $path := strings.TrimPrefix "/" . -}}
+  {{- with resources.Get $path }}{{ $image = .RelPermalink }}{{ else }}{{ $image = printf "/%s" $path }}{{ end -}}
+{{- end -}}
+<main class="study-page">
+  {{ partial "study/hero.html" (dict
+    "kicker" (.Params.heroKicker | default "About this work")
+    "title" .Title
+    "description" (.Description | default .Params.subtitle)
+    "image" $image
+    "imageAlt" (.Params.heroImageAlt | default .Title)
+  ) }}
+  <section class="study-section">
+    <div class="study-prose" id="content">
+      {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
     </div>
+  </section>
+  {{- partial "comment.html" . -}}
+</main>
 {{- end -}}

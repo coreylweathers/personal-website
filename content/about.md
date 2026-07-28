@@ -1,5 +1,6 @@
 ---
 title: "About Me"
+layout: "about"
 description: "Developer, DevRel leader, and storyteller focused on making technology more useful and more human."
 heroKicker: "Who I am"
 heroImage: "images/about/corey-about-portrait.png"

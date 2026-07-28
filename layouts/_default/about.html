@@ -1,0 +1,55 @@
+{{- define "title" }}About Corey - {{ .Site.Title }}{{ end -}}
+{{- define "content" -}}
+{{- $params := .Scratch.Get "params" -}}
+{{- $image := .Params.heroImage -}}
+{{- with $image }}{{ $path := strings.TrimPrefix "/" . }}{{ with resources.Get $path }}{{ $image = .RelPermalink }}{{ else }}{{ $image = printf "/%s" $path }}{{ end }}{{ end -}}
+<main class="study-page about-page">
+  <header class="about-hero">
+    <div class="about-hero__copy">
+      <p class="study-label">Developer · Leader · Builder · Father</p>
+      <h1 class="study-title">I’m Corey.<br>I build the bridge between people and technology.</h1>
+      <p class="study-lede">{{ .Description }}</p>
+      <div class="terminal-actions">
+        <a class="study-button" href="/contact/">Start a conversation</a>
+        <a class="study-link" href="/posts/">Read the notebook →</a>
+      </div>
+    </div>
+    <figure class="about-hero__portrait">
+      <img src="{{ $image }}" alt="{{ .Params.heroImageAlt | default .Title }}">
+      <figcaption><span class="study-dot"></span> Brooklyn roots · Building with intention</figcaption>
+    </figure>
+  </header>
+
+  <section class="about-principles" aria-label="Working principles">
+    <article><span>01</span><h2>Stay curious.</h2><p>Keep learning close to the work and let better questions reshape the answer.</p></article>
+    <article><span>02</span><h2>Build boldly.</h2><p>Turn ideas into useful things, share the process, and make progress visible.</p></article>
+    <article><span>03</span><h2>Make room.</h2><p>Create the conditions for developers, teams, and communities to grow.</p></article>
+  </section>
+
+  <div class="about-story">
+    <aside class="about-story__rail">
+      <div>
+        <span class="study-dot"></span>
+        <p class="study-label">The through line</p>
+        <blockquote>Technology matters most when it expands what people can understand, create, and become.</blockquote>
+        <dl>
+          <dt>Craft</dt><dd>C# / .NET since 2004</dd>
+          <dt>Practice</dt><dd>Developer relations &amp; experience</dd>
+          <dt>Perspective</dt><dd>Brooklyn-born, people-first</dd>
+        </dl>
+      </div>
+    </aside>
+    <section class="study-section">
+      <div class="study-prose about-prose" id="content">
+        {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
+      </div>
+    </section>
+  </div>
+
+  <section class="about-next">
+    <p class="study-label">Where next?</p>
+    <h2 class="study-heading">Ideas become more useful when they move between people.</h2>
+    <div><a class="study-button" href="/media/">Watch &amp; listen</a><a class="study-link" href="/contact/">Work with me →</a></div>
+  </section>
+</main>
+{{- end -}}

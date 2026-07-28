@@ -1,148 +1,64 @@
-{{- define "title" }}
-    {{- .Title }} - {{ .Site.Title -}}
-{{- end -}}
-
+{{- define "title" }}{{ .Title }} - {{ .Site.Title }}{{ end -}}
 {{- define "content" -}}
-    {{- $posts := .Pages.ByDate.Reverse -}}
-    {{- $featured := "" -}}
-    {{- if gt (len $posts) 0 -}}
-        {{- $featured = index $posts 0 -}}
-    {{- end -}}
-    <div class="page archive section-page">
-        <section class="section-hero page single special">
-            <div class="section-hero-grid">
-                <div class="section-hero-main">
-                    <div class="section-kicker">Writing on code, devrel, and life</div>
-                    <div class="single-title animate__animated animate__pulse animate__faster">
-                        <h1>{{ .Title }}</h1>
-                    </div>
-                    <div class="section-meta-pills">
-                        <span class="section-meta-pill">
-                            <i class="fas fa-file-alt" aria-hidden="true"></i>{{ len $posts }} posts
-                        </span>
-                    </div>
-                    {{- with .Description -}}
-                        <p class="section-hero-description section-hero-description-spacious">{{ . }}</p>
-                    {{- end -}}
-                </div>
-                <div class="section-hero-side">
-                    <div class="section-sidebar-card">
-                        <div class="section-sidebar-title">In this archive</div>
-                        <ul class="section-sidebar-list">
-                            <li>Project write-ups and build logs</li>
-                            <li>DevRel, leadership, and developer experience perspective</li>
-                            <li>Lessons from coding, speaking, and building in public</li>
-                        </ul>
-                        <div class="section-sidebar-links">
-                            <a class="section-sidebar-link" href="/categories/">Browse categories</a>
-                            <a class="section-sidebar-link" href="/tags/">Browse tags</a>
-                            <a class="section-sidebar-link" href="/posts/index.xml">RSS feed</a>
-                        </div>
-                        <div class="section-sidebar-callout">
-                            <strong>Stay updated</strong>
-                            <span>New posts publish here first, with RSS if you want a cleaner follow.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+{{- $posts := .Pages.ByDate.Reverse -}}
+{{- $featured := index $posts 0 -}}
+{{- $featuredImage := "" -}}
+{{- with $featured.Params.featuredImagePreview | default $featured.Params.featuredImage -}}
+  {{- $path := strings.TrimPrefix "/" . -}}
+  {{- with resources.Get $path }}{{ $featuredImage = .RelPermalink }}{{ else }}{{ $featuredImage = printf "/%s" $path }}{{ end -}}
+{{- end -}}
+<main class="study-page writing-page">
+  {{ partial "study/hero.html" (dict
+    "kicker" "Essays · Journal · Build logs"
+    "title" "Writing"
+    "description" (.Description | default "Fresh writing on software, developer relations, leadership, and the work behind building in public.")
+    "meta" (printf "%d published entries" (len $posts))
+  ) }}
 
-        {{- if $featured -}}
-            <div class="section-layout section-layout-prominent">
-                <div class="section-primary">
-                    <div class="section-heading">
-                        <div class="section-kicker">Featured post</div>
-                        <h2 class="single-title animate__animated animate__pulse animate__faster">Start here</h2>
-                    </div>
-                    {{- $featuredImageResource := false -}}
-                    {{- $featuredImageFallback := "" -}}
-                    {{- with $featured.Params.featuredImagePreview | default $featured.Params.featuredImage -}}
-                        {{- $featuredImageFallback = (. | relURL) -}}
-                        {{- $normalized := strings.TrimPrefix "/" . -}}
-                        {{- with resources.Get $normalized -}}
-                            {{- $featuredImageResource = .Fill "1200x675" -}}
-                        {{- end -}}
-                    {{- end -}}
-                    <article class="feature-post-card">
-                        <a class="feature-post-media" href="{{ $featured.RelPermalink }}">
-                            {{- if $featuredImageResource -}}
-                                <img src="{{ $featuredImageResource.RelPermalink }}" alt="{{ $featured.Params.featuredImageAlt | default $featured.Title }}" loading="lazy">
-                            {{- else if $featuredImageFallback -}}
-                                <img src="{{ $featuredImageFallback }}" alt="{{ $featured.Params.featuredImageAlt | default $featured.Title }}" loading="lazy">
-                            {{- end -}}
-                        </a>
-                        <div class="feature-post-body">
-                            <div class="feature-post-meta">
-                                <span>{{ $featured.Date.Format (.Site.Params.dateFormat | default "2006-01-02") }}</span>
-                                {{- with index $featured.Params.categories 0 -}}
-                                    <span>{{ . }}</span>
-                                {{- end -}}
-                            </div>
-                            <h3 class="feature-post-title">
-                                <a href="{{ $featured.RelPermalink }}">{{ $featured.Title | emojify }}</a>
-                            </h3>
-                            <p class="feature-post-summary">
-                                {{- $featured.Params.summary | default $featured.Description | default ($featured.Summary | plainify | htmlUnescape | strings.TrimSpace | truncate 210) -}}
-                            </p>
-                            {{- with $featured.Params.tags -}}
-                                <div class="post-tags">
-                                    {{- range first 4 . -}}
-                                        <span class="tag">
-                                            <a href="{{- "/tags/" | relLangURL -}}{{- . | urlize -}}/">#{{- . -}}</a>
-                                        </span>
-                                    {{- end -}}
-                                </div>
-                            {{- end -}}
-                        </div>
-                    </article>
+  {{- with $featured }}
+  <section class="study-section writing-feature-section">
+    <p class="study-label">Latest dispatch</p>
+    <article class="writing-feature">
+      {{- if $featuredImage }}
+      <a class="writing-feature__media" href="{{ .RelPermalink }}">
+        <img src="{{ $featuredImage }}" alt="{{ .Params.featuredImageAlt | default .Title }}">
+      </a>
+      {{- end }}
+      <div class="writing-feature__body">
+        <div class="study-meta">{{ .Date.Format "02 Jan 2006" | upper }} · {{ .ReadingTime }} min read</div>
+        <h2 class="study-heading"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        <p>{{ .Params.summary | default .Description | default (.Summary | plainify) }}</p>
+        <div class="writing-feature__actions">
+          <a class="study-button" href="{{ .RelPermalink }}">Read latest essay</a>
+          {{- with index (.GetTerms "categories") 0 }}<a class="study-link" href="{{ .RelPermalink }}">More {{ .LinkTitle }} →</a>{{ end }}
+        </div>
+      </div>
+    </article>
+  </section>
+  {{- end }}
 
-                    {{- if gt (len $posts) 1 -}}
-                        <div class="section-heading">
-                            <div class="section-kicker">Recent writing</div>
-                            <h2 class="single-title animate__animated animate__pulse animate__faster">Latest posts</h2>
-                        </div>
-                        <div class="post-card-grid">
-                            {{- range after 1 $posts -}}
-                                {{- $post := . -}}
-                                {{- $postImageResource := false -}}
-                                {{- $postImageFallback := "" -}}
-                                {{- with $post.Params.featuredImagePreview | default $post.Params.featuredImage -}}
-                                    {{- $postImageFallback = (. | relURL) -}}
-                                    {{- $normalized := strings.TrimPrefix "/" . -}}
-                                    {{- with resources.Get $normalized -}}
-                                        {{- $postImageResource = .Fill "720x405" -}}
-                                    {{- end -}}
-                                {{- end -}}
-                                <article class="post-card">
-                                    {{- if or $postImageResource $postImageFallback -}}
-                                        <a class="post-card-image" href="{{ $post.RelPermalink }}">
-                                            {{- if $postImageResource -}}
-                                                <img src="{{ $postImageResource.RelPermalink }}" alt="{{ $post.Params.featuredImageAlt | default $post.Title }}" loading="lazy">
-                                            {{- else if $postImageFallback -}}
-                                                <img src="{{ $postImageFallback }}" alt="{{ $post.Params.featuredImageAlt | default $post.Title }}" loading="lazy">
-                                            {{- end -}}
-                                        </a>
-                                    {{- end -}}
-                                    <div class="post-card-body">
-                                        <div class="post-card-meta">
-                                            <span>{{ $post.Date.Format ($.Site.Params.dateFormat | default "2006-01-02") }}</span>
-                                            {{- with index $post.Params.categories 0 -}}
-                                                <span>{{ . }}</span>
-                                            {{- end -}}
-                                        </div>
-                                        <h3 class="post-card-title">
-                                            <a href="{{ $post.RelPermalink }}">{{ $post.Title | emojify }}</a>
-                                        </h3>
-                                        <p class="post-card-summary">
-                                            {{- $post.Params.summary | default $post.Description | default ($post.Summary | plainify | htmlUnescape | strings.TrimSpace | truncate 165) -}}
-                                        </p>
-                                    </div>
-                                </article>
-                            {{- end -}}
-                        </div>
-                    {{- end -}}
-                </div>
-            </div>
-        {{- end -}}
+  <section class="study-section study-section--compact writing-tools">
+    <div>
+      <p class="study-label">Find your route</p>
+      <h2 class="study-subheading">Browse by the idea, not only the date.</h2>
     </div>
+    <div class="study-chips">
+      <a class="study-chip" href="/categories/">Browse categories</a>
+      <a class="study-chip" href="/tags/">Explore topics</a>
+      <a class="study-chip" href="/posts/index.xml">Follow via RSS</a>
+    </div>
+  </section>
+
+  <section class="study-section">
+    <header class="writing-list-header">
+      <p class="study-label">Earlier entries</p>
+      <div class="study-rule"></div>
+    </header>
+    {{- if gt (len $posts) 1 }}
+    <div class="study-list study-post-list">
+      {{- range after 1 $posts }}{{ partial "study/post-row.html" . }}{{ end }}
+    </div>
+    {{- else }}<div class="study-empty">More writing is on the way.</div>{{ end }}
+  </section>
+</main>
 {{- end -}}

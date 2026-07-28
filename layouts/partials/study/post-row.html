@@ -1,0 +1,15 @@
+{{- $post := . -}}
+{{- $categorySlug := "notebook" -}}
+{{- with index ($post.Params.categories | default slice) 0 }}{{ $categorySlug = . | urlize }}{{ end -}}
+<article class="study-list-item study-post-row study-accent--{{ $categorySlug }}">
+  <div class="study-meta">{{ $post.Date.Format "02 Jan 2006" | upper }}</div>
+  <div>
+    <h2><a href="{{ $post.RelPermalink }}">{{ $post.Title | emojify }}</a></h2>
+    <p>{{ $post.Params.summary | default $post.Description | default ($post.Summary | plainify | htmlUnescape | strings.TrimSpace) | truncate 190 }}</p>
+  </div>
+  <div class="study-chips">
+    {{- range first 2 ($post.GetTerms "categories") }}
+      <a class="study-chip" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+    {{- end }}
+  </div>
+</article>

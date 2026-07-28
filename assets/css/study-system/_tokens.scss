@@ -1,0 +1,60 @@
+/* The Curated Study design tokens — the single source of visual truth. */
+:root {
+  --study-canvas: #f7f3eb;
+  --study-surface: #fdf9f1;
+  --study-inset: #ece8e0;
+  --study-ink: #211b17;
+  --study-ink-soft: #4d4540;
+  --study-night: #211b17;
+  --study-copper: #994718;
+  --study-copper-soft: #fe9661;
+  --study-brass: #b88946;
+  --study-navy: #294755;
+  --study-plum: #70465f;
+  --study-sage: #56634f;
+  --study-blue-wash: #e8eff0;
+  --study-plum-wash: #f1e8ec;
+  --study-sage-wash: #e9ede5;
+  --study-rule: rgba(33, 27, 23, .14);
+  --study-rule-inverse: rgba(255, 255, 255, .16);
+  --study-serif: "Newsreader", Georgia, serif;
+  --study-sans: "Geist", Arial, sans-serif;
+  --study-mono: "IBM Plex Mono", Consolas, monospace;
+  --study-page: 1440px;
+  --study-reading: 760px;
+  --study-gutter: clamp(1.25rem, 5vw, 4rem);
+  --study-section: clamp(4rem, 8vw, 7rem);
+  --study-space-1: .5rem;
+  --study-space-2: 1rem;
+  --study-space-3: 1.5rem;
+  --study-space-4: 2rem;
+  --study-space-5: 3rem;
+  --study-space-6: 4rem;
+  --study-radius: 2px;
+  color-scheme: light;
+}
+
+body[theme="dark"] {
+  --study-canvas: #171817;
+  --study-paper: #171817;
+  --study-surface: #1d1f1e;
+  --study-paper-deep: #272927;
+  --study-inset: #272927;
+  --study-ink: #f3ede3;
+  --study-ink-soft: #c2b9ae;
+  --study-night: #111312;
+  --study-copper: #e58b57;
+  --study-copper-soft: #ffb080;
+  --study-brass: #d5ac69;
+  --study-navy: #79aabd;
+  --study-plum: #d699ba;
+  --study-sage: #a9ba9e;
+  --study-blue-wash: #1e292d;
+  --study-plum-wash: #2b2228;
+  --study-sage-wash: #252b23;
+  --study-rule: rgba(243, 237, 227, .16);
+  --study-rule-inverse: rgba(0, 0, 0, .3);
+  --study-line: rgba(243, 237, 227, .16);
+  --study-muted: #c2b9ae;
+  color-scheme: dark;
+}

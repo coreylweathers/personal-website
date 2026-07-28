@@ -1,0 +1,26 @@
+{{- define "title" }}Page not found - {{ .Site.Title }}{{ end -}}
+{{- define "content" -}}
+<main class="study-page">
+  <section class="study-hero">
+    <div class="study-hero__main">
+      <p class="study-label">404 · End of the line</p>
+      <h1 class="study-title">This route doesn’t go anywhere.</h1>
+      <p class="study-lede">The page may have moved, or the address may be incomplete. The notebook and main routes are still close by.</p>
+      <div class="terminal-actions">
+        <a class="study-button" href="/">Return home</a>
+        <a class="study-link" href="/posts/">Browse the notebook →</a>
+      </div>
+    </div>
+    <aside class="study-hero__aside">
+      <span class="study-dot"></span>
+      <p class="study-label study-mt-3">Useful routes</p>
+      <div class="study-chips">
+        <a class="study-chip" href="/posts/">Writing</a>
+        <a class="study-chip" href="/media/">Speaking</a>
+        <a class="study-chip" href="/about/">About</a>
+        <a class="study-chip" href="/contact/">Contact</a>
+      </div>
+    </aside>
+  </section>
+</main>
+{{- end -}}

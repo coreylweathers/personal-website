@@ -2,8 +2,8 @@ baseURL = "https://coreylweathers.com/"
 # [en, zh-cn, fr, pl, ...] determines default content language
 defaultContentLanguage = "en"
 # language code
-languageCode = "en-us"
-title = "Corey's Syntax & Stories"
+locale = "en-US"
+title = "Corey Weathers"
 
 # Change the default theme to LoveIt
 theme = "LoveIt"
@@ -18,65 +18,23 @@ enableRobotsTXT = true
 # Menu config
 [menu]
   [[menu.main]]
-    identifier = "blog"
-    # you can add extra information before the name (HTML format is supported), such as icons
-    pre = "📝"
-    # you can add extra information after the name (HTML format is supported), such as icons
-    post = ""
-    name = "Blog"
+    identifier = "writing"
+    name = "Writing"
     url = "/posts/"
-    # title will be shown when you hover on this menu link
-    title = "Blog posts"
+    title = "Essays and journal"
     weight = 1
-  # Streams menu item (hidden but kept in config)
-  # [[menu.main]]
-  #   identifier = "streams"
-  #   pre = "🎥"
-  #   post = ""
-  #   name = "Streams"
-  #   url = "/streams/"
-  #   title = "Live Streams"
-  #   weight = 2
   [[menu.main]]
     identifier = "media"
-    pre = "🎤"
-    post = ""
-    name = "Media"
+    name = "Speaking"
     url = "/media/"
-    title = "Media Appearances"
-    weight = 3
-  [[menu.main]]
-    identifier = "contact"
-    pre = "📩"
-    post = ""
-    name = "Contact"
-    url = "/contact/"
-    title = "Contact me"
-    weight = 4
+    title = "Speaking and media"
+    weight = 2
   [[menu.main]]
     identifier = "about"
-    pre = ""
-    post = ""
-    name = "ℹ️About"
+    name = "About"
     url = "/about/"
     title = "About me"
-    weight = 5
-  [[menu.main]]
-    identifier = "categories"
-    pre = "📂"
-    post = ""
-    name = "Categories"
-    url = "/categories/"
-    title = "Browse by category"
-    weight = 6
-  [[menu.main]]
-    identifier = "tags"
-    pre = "🏷️"
-    post = ""
-    name = "Tags"
-    url = "/tags/"
-    title = "Browse by tag"
-    weight = 7
+    weight = 3
 
 # Parameters
 [params]
@@ -237,6 +195,15 @@ enableRobotsTXT = true
   
     # YouTube options (choose one based on your URL type):
     YouTubeChannel = "coreylweathers"   # for /channel/ID URLs
+
+  # Livestream destinations used by the media hub.
+  [params.live]
+    YouTube = "https://www.youtube.com/@coreylweathers/live"
+    YouTubeArchive = "https://www.youtube.com/@coreylweathers/videos"
+    Twitch = "https://www.twitch.tv/coreylweathers"
+    LinkedIn = "https://www.linkedin.com/in/coreylweathers/recent-activity/all/"
+    X = "https://x.com/coreylweathers"
+    Schedule = "Saturday mornings"
   [params.footer]
     enable = true
     # Custom copyright content (HTML format is supported)

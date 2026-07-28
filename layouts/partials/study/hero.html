@@ -1,0 +1,20 @@
+{{- $kicker := .kicker | default "Field notes" -}}
+{{- $title := .title -}}
+{{- $description := .description -}}
+{{- $meta := .meta -}}
+{{- $image := .image -}}
+{{- $imageAlt := .imageAlt | default $title -}}
+<header class="study-hero">
+  <div class="study-hero__main">
+    <p class="study-label">{{ $kicker }}</p>
+    <h1 class="study-title">{{ $title }}</h1>
+    {{- with $meta }}<div class="study-meta study-article-meta">{{ . | safeHTML }}</div>{{ end }}
+  </div>
+  {{- if or $description $image }}
+  <div class="study-hero__aside">
+    {{- with $image }}<img src="{{ . }}" alt="{{ $imageAlt }}" loading="eager">{{ end }}
+    {{- with $description }}<p class="study-lede">{{ . }}</p>{{ end }}
+  </div>
+  {{- end }}
+</header>
+<div class="study-route"><div class="study-rule"></div></div>

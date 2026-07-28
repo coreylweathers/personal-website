@@ -1,26 +1,15 @@
-{{- if .Params.series -}}
-  {{- $currentSeries := index .Params.series 0 -}}
-  {{- $seriesPages := where .Site.RegularPages "Params.series" "intersect" .Params.series -}}
-  {{- $otherPages := where $seriesPages "Title" "!=" .Title -}}
-  
+{{- with .Params.series -}}
+  {{- $currentSeries := index . 0 -}}
+  {{- $seriesPages := where $.Site.RegularPages "Params.series" "intersect" . -}}
   {{- if gt (len $seriesPages) 1 -}}
-    <div class="series-navigation">
-      <h3 class="series-title">
-        📚 Part of the series: 
-        <a href="{{- "/series/" | relLangURL -}}{{- $currentSeries | urlize -}}/">{{- $currentSeries -}}</a>
-      </h3>
-      
-      <div class="series-posts">
-        {{- range $seriesPages.ByDate -}}
-          <div class="series-post {{- if eq .Title $.Title -}} current{{- end -}}">
-            {{- if eq .Title $.Title -}}
-              <span class="series-current">📍 {{ .Title }}</span>
-            {{- else -}}
-              <a href="{{- .RelPermalink -}}">{{ .Title }}</a>
-            {{- end -}}
-          </div>
-        {{- end -}}
-      </div>
-    </div>
+  <nav class="study-series" aria-label="{{ $currentSeries }} series">
+    <p class="study-label">Part of a series</p>
+    <h2 class="study-subheading"><a href="/series/{{ $currentSeries | urlize }}/">{{ $currentSeries }}</a></h2>
+    <ol>
+      {{- range $seriesPages.ByDate }}
+      <li>{{ if eq .RelPermalink $.RelPermalink }}<strong>{{ .Title }}</strong>{{ else }}<a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ end }}</li>
+      {{- end }}
+    </ol>
+  </nav>
   {{- end -}}
 {{- end -}}

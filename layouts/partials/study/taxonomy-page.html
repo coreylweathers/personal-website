@@ -1,0 +1,41 @@
+{{- $isIndex := .Data.Terms -}}
+{{- $pages := .RegularPages.ByDate.Reverse -}}
+{{- if not $pages }}{{ $pages = .Pages.ByDate.Reverse }}{{ end -}}
+{{- $plural := .Data.Plural | default "topics" -}}
+{{- $singular := .Data.Singular | default "topic" -}}
+<main class="study-page">
+  {{- if $isIndex }}
+    {{ partial "study/hero.html" (dict
+      "kicker" (printf "The catalog · %s" $plural)
+      "title" .Title
+      "description" (.Description | default (printf "Browse the recurring themes and ideas across the notebook."))
+      "meta" (printf "%d %s" (len .Data.Terms) $plural)
+    ) }}
+    <section class="study-section">
+      <div class="study-grid study-taxonomy-grid">
+        {{- range .Data.Terms.ByCount }}
+        <a class="study-card study-taxonomy-card" href="{{ .Page.RelPermalink }}">
+          <span class="study-dot"></span>
+          <p class="study-label">{{ $singular }}</p>
+          <h2 class="study-card__title">{{ .Page.Title }}</h2>
+          <p class="study-card__summary">{{ .Count }} {{ if eq .Count 1 }}entry{{ else }}entries{{ end }}</p>
+          <span class="study-card__footer study-link">Explore topic →</span>
+        </a>
+        {{- end }}
+      </div>
+    </section>
+  {{- else }}
+    {{ partial "study/hero.html" (dict
+      "kicker" (printf "%s archive" $singular)
+      "title" .Title
+      "description" (.Description | default (printf "Every notebook entry filed under %s." .Title))
+      "meta" (printf "%d entries" (len $pages))
+    ) }}
+    <section class="study-section">
+      <a class="study-link" href="/{{ $plural }}/">← All {{ $plural }}</a>
+      <div class="study-list study-mt-4">
+        {{- range $pages }}{{ partial "study/post-row.html" . }}{{ end }}
+      </div>
+    </section>
+  {{- end }}
+</main>
