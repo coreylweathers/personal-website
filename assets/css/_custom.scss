@@ -1692,3 +1692,16 @@ body{background:var(--study-canvas);color:var(--study-ink);font-family:var(--stu
 
 body[theme=dark] .terminal-hero-image img{filter:brightness(.8) saturate(.88) contrast(1.06)}
 body[theme=dark] .terminal-outline-button:hover{background:var(--study-action);color:var(--study-action-ink)!important}
+
+/* Final dark-mode legibility layer. Keep this last so the legacy theme cannot mute it. */
+body[theme=dark]{color:var(--study-ink)}
+body[theme=dark] :is(.terminal-home,.terminal-page,.study-page) :is(h1,h2,h3,h4,h5,h6,strong,b){color:var(--study-ink)}
+body[theme=dark] :is(.terminal-prose,.study-prose) :is(p,li,dd,blockquote){color:var(--study-ink)}
+body[theme=dark] :is(.terminal-lede,.terminal-aside,.terminal-page-lede,.study-lede,.study-card__summary,.terminal-card-grid p:last-child,.terminal-post-list article>div:last-child>p,.terminal-current-main>p,.terminal-now dd,.terminal-contact>p,.terminal-newsletter p){color:var(--study-ink-soft)}
+body[theme=dark] :is(.terminal-label,.terminal-meta,.study-label){color:var(--study-copper)}
+body[theme=dark] :is(.terminal-text-link,.terminal-current a,.terminal-post-list a,.terminal-page a,.study-page a):not(.terminal-button):not(.study-button){color:var(--study-ink)!important}
+body[theme=dark] :is(.terminal-text-link,.terminal-current a,.terminal-post-list a,.terminal-page a,.study-page a):not(.terminal-button):not(.study-button):hover{color:var(--study-copper)!important}
+body[theme=dark] :is(.terminal-home,.terminal-page,.study-page) h1,
+body[theme=dark] :is(.terminal-home,.terminal-page,.study-page) h2,
+body[theme=dark] :is(.terminal-home,.terminal-page,.study-page) h3{font-weight:600}
+body[theme=dark] :is(.terminal-label,.terminal-meta,.study-label,.study-meta){font-weight:700}
