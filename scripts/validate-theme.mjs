@@ -1,6 +1,18 @@
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 
-const css = readFileSync("public/css/_custom.min.css", "utf8");
+const css = readFileSync("public/css/style.min.css", "utf8");
+const tokenCss = readFileSync(
+  "assets/css/study-system/_tokens.scss",
+  "utf8",
+).replace(/\s+/g, "");
+const themeSource = [
+  "assets/css/_custom.scss",
+  "assets/css/study-system/_tokens.scss",
+  "assets/css/study-system/_components.scss",
+  "assets/css/study-system/_content.scss",
+  "assets/css/study-system/_experiences.scss",
+].map((path) => readFileSync(path, "utf8")).join("\n");
 const requiredRules = [
   "--study-font-body:",
   "--study-font-heading:",
@@ -24,25 +36,34 @@ const requiredRules = [
   "--study-heading-deck:",
   "--study-rule-soft:",
   "--study-rule-strong:",
+  "--study-media-filter:",
+  "--study-media-hover-filter:",
+  "--study-hero-filter:",
+  "--study-header-shadow:",
   ".terminal-header>nav a",
   "font-family:var(--study-font-body)",
   "font-weight:var(--study-weight-body)",
   "text-rendering:optimizeLegibility",
   ".study-theme-toggle{width:44px;height:44px",
+  ".terminal-brand{display:inline-flex;min-height:44px",
+  ".terminal-header>nav a{display:flex;min-height:44px",
   ".terminal-menu-toggle{display:flex;width:44px;height:44px",
   ".terminal-header-cta,.terminal-button{display:inline-flex;min-height:44px",
+  ".terminal-now-link{display:inline-flex;min-height:44px",
+  ".study-chip{display:inline-flex;align-items:center;min-height:44px",
+  ".terminal-menu-toggle.is-open span:nth-child(1)",
   ".terminal-page-hero h1",
   ".study-hero .study-title",
-  "body[theme=dark] .terminal-header",
-  "body[theme=dark] :is(.terminal-header,.terminal-current,.terminal-gateways>a",
+  "box-shadow:var(--study-header-shadow)",
+  "filter:var(--study-media-filter)",
 ];
 
 for (const rule of requiredRules) {
   if (!css.includes(rule)) throw new Error(`Theme contract is missing: ${rule}`);
 }
 
-const lightBlock = css.match(/:root\{([^}]*)\}/)?.[1] ?? "";
-const darkBlock = css.match(/body\[theme=dark\]\{([^}]*)\}/)?.[1] ?? "";
+const lightBlock = tokenCss.match(/:root\{([^}]*)\}/)?.[1] ?? "";
+const darkBlock = tokenCss.match(/body\[theme="dark"\]\{([^}]*)\}/)?.[1] ?? "";
 
 const forbiddenLegacyRules = [
   ".home-profile",
@@ -54,7 +75,7 @@ const forbiddenLegacyRules = [
 ];
 
 for (const rule of forbiddenLegacyRules) {
-  if (css.includes(rule)) {
+  if (themeSource.includes(rule)) {
     throw new Error(`Retired theme selector or token is still compiled: ${rule}`);
   }
 }
@@ -126,8 +147,11 @@ for (const [label, path, marker] of routeContracts) {
   if (!html.includes(marker)) {
     throw new Error(`${label} route is missing its typography contract: ${marker}`);
   }
-  if (!html.includes("/css/_custom.min.css")) {
+  if (!html.includes("/css/style.min.css")) {
     throw new Error(`${label} route does not load the active stylesheet`);
+  }
+  if (html.includes("/css/_custom.min.css")) {
+    throw new Error(`${label} route loads the custom stylesheet twice`);
   }
   const mainCount = (html.match(/<main(?:\s|>)/g) ?? []).length;
   const headingCount = (html.match(/<h1(?:\s|>)/g) ?? []).length;
@@ -137,6 +161,77 @@ for (const [label, path, marker] of routeContracts) {
   if (headingCount !== 1) {
     throw new Error(`${label} route has ${headingCount} h1 headings; expected 1`);
   }
+}
+
+function htmlFiles(directory) {
+  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const path = join(directory, entry.name);
+    if (entry.isDirectory()) return htmlFiles(path);
+    return entry.name.endsWith(".html") ? [path] : [];
+  });
+}
+
+for (const path of htmlFiles("public")) {
+  if (path.endsWith("substack.html")) continue;
+  const html = readFileSync(path, "utf8");
+  const stylesheetCount = (html.match(/\/css\/style\.min\.css/g) ?? []).length;
+  if (stylesheetCount !== 1) {
+    throw new Error(`${path} loads the site stylesheet ${stylesheetCount} times`);
+  }
+  if (html.includes("/css/_custom.min.css")) {
+    throw new Error(`${path} still loads the duplicate custom stylesheet`);
+  }
+
+  if (!/http-equiv=["']refresh["']/i.test(html)) {
+    const mainCount = (html.match(/<main(?:\s|>)/g) ?? []).length;
+    const headingCount = (html.match(/<h1(?:\s|>)/g) ?? []).length;
+    if (mainCount !== 1) {
+      throw new Error(`${path} has ${mainCount} main landmarks; expected 1`);
+    }
+    if (headingCount !== 1) {
+      throw new Error(`${path} has ${headingCount} h1 headings; expected 1`);
+    }
+  }
+
+  for (const match of html.matchAll(/<button\b([^>]*)>([\s\S]*?)<\/button>/gi)) {
+    const attributes = match[1];
+    const visibleText = match[2].replace(/<[^>]+>/g, "").trim();
+    if (!/aria-label=["'][^"']+["']/i.test(attributes) && !visibleText) {
+      throw new Error(`${path} contains a button without an accessible name`);
+    }
+  }
+
+  for (const match of html.matchAll(/<img\b([^>]*)>/gi)) {
+    if (!/\balt=["'][^"']*["']/i.test(match[1])) {
+      throw new Error(`${path} contains an image without alt text`);
+    }
+  }
+}
+
+const home = readFileSync("public/index.html", "utf8");
+for (const contract of [
+  'class="study-theme-toggle"',
+  'aria-label="Switch color theme"',
+  'meta name="color-scheme" content="light dark"',
+  'meta name="theme-color" content="#f7f3eb"',
+]) {
+  if (!home.includes(contract)) {
+    throw new Error(`Theme UI contract is missing: ${contract}`);
+  }
+}
+
+const interactionScript = readFileSync("assets/js/custom.js", "utf8");
+for (const contract of [
+  'toggle.classList.toggle("is-open", open)',
+  '"Close primary navigation"',
+  '"Open primary navigation"',
+]) {
+  if (!interactionScript.includes(contract)) {
+    throw new Error(`Menu interaction contract is missing: ${contract}`);
+  }
+}
+if (interactionScript.includes("toggle.textContent")) {
+  throw new Error("The menu toggle destroys its icon markup after interaction");
 }
 
 function token(block, name) {
@@ -203,9 +298,9 @@ for (const [label, foreground, background, minimum] of pairs) {
 }
 
 const darkBorders = [
-  ["dark soft border", alphaToken(darkBlock, "--study-rule-soft"), 0.2],
-  ["dark standard border", alphaToken(darkBlock, "--study-rule"), 0.35],
-  ["dark strong border", alphaToken(darkBlock, "--study-rule-strong"), 0.5],
+  ["dark soft border", alphaToken(darkBlock, "--study-rule-soft"), 0.08],
+  ["dark standard border", alphaToken(darkBlock, "--study-rule"), 0.16],
+  ["dark strong border", alphaToken(darkBlock, "--study-rule-strong"), 0.34],
 ];
 
 for (const [label, alpha, minimum] of darkBorders) {

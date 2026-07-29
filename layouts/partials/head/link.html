@@ -42,9 +42,3 @@
 {{- $options = dict "Context" . "ToCSS" $toCSS | merge $options -}}
 {{- partial "plugin/style.html" $options -}}
 
-{{- /* Custom Styles */ -}}
-{{- $customCSS := resources.Get "css/_custom.scss" | css.Sass | resources.Minify -}}
-{{- if $customCSS -}}
-    <link rel="stylesheet" href="{{ $customCSS.RelPermalink }}">
-{{- end -}}
-

@@ -1,0 +1,20 @@
+{{- $params := .Scratch.Get "params" -}}
+
+<meta name="Description" content="{{ $params.description | default .Site.Params.description }}">
+
+{{- partial "opengraph.html" . -}}
+{{- partial "twitter_cards.html" . -}}
+
+<meta name="application-name" content="{{ .Site.Params.app.title | default .Site.Title }}">
+<meta name="apple-mobile-web-app-title" content="{{ .Site.Params.app.title | default .Site.Title }}">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f7f3eb" data-light="#f7f3eb" data-dark="#111411">
+
+{{- with .Site.Params.app.tileColor -}}
+  <meta name="msapplication-TileColor" content="{{ . }}">
+{{- end -}}
+
+{{- with .Site.Params.security.contentSecurityPolicy -}}
+  <meta http-equiv="Content-Security-Policy" content="{{ . }}">
+{{- end -}}

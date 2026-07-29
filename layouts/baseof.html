@@ -30,6 +30,9 @@
               document.body.setAttribute('theme', isDark ? 'dark' : 'light');
               document.body.setAttribute('cfg-theme', theme);
               document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
+              const themeColor = document.querySelector('meta[name="theme-color"]');
+              themeColor?.setAttribute('content', themeColor.dataset[isDark ? 'dark' : 'light']);
+              window.dispatchEvent(new CustomEvent('site-theme-change'));
             };
 
             applyTheme();
