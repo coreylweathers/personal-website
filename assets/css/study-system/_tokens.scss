@@ -37,6 +37,17 @@
   --study-serif: "Newsreader", Georgia, serif;
   --study-sans: "Geist", Arial, sans-serif;
   --study-mono: "IBM Plex Mono", Consolas, monospace;
+  --study-font-body: var(--study-sans);
+  --study-font-heading: var(--study-serif);
+  --study-font-ui: var(--study-sans);
+  --study-font-meta: var(--study-mono);
+  --study-weight-body: 400;
+  --study-weight-heading: 500;
+  --study-weight-display: 600;
+  --study-weight-ui: 700;
+  --study-weight-meta: 500;
+  --study-leading-body: 1.65;
+  --study-leading-prose: 1.82;
   --study-page: 1440px;
   --study-reading: 760px;
   --study-gutter: clamp(1.25rem, 5vw, 4rem);

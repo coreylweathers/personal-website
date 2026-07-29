@@ -2,6 +2,16 @@ import { readFileSync } from "node:fs";
 
 const css = readFileSync("public/css/_custom.min.css", "utf8");
 const requiredRules = [
+  "--study-font-body:",
+  "--study-font-heading:",
+  "--study-font-ui:",
+  "--study-font-meta:",
+  "--study-weight-body:",
+  "--study-weight-heading:",
+  "--study-weight-display:",
+  "--study-weight-ui:",
+  "--study-leading-body:",
+  "--study-leading-prose:",
   "--study-header-bg:",
   "--study-header-ink:",
   "--study-header-muted:",
@@ -13,6 +23,9 @@ const requiredRules = [
   "--study-rule-soft:",
   "--study-rule-strong:",
   ".terminal-header>nav a",
+  "font-family:var(--study-font-body)",
+  "font-weight:var(--study-weight-body)",
+  "text-rendering:optimizeLegibility",
   ".terminal-page-hero h1",
   ".study-hero .study-title",
   "body[theme=dark] .terminal-header",
@@ -25,6 +38,75 @@ for (const rule of requiredRules) {
 
 const lightBlock = css.match(/:root\{([^}]*)\}/)?.[1] ?? "";
 const darkBlock = css.match(/body\[theme=dark\]\{([^}]*)\}/)?.[1] ?? "";
+
+const forbiddenLegacyRules = [
+  ".home-profile",
+  ".section-hero",
+  ".post-card",
+  ".single-title",
+  "--background-color",
+  "--text-color-secondary",
+];
+
+for (const rule of forbiddenLegacyRules) {
+  if (css.includes(rule)) {
+    throw new Error(`Retired theme selector or token is still compiled: ${rule}`);
+  }
+}
+
+const typographyTokens = [
+  "--study-font-body",
+  "--study-font-heading",
+  "--study-font-ui",
+  "--study-font-meta",
+  "--study-weight-body",
+  "--study-weight-heading",
+  "--study-weight-display",
+  "--study-weight-ui",
+  "--study-weight-meta",
+  "--study-leading-body",
+  "--study-leading-prose",
+];
+
+for (const name of typographyTokens) {
+  if (!lightBlock.includes(`${name}:`)) {
+    throw new Error(`Typography token is missing from the base theme: ${name}`);
+  }
+  if (darkBlock.includes(`${name}:`)) {
+    throw new Error(`Dark mode must not redefine typography: ${name}`);
+  }
+}
+
+const fontHead = readFileSync("layouts/partials/head/link.html", "utf8");
+for (const font of ["Geist", "IBM+Plex+Mono", "Newsreader"]) {
+  if (!fontHead.includes(font)) throw new Error(`Font is not loaded: ${font}`);
+}
+
+const routeContracts = [
+  ["home", "public/index.html", "terminal-home"],
+  ["about", "public/about/index.html", "terminal-prose"],
+  ["read", "public/read/index.html", "terminal-post-list"],
+  ["build", "public/build/index.html", "terminal-page"],
+  ["speak", "public/speak/index.html", "terminal-page"],
+  ["live", "public/live/index.html", "terminal-prose"],
+  ["now", "public/now/index.html", "terminal-card-grid"],
+  ["contact", "public/contact/index.html", "terminal-contact-grid"],
+  [
+    "article",
+    "public/posts/2025/05/welcome-to-syntax-and-stories/index.html",
+    "study-prose",
+  ],
+];
+
+for (const [label, path, marker] of routeContracts) {
+  const html = readFileSync(path, "utf8");
+  if (!html.includes(marker)) {
+    throw new Error(`${label} route is missing its typography contract: ${marker}`);
+  }
+  if (!html.includes("/css/_custom.min.css")) {
+    throw new Error(`${label} route does not load the active stylesheet`);
+  }
+}
 
 function token(block, name) {
   const value = block.match(new RegExp(`${name}:(#[0-9a-f]{6})`, "i"))?.[1];
