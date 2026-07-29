@@ -1,6 +1,12 @@
-<footer class="site-footer">
-  <div><a class="site-brand" href="/">Corey L Weathers</a><p>{{ hugo.Data.site.identity.statement }}</p></div>
-  <nav aria-label="Footer navigation">{{ range hugo.Data.site.navigation.primary }}<a href="{{ .url }}">{{ .label }}</a>{{ end }}<a href="/contact/">Contact</a></nav>
-  <nav aria-label="Social links">{{ range hugo.Data.site.social }}<a href="{{ .url }}"{{ if hasPrefix .url "http" }} rel="me noopener"{{ end }}>{{ .label }}</a>{{ end }}</nav>
-  <p class="copyright">© {{ now.Year }} Corey L Weathers</p>
+<footer class="terminal-footer">
+  <div>
+    <a class="terminal-footer-brand" href="/">Corey L Weathers</a>
+    <p>{{ hugo.Data.site.identity.statement }}</p>
+    <nav class="terminal-social" aria-label="Social links">{{ range hugo.Data.site.social }}<a href="{{ .url }}"{{ if hasPrefix .url "http" }} rel="me noopener"{{ end }}>{{ .label }}</a>{{ end }}</nav>
+  </div>
+  <nav class="terminal-footer-links" aria-label="Footer navigation">
+    <div><span>Navigate</span>{{ range hugo.Data.site.navigation.primary }}<a href="{{ .url }}">{{ .label }}</a>{{ end }}</div>
+    <div><span>Connect</span><a href="/work-with-me/">Work With Me</a><a href="/contact/">Contact</a><a href="mailto:corey.weathers@outlook.com">Email</a></div>
+  </nav>
+  <p class="terminal-copyright">Built for the journey.<br>© {{ now.Year }} Corey L Weathers</p>
 </footer>
