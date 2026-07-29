@@ -1,41 +1,42 @@
 ---
-title: "About Me"
-layout: "about"
-description: "Developer, DevRel leader, and storyteller focused on making technology more useful and more human."
-heroKicker: "Who I am"
-heroImage: "images/about/corey-about-portrait.png"
-heroImageAlt: "Portrait of Corey L Weathers smiling in a red shirt."
-heroImagePlacement: "content"
-date: 2025-04-08T20:05:46-04:00
-draft: false
+title: "I help people make sense of technology, and help technology teams better understand people."
+description: "I’m a technology leader, builder, father, and advisor with more than two decades of experience across software engineering, developer platforms, community, content, and product experience."
+eyebrow: "About Corey"
+layout: "editorial-page"
 ---
 
-I am Corey L Weathers: a **C# / .NET developer**, **DevRel leader**, and **builder in public** who cares deeply about making technology more useful, more approachable, and more human.
+My work lives in the gaps between disciplines: where engineering meets storytelling, product meets community, emerging technology meets real human behavior, and ambitious work has to fit inside a meaningful life.
 
-I grew up in Brooklyn, and I still carry that same energy into my work: stay curious, build boldly, and make room for other people to grow.
+## Brooklyn roots, an enduring curiosity
 
-## What I Do
+I grew up in Brooklyn, where cities teach you to notice systems: how people move, what makes a neighborhood work, and what happens when design serves some people better than others. That curiosity led me to software and has kept me learning for more than twenty years.
 
-- **Build software** with C# and .NET, drawing on experience that goes back to 2004.
-- **Lead developer programs** shaped by real developer needs, not just launch checklists.
-- **Support communities** through talks, writing, live streams, mentoring, and hands-on advocacy.
+I began close to the code—building with C#, .NET, cloud platforms, and developer tools—then moved into developer-facing leadership. At Microsoft, Twilio, Auth0, Okta, Deepgram, and other teams, I worked across engineering, product, content, community, and go-to-market boundaries.
 
-## Focus Areas
+Today, much of my attention is on voice and AI: not just what these systems can do, but how they communicate uncertainty, recover from mistakes, earn trust, and fit into real lives.
 
-- Developer relations strategy and leadership
-- Modern .NET application development
-- Technical storytelling, public speaking, and livestreaming
-- Mentorship, team growth, and community building
-- Developer experience across cloud and web platforms
+> Technology matters most when it expands what people can understand, create, and become.
 
-## Why This Site Exists
+## Fatherhood is part of the operating system
 
-This site is where I connect the technical and the personal: what I am learning, what I am building, and what it looks like to do this work while also being a parent and a person.
+Raising two kids shapes how I think about leadership, patience, accountability, education, and trust. It is why a family learning product became one of my most meaningful builds, and why questions about work are always also questions about the life surrounding it.
 
-If you are here for devrel perspective, .NET ideas, or a more grounded view of building in tech, you are in the right place.
+I’m still interested in the rest of the world: cities and trains, good food, education, conversation, and the satisfaction of making something useful with your hands.
 
-## Attributions
+## Connect developer reality to business strategy
 
-This site uses icons and graphics from open-source projects.
+I help leaders see the complete developer journey: where friction compounds, where trust is won or lost, and how product, community, content, and go-to-market decisions meet in a developer’s actual experience.
 
-- **Home Icon**: The home icon used on this site is from [SVG Repo](https://www.svgrepo.com/svg/521156/home-4), licensed under the [CC Attribution License](https://www.svgrepo.com/page/licensing/#CC%20Attribution). SVG Repo provides free, open-licensed SVG vectors for developers and designers.
+## Shape products and experiences
+
+My perspective crosses engineering, product, community, voice, and AI. That range is useful when a technically strong system still needs a clearer interaction model or a better relationship with the people using it.
+
+## Build teams and operating systems
+
+I design feedback loops, team structures, content systems, and programs that can outlast individual heroics while keeping human judgment close to the work.
+
+## Turn ideas into public work
+
+Writing, speaking, teaching, building, and hosting conversations are all ways to make an idea testable. I’m building an independent body of work where those practices can reinforce one another.
+
+[Explore ways to work together →](/work-with-me/)

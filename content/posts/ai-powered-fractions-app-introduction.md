@@ -14,7 +14,9 @@ slug: "ai-powered-fractions-app-introduction"
 series: ["Building an AI-Powered Fractions App"]
 ---
 
-***TL;DR***: I am building an interactive AI-powered fractions learning app to help kids visualize math in a fun way, while exploring .NET, Blazor, and AI as both a developer and parent. The app focuses on fraction visualization, gamification, and adaptive learning built with C#, Blazor, .NET MAUI, and PostgreSQL for scalability. But this isn't about writing code. It is about learning in public, experimenting, and sharing insights with the developer community. If you are curious, join me on GitHub, follow the blog, or tune into my Saturday livestreams as I build this in real time! 🚀
+> **Project update · July 2026:** This experiment evolved into a broader family learning product. The architecture and livestream plans below describe the original exploration, not a current roadmap; they remain here as part of the project record.
+
+***TL;DR***: I began an interactive AI-powered fractions learning app to help kids visualize math while exploring .NET, Blazor, and AI as both a developer and parent. The experiment became less about a fixed stack and more about learning in public, family confidence, and useful educational experiences.
 
 {{< optimized-image src="images/posts/intro-ai-powered-fractions.png" alt="AI-powered fractions learning app interface showing interactive fraction visualization and gamification elements" >}}
 

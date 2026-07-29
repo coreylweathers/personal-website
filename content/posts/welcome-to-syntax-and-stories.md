@@ -8,6 +8,8 @@ tags: ["DevRel", "Introduction", "Career", "Parenting", "C#"]
 slug: "welcome-to-syntax-and-stories"
 ---
 
+> **Editorial note · July 2026:** Syntax & Stories was the beginning of this site. It has since grown into a broader home for my ideas, projects, conversations, family stories, and life outside technology. This essay remains as a record of that starting point.
+
 ## Why Syntax? Why Stories? And Why Now?
 
 I have always been interested in software and stories. Code syntax defines structure and logic, but storytelling? That is where connection happens. It becomes the place where code meets purpose which becomes a conversation.

@@ -1,18 +1,13 @@
-<header class="terminal-header">
-  <a class="terminal-brand" href="{{ "/" | relLangURL }}" aria-label="Corey L Weathers, home">Corey L Weathers</a>
-  <nav id="terminal-menu" aria-label="Primary navigation">
-    {{- range .Site.Menus.main }}
-      {{- $url := .URL | relLangURL -}}
-      <a href="{{ $url }}"{{ if or ($.IsMenuCurrent "main" .) (eq $.RelPermalink $url) }} class="active" aria-current="page"{{ end }}>{{ .Name }}</a>
-    {{- end }}
-  </nav>
-  <div class="terminal-header-actions">
-    <button class="study-theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme">
-      <span class="study-theme-toggle__light" aria-hidden="true">☼</span>
-      <span class="study-theme-toggle__dark" aria-hidden="true">◐</span>
-      <span class="sr-only study-theme-toggle__label">Switch color theme</span>
-    </button>
-    <a class="terminal-header-cta" href="{{ "/contact/" | relLangURL }}">Work with me</a>
-    <button class="terminal-menu-toggle" type="button" aria-label="Toggle primary navigation" aria-expanded="false" aria-controls="terminal-menu"><span></span><span></span><span></span></button>
+<script>document.documentElement.classList.add('js')</script><a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header">
+  <a class="site-brand" href="{{ "/" | relLangURL }}" aria-label="Corey L Weathers, home"><span>Corey L</span> Weathers</a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">Menu</button>
+  <div class="site-nav-wrap" id="site-navigation">
+    <nav class="site-nav" aria-label="Primary navigation">
+      {{ range hugo.Data.site.navigation.primary }}{{ $active := eq $.RelPermalink (.url | relLangURL) }}{{ if and (eq .label "Read") (eq $.Section "posts") }}{{ $active = true }}{{ end }}{{ if and (eq .label "Speak") (eq $.Section "media") }}{{ $active = true }}{{ end }}<a href="{{ .url | relLangURL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .label }}</a>{{ end }}
+    </nav>
+    <nav class="utility-nav" aria-label="Utility navigation">
+      {{ range hugo.Data.site.navigation.utility }}<a href="{{ .url | relLangURL }}"{{ if eq $.RelPermalink (.url | relLangURL) }} aria-current="page"{{ end }}>{{ .label }}</a>{{ end }}
+    </nav>
   </div>
 </header>

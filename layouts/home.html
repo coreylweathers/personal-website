@@ -1,115 +1,24 @@
-{{- define "content" -}}
-{{- $posts := (where .Site.RegularPages "Type" "posts").ByDate.Reverse -}}
-{{- $latest := false -}}
-{{- if gt (len $posts) 0 }}{{ $latest = index $posts 0 }}{{ end -}}
-<div class="terminal-home">
-  <section class="terminal-hero">
-    <div class="terminal-hero-copy">
-      <p class="terminal-label">Developer · DevRel leader · Father</p>
-      <h1>Exploring the ideas that shape how we build, lead, and live.</h1>
-      <p class="terminal-lede">I’m Corey L Weathers—a C#/.NET developer, developer relations leader, and builder focused on making technology more useful, approachable, and human.</p>
-      <p class="terminal-aside">This is where the technical and personal meet: what I’m learning, what I’m building, and what it looks like to do meaningful work while raising a family.</p>
-      <div class="terminal-actions">
-        {{- with $latest }}<a class="terminal-button" href="{{ .RelPermalink }}">Read latest essay</a>{{ end }}
-        <a class="terminal-text-link" href="{{ "/posts/" | relLangURL }}">Explore the notebook <span>→</span></a>
-      </div>
-      <div class="terminal-experience">
-        <span>Experience includes</span>
-        <div class="terminal-company-logos" role="list" aria-label="Companies Corey L Weathers has worked with">
-          <span role="listitem"><img src="{{ "/images/company-logos/deepgram.svg" | relURL }}" alt="Deepgram" decoding="async"></span>
-          <span role="listitem"><img src="{{ "/images/company-logos/auth0.svg" | relURL }}" alt="Auth0" decoding="async"></span>
-          <span role="listitem"><img src="{{ "/images/company-logos/okta.png" | relURL }}" alt="Okta" decoding="async"></span>
-          <span role="listitem"><img src="{{ "/images/company-logos/twilio.svg" | relURL }}" alt="Twilio" decoding="async"></span>
-          <span role="listitem"><img src="{{ "/images/company-logos/microsoft.svg" | relURL }}" alt="Microsoft" decoding="async"></span>
-          <span role="listitem"><img src="{{ "/images/company-logos/intapp.png" | relURL }}" alt="Intapp" decoding="async"></span>
-        </div>
-      </div>
+{{ define "content" }}
+{{ $posts := (where .Site.RegularPages "Type" "posts").ByDate.Reverse }}
+{{ $latest := index $posts 0 }}
+{{ $essay := index $posts 1 }}
+{{ $field := index $posts 2 }}
+{{ $portrait := resources.Get "images/about/corey-about-portrait.png" }}
+<div class="editorial">
+  <section class="hero">
+    <div><p class="eyebrow">{{ hugo.Data.site.identity.eyebrow }}</p><h1>Exploring the ideas that shape how we build, lead, and live.</h1>
+      <p class="lede">I’m Corey L Weathers, a technology leader, builder, and father working at the intersection of developer platforms, AI, product experience, and community.</p>
+      <p>This is my corner of the internet for the technical and the personal: what I’m building, what I’m learning, and what it means to pursue ambitious work while raising a family and building a life around it.</p>
+      <div class="actions"><a class="button" href="{{ $essay.RelPermalink }}">Read the latest</a><a href="/build/">Explore what I’m building →</a><a href="/work-with-me/">Work with me</a></div>
     </div>
-    <figure class="terminal-hero-image">
-      <img src="{{ "/images/about/corey-about-portrait.png" | relURL }}" alt="Corey L Weathers smiling in a red shirt." fetchpriority="high">
-      <figcaption><i></i> Brooklyn roots · Building in public</figcaption>
-    </figure>
+    <figure><img src="{{ $portrait.RelPermalink }}" alt="Corey L Weathers smiling in a red shirt." fetchpriority="high" width="{{ $portrait.Width }}" height="{{ $portrait.Height }}"><figcaption><i></i> Brooklyn roots · Building with intention</figcaption></figure>
   </section>
-
-  <div class="terminal-route" aria-hidden="true"><i></i><span></span><i></i></div>
-
-  {{- with $latest }}
-  <section class="terminal-current">
-    <div class="terminal-current-main">
-      <p class="terminal-label terminal-live"><i></i>Latest dispatch</p>
-      <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-      <p>{{ .Summary | default .Description | plainify | truncate 210 }}</p>
-      <div class="terminal-meta">{{ .Date.Format "02 Jan 2006" | upper }} · {{ .ReadingTime }} MIN READ</div>
-    </div>
-    <aside>
-      <p class="terminal-label">Start here</p>
-      <a href="{{ "/about/" | relLangURL }}">Who I am and why this site exists</a>
-      <a href="{{ "/posts/" | relLangURL }}">Browse every essay and field note</a>
-      <a href="{{ "/contact/" | relLangURL }}">Invite me to speak or collaborate</a>
-    </aside>
-  </section>
-  {{- end }}
-
-  <section class="terminal-gateways" aria-label="Explore">
-    <a href="{{ "/posts/" | relLangURL }}"><span><i></i>01. [ READ ]</span><h2>Essays &amp; Journal</h2><p>Long-form thinking on developer relations, leadership, software, and the work around the work.</p><b>Enter →</b></a>
-    <a href="{{ "/tags/building-in-public/" | relLangURL }}"><span><i></i>02. [ BUILD ]</span><h2>Code &amp; Projects</h2><p>Experiments, .NET applications, voice ideas, and honest notes from building in public.</p><b>Enter →</b></a>
-    <a href="{{ "/media/" | relLangURL }}"><span><i></i>03. [ SPEAK ]</span><h2>Stage &amp; Media</h2><p>Talks, livestreams, podcasts, and conversations about technology and developer communities.</p><b>Enter →</b></a>
-    <a href="{{ "/about/" | relLangURL }}"><span><i></i>04. [ ABOUT ]</span><h2>The Journey</h2><p>The person behind the work—Brooklyn roots, leadership, parenthood, curiosity, and craft.</p><b>Enter →</b></a>
-  </section>
-
-  {{- with $latest }}
-  <section class="terminal-feature">
-    <a class="terminal-feature-image" href="{{ .RelPermalink }}">
-      {{- with .Params.featuredImage }}<img src="{{ . }}" alt="{{ $latest.Title }}">{{ end -}}
-    </a>
-    <div>
-      <p class="terminal-label">[ Cover story ]</p>
-      <h2>{{ .Title }}</h2>
-      <p>{{ .Summary | default .Description | plainify }}</p>
-      <a class="terminal-outline-button" href="{{ .RelPermalink }}">Read the full essay</a>
-    </div>
-  </section>
-  {{- end }}
-
-  <section class="terminal-notebook">
-    <div class="terminal-notebook-list">
-      <header><h2>From the Notebook</h2><span></span><i></i></header>
-      {{- range first 4 $posts }}
-      <article>
-        <div class="terminal-meta">{{ with .Params.categories }}[ {{ index . 0 | upper }} ] · {{ end }}{{ .Date.Format "02 Jan 2006" | upper }}</div>
-        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-        <p>{{ .Summary | default .Description | plainify | truncate 170 }}</p>
-      </article>
-      {{- end }}
-      <a class="terminal-text-link" href="{{ "/posts/" | relLangURL }}">Read every entry <span>→</span></a>
-    </div>
-    <aside class="terminal-now">
-      <i class="terminal-dot"></i>
-      <h2>Now.</h2>
-      <dl>
-        <dt>Building</dt><dd>Small tools, voice experiments, and a more intentional body of work.</dd>
-        <dt>Writing</dt><dd>About leadership, developer relations, AI, and returning to the craft.</dd>
-        <dt>Learning</dt><dd>New patterns in .NET, speech-to-text, audio intelligence, and product design.</dd>
-        <dt>Living</dt><dd>Making room for family, curiosity, and work that fits the life around it.</dd>
-      </dl>
-      <p class="terminal-meta">UPDATED · {{ now.Format "JANUARY 2006" | upper }}</p>
-    </aside>
-  </section>
-
-  <section class="terminal-quote">
-    <span>“</span>
-    <blockquote>The best developer advocacy isn’t about talking about developers; it’s about building with them.</blockquote>
-    <cite>Corey L Weathers</cite>
-  </section>
-
-  <section class="terminal-contact">
-    <p class="terminal-label">The next stop</p>
-    <h2>Working through a hard developer, community, product, or storytelling problem?</h2>
-    <p>I’m always interested in thoughtful conversations, speaking opportunities, and collaborations built around genuinely useful work.</p>
-    <div class="terminal-actions">
-      <a class="terminal-button" href="{{ "/contact/" | relLangURL }}">Start a conversation</a>
-      <a class="terminal-text-link" href="{{ "/about/" | relLangURL }}">More about my work <span>→</span></a>
-    </div>
-  </section>
+  <section class="experience"><p>{{ hugo.Data.site.experience.statement }}</p><div class="logos" aria-label="Selected experience">{{ range hugo.Data.site.experience.companies }}<img src="{{ .logo }}" alt="{{ .name }}">{{ end }}</div></section>
+  <section class="feature"><div><p class="eyebrow">Latest essay</p><h2><a href="{{ $latest.RelPermalink }}">{{ $latest.Title }}</a></h2><p>{{ $latest.Summary | plainify | truncate 220 }}</p><a href="{{ $latest.RelPermalink }}">Read the essay →</a></div>{{ with $latest.Params.featuredImage }}<img src="{{ . }}" alt="{{ $latest.Params.featuredImageAlt | default $latest.Title }}">{{ end }}</section>
+  <section class="latest-grid" aria-labelledby="latest-work"><div class="latest-heading"><p class="eyebrow">Latest work</p><h2 id="latest-work">From the desk, workbench, and room</h2></div><article><p class="meta">Latest essay</p><h3><a href="{{ $essay.RelPermalink }}">{{ $essay.Title }}</a></h3><p>{{ $essay.Summary | default $essay.Description | plainify | truncate 150 }}</p></article><article><p class="meta">Latest field note</p><h3><a href="{{ $field.RelPermalink }}">{{ $field.Title }}</a></h3><p>{{ $field.Summary | default $field.Description | plainify | truncate 150 }}</p></article><article><p class="meta">Current project</p><h3><a href="/build/">A family learning product</a></h3><p>Learning software shaped by a parent’s view of confidence, explanation, and attention.</p></article><article><p class="meta">Live</p><h3><a href="/live/">The room is quiet right now</a></h3><p>Watch the latest session or join the list for the next conversation.</p></article></section>
+  <section class="gateway-grid">{{ range hugo.Data.site.gateways }}<a href="{{ .url }}"><span>{{ .number }} · {{ .label }}</span><h2>{{ .title }}</h2><p>{{ .text }}</p></a>{{ end }}</section>
+  <section class="now-panel"><div><p class="eyebrow">Now arriving</p><h2>What has my attention</h2></div><dl>{{ range hugo.Data.site.now.items }}<div><dt>{{ .label }}</dt><dd>{{ .text }}</dd></div>{{ end }}</dl><p class="updated">Last updated {{ hugo.Data.site.now.updated }} · <a href="/now/">Open Now</a></p></section>
+  <section class="cta"><p class="eyebrow">Work with me</p><h2>{{ hugo.Data.site.workWithMe.title }}</h2><p>{{ hugo.Data.site.workWithMe.text }}</p><div class="actions"><a class="button" href="/work-with-me/">Explore how I can help</a><a href="/contact/">Start a conversation →</a></div></section>
+  <section class="newsletter"><div><p class="eyebrow">Occasional dispatches</p><h2>{{ hugo.Data.site.newsletter.title }}</h2><p>{{ hugo.Data.site.newsletter.text }}</p></div><a class="button" href="{{ hugo.Data.site.newsletter.url }}">Join the list</a></section>
 </div>
-{{- end -}}
+{{ end }}

@@ -1,0 +1,7 @@
+{{ define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end }}
+{{ define "content" }}
+<article class="editorial page-shell">
+  <header class="page-hero"><p class="eyebrow">{{ .Params.eyebrow }}</p><h1>{{ .Title }}</h1>{{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}</header>
+  <div class="prose">{{ .Content }}</div>
+</article>
+{{ end }}

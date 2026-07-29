@@ -1,0 +1,2 @@
+{{ define "title" }}Now · {{ .Site.Title }}{{ end }}
+{{ define "content" }}<article class="editorial page-shell"><header class="page-hero"><p class="eyebrow">Now · Updated {{ hugo.Data.site.now.updated }}</p><h1>{{ .Title }}</h1><p class="lede">{{ .Description }}</p></header><div class="prose">{{ range hugo.Data.site.now.items }}<section><h2>{{ .label }}</h2><p>{{ .text }}</p></section>{{ end }}</div></article>{{ end }}

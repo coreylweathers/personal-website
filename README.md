@@ -1,24 +1,33 @@
-# Corey's Syntax & Stories
+# Corey L Weathers
 
 [![Deploy Hugo site to GitHub Pages](https://github.com/coreylweathers/personal-website/actions/workflows/deploy.yml/badge.svg)](https://github.com/coreylweathers/personal-website/actions/workflows/deploy.yml)
 
-A personal blog site built with [Hugo](https://gohugo.io/) and the [LoveIt theme](https://hugoloveit.com/).
+A warm editorial personal site for technology leader, builder, father, writer, speaker, and advisor Corey L Weathers. It is built with [Hugo](https://gohugo.io/) and deployed to [coreylweathers.com](https://coreylweathers.com).
 
 ## Project Overview
 
-This project is a personal blog/website created with Hugo, a fast and modern static site generator. It uses the LoveIt theme which provides a clean, responsive design with many built-in features. The site is automatically deployed to [coreylweathers.com](https://coreylweathers.com) via GitHub Actions.
+Hugo remains the static publishing engine and historical post store. Visitor-facing layouts, navigation, content models, and the editorial design system are project-owned; the vendored LoveIt theme is a compatibility layer for existing article rendering.
 
 ## Features
 
-- Responsive design
-- Light/dark mode
-- Search functionality
-- Blog posts with categories and tags
-- About, Media, and Contact pages
+- Responsive, progressively enhanced navigation
+- Read, Build, Speak, Live, Now, About, Work With Me, and Contact routes
+- Essays and historical posts with RSS and Substack export support
+- Centralized identity, navigation, experience, Now, services, newsletter, and footer data in `data/site.yaml`
+- Typed JSON-LD, canonical links, Open Graph metadata, sitemap, and RSS
+- Accessible focus states, skip navigation, semantic headings, and reduced-motion support
 - Easy content management with Markdown
 - Google Analytics integration
 - Microsoft Clarity analytics
 - Automated deployment with GitHub Actions
+
+## Content architecture
+
+- Edit repeated site content in `data/site.yaml`.
+- Edit page narratives in `content/`.
+- Edit visitor-facing templates in `layouts/`.
+- Edit the editorial system in `assets/css/_custom.scss`.
+- Historical `/posts/` and `/media/` destinations remain as compatibility redirects to `/read/` and `/speak/`.
 
 ## Prerequisites
 

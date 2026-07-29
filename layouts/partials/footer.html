@@ -1,16 +1,6 @@
-<footer class="terminal-footer">
-  <div>
-    <a class="terminal-footer-brand" href="{{ "/" | relLangURL }}">Corey L Weathers</a>
-    <p>Building software, developer programs, and stories that make technology more human.</p>
-    <nav class="terminal-social" aria-label="Social links">
-      <a href="https://github.com/coreylweathers" rel="me noopener">GitHub</a>
-      <a href="https://www.linkedin.com/in/coreylweathers" rel="me noopener">LinkedIn</a>
-      <a href="{{ "/index.xml" | relLangURL }}">RSS</a>
-    </nav>
-  </div>
-  <nav class="terminal-footer-links" aria-label="Footer navigation">
-    <div><span>Navigate</span><a href="{{ "/posts/" | relLangURL }}">Writing</a><a href="{{ "/media/" | relLangURL }}">Media</a><a href="{{ "/about/" | relLangURL }}">About</a></div>
-    <div><span>Connect</span><a href="{{ "/contact/" | relLangURL }}">Contact</a><a href="mailto:corey.weathers@outlook.com">Email</a><a href="{{ "/tags/" | relLangURL }}">Topics</a></div>
-  </nav>
-  <p class="terminal-copyright">Built for the journey.<br>© {{ now.Year }} Corey L Weathers</p>
+<footer class="site-footer">
+  <div><a class="site-brand" href="/">Corey L Weathers</a><p>{{ hugo.Data.site.identity.statement }}</p></div>
+  <nav aria-label="Footer navigation">{{ range hugo.Data.site.navigation.primary }}<a href="{{ .url }}">{{ .label }}</a>{{ end }}<a href="/contact/">Contact</a></nav>
+  <nav aria-label="Social links">{{ range hugo.Data.site.social }}<a href="{{ .url }}"{{ if hasPrefix .url "http" }} rel="me noopener"{{ end }}>{{ .label }}</a>{{ end }}</nav>
+  <p class="copyright">© {{ now.Year }} Corey L Weathers</p>
 </footer>

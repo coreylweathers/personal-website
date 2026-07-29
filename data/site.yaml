@@ -1,0 +1,50 @@
+identity:
+  name: Corey L Weathers
+  eyebrow: Technology leader · Builder · Father
+  statement: Building things. Leading people. Raising kids. Staying curious.
+navigation:
+  primary:
+    - { label: Read, url: /read/ }
+    - { label: Build, url: /build/ }
+    - { label: Speak, url: /speak/ }
+    - { label: Live, url: /live/ }
+    - { label: About, url: /about/ }
+  utility:
+    - { label: Now, url: /now/ }
+    - { label: Work With Me, url: /work-with-me/ }
+experience:
+  statement: Two decades across software engineering, developer platforms, technical communities, and leadership.
+  companies:
+    - { name: Microsoft, logo: /images/company-logos/microsoft.svg }
+    - { name: Twilio, logo: /images/company-logos/twilio.svg }
+    - { name: Auth0, logo: /images/company-logos/auth0.svg }
+    - { name: Okta, logo: /images/company-logos/okta.png }
+    - { name: Deepgram, logo: /images/company-logos/deepgram.svg }
+gateways:
+  - { number: "01", label: Read, url: /read/, title: "Ideas about technology and the people building lives around it.", text: "Essays and field notes on AI, leadership, family, parenthood, work, and identity." }
+  - { number: "02", label: Build, url: /build/, title: "Turning ideas into useful things.", text: "Products, prototypes, open-source experiments, and honest notes from the workbench." }
+  - { number: "03", label: Speak, url: /speak/, title: "Ideas meant to move through a room.", text: "Talks about voice AI, developer experience, leadership, trust, and software." }
+  - { number: "04", label: Live, url: /live/, title: "Pull up a chair.", text: "Live builds, office hours, and thoughtful conversations with people creating what comes next." }
+now:
+  updated: July 2026
+  items:
+    - { label: Building, text: "A family learning product, a more independent publishing system, and experiments in conversational AI." }
+    - { label: Writing, text: "About voice, trust, leadership, developer ecosystems, parenthood, and human-agent collaboration." }
+    - { label: Exploring, text: "How to turn twenty years of technology experience into independent products, advisory work, and useful public ideas." }
+    - { label: Living, text: "Raising two kids, making more room for life outside work, and taking every excuse to ride the train." }
+services:
+  - { title: Developer strategy, text: "Connect product truth, developer friction, trust, adoption, and the complete developer journey." }
+  - { title: Voice and AI product experience, text: "Review interaction, repair, transparency, latency, feedback, and the moments where technically correct systems lose people." }
+  - { title: DevRel and community operating models, text: "Turn individual heroics into useful feedback loops, clear ownership, durable programs, and measurable business value." }
+  - { title: Leadership and technical storytelling, text: "Help teams align, explain strong technology clearly, and translate strategy into action." }
+workWithMe:
+  title: Building a developer product is one problem. Earning developer trust is another.
+  text: I help technology leaders connect developer experience, product strategy, community, content, and go-to-market execution. I also advise teams designing voice and AI experiences that need to feel useful, intuitive, and worthy of trust.
+newsletter:
+  title: Notes for people building technology, and lives around it.
+  text: Essays, project updates, live conversations, and ideas worth carrying into the next room.
+  url: "mailto:corey.weathers@outlook.com?subject=Newsletter%20list"
+social:
+  - { label: LinkedIn, url: "https://www.linkedin.com/in/coreylweathers" }
+  - { label: GitHub, url: "https://github.com/coreylweathers" }
+  - { label: RSS, url: "/index.xml" }

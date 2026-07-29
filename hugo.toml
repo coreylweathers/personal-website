@@ -41,7 +41,7 @@ enableRobotsTXT = true
   # LoveIt theme version
   version = "0.2.X"
   # site description
-  description = "Corey's Syntax & Stories is where I document my journey—through code, creativity, and life as a developer and parent. From debugging software to navigating the challenges of DevRel and fatherhood, I share insights, lessons, and personal reflections along the way."
+  description = "Essays, projects, talks, and field notes from technology leader, builder, father, writer, speaker, and advisor Corey L Weathers."
   # site keywords
   keywords = ["syntax and stories", "Corey L Weathers", "coding blog", "developer relations", "devrel insights", "programming stories", "debugging life", "software engineering reflections", "coding lessons", "developer journey", "tech storytelling", "developer advocacy", "work-life balance", "parenting in tech", "coding advice for developers", ".net development", "c# programming", "asp.net core", "blazor development", "dotnet"]
   # site default theme ("light", "dark", "auto")
@@ -102,9 +102,9 @@ enableRobotsTXT = true
     [params.home.profile]
       enable = true
       # title shown in home page
-      title = "Corey's Syntax & Stories"
+      title = "Corey L Weathers"
       # subtitle shown in home page
-      subtitle = "Thoughts on developer relations, modern .NET, building in public, and the work of raising a family while making software."
+      subtitle = "Ideas about technology and the people building lives around it."
       # whether to use typeit animation for subtitle
       typeit = false
       # whether to show social links
@@ -121,7 +121,7 @@ enableRobotsTXT = true
   
   [params.app]
     # optional site title override for the app when added to an iOS home screen or Android launcher
-    title = "Corey's Syntax & Stories"
+    title = "Corey L Weathers"
     # whether to omit favicon resource links
     noFavicon = false
     # modern SVG favicon to use in place of older style .png and .ico files
@@ -255,7 +255,7 @@ enableRobotsTXT = true
 # RSS Configuration
 [params.rss]
   # RSS feed description
-  description = "Latest blog posts and updates"
+  description = "Essays and field notes from the intersection of technology and life"
   # Number of items in RSS feed
   limit = 20
   # Include full content in RSS feed

@@ -1,7 +1,7 @@
 ---
 date: '2025-06-09T06:42:33-04:00'
 draft: false
-title: 'Devrel Meets AI: A New Look at Developer Advocacy'
+title: 'DevRel Meets AI: A New Look at Developer Advocacy'
 description: 'AI enhances DevRel, but empathy and building with devs matters most.'
 summary: 'AI enhances DevRel, but empathy and building with devs matters most.'
 keywords: ["DevRel", "AI", "Developer Advocacy", "Developer Experience", "Developer Relations", "Community Building", "Technical Content Creation", "Building in Public", "Developer Tools", "AI-powered Development", "Code Assistants", "Developer Onboarding", "Authentic Engagement", "Developer Trust", "Product Adoption", "Microsoft DevRel", "Twilio DevRel", "Okta DevRel", "Developer Friction", "DX Strategy", "Technical Writing", "Open Source", "Livestreaming", "Developer Community", "Empathy in Tech", "Human-Centered Development"]
@@ -11,6 +11,8 @@ categories: ["DevRel"]
 tags: ["DevRel", "AI", "Strategy"]
 slug: "devrel-meets-ai"
 ---
+
+> **Editorial update · July 2026:** My thinking has expanded from AI-assisted advocacy toward AI-native developer journeys: agents are becoming developer audiences, trust and transparency are product requirements, and voice exposes the repair patterns human-agent collaboration needs. This essay captures an earlier step in that work.
 
 Ask any developer relations (DevRel) leader what makes a great developer advocate, and you’ll hear some of the usual answers:
 - community engagement

@@ -1,0 +1,3 @@
+{{- $script := resources.Get "js/custom.js" | js.Build (dict "minify" true "targetPath" "js/site.min.js") -}}
+<script src="{{ $script.RelPermalink }}" defer></script>
+{{- partial "plugin/analytics.html" . -}}
