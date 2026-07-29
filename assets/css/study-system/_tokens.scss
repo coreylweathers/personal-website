@@ -46,6 +46,8 @@
   --study-weight-display: 600;
   --study-weight-ui: 700;
   --study-weight-meta: 500;
+  --study-size-meta: .72rem;
+  --study-size-ui: .72rem;
   --study-leading-body: 1.65;
   --study-leading-prose: 1.82;
   --study-page: 1440px;
@@ -64,9 +66,7 @@
 
 body[theme="dark"] {
   --study-canvas: #151715;
-  --study-paper: #151715;
   --study-surface: #1e211f;
-  --study-paper-deep: #292c29;
   --study-inset: #292c29;
   --study-ink: #fffaf2;
   --study-ink-soft: #e8dfd4;
@@ -84,8 +84,6 @@ body[theme="dark"] {
   --study-rule: rgba(255, 250, 242, .38);
   --study-rule-strong: rgba(255, 250, 242, .58);
   --study-rule-inverse: rgba(0, 0, 0, .3);
-  --study-line: rgba(255, 250, 242, .24);
-  --study-muted: #e8dfd4;
   --study-action: #ffad78;
   --study-action-ink: #151715;
   --study-control: #202320;

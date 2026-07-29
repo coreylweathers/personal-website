@@ -1,20 +1,23 @@
 .study-prose {
   width: 100%; max-width: var(--study-reading); margin-inline: auto; color: var(--study-ink);
-  font: 400 1.08rem/1.82 var(--study-sans);
+  font-family: var(--study-font-body);
+  font-size: 1.08rem;
+  font-weight: var(--study-weight-body);
+  line-height: var(--study-leading-prose);
 }
 .study-prose > *:first-child { margin-top: 0; }
-.study-prose h2, .study-prose h3, .study-prose h4 { color: var(--study-ink); font-family: var(--study-serif); font-weight: 500; letter-spacing: -.015em; }
+.study-prose h2, .study-prose h3, .study-prose h4 { color: var(--study-ink); font-family: var(--study-font-heading); font-weight: var(--study-weight-heading); letter-spacing: -.015em; }
 .study-prose h2 { margin: 3.5rem 0 1.15rem; font-size: 2.45rem; line-height: 1.15; }
 .study-prose h3 { margin: 2.5rem 0 1rem; font-size: 1.8rem; line-height: 1.2; }
 .study-prose p, .study-prose ul, .study-prose ol { margin: 0 0 1.6rem; }
 .study-prose a { color: var(--study-copper); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-.study-prose blockquote { margin: 2.5rem 0; padding: .5rem 0 .5rem 1.5rem; border: 0; border-left: 2px solid var(--study-copper); color: var(--study-ink); font: italic 1.55rem/1.55 var(--study-serif); }
+.study-prose blockquote { margin: 2.5rem 0; padding: .5rem 0 .5rem 1.5rem; border: 0; border-left: 2px solid var(--study-copper); color: var(--study-ink); font: italic var(--study-weight-body) 1.55rem/1.55 var(--study-font-heading); }
 .study-prose img { max-width: 100%; height: auto; border-radius: var(--study-radius); }
 .study-prose code { background: var(--study-inset); color: var(--study-copper); }
 .study-prose pre { border: 1px solid var(--study-rule); border-radius: var(--study-radius); background: var(--study-night) !important; }
 .study-prose table { width: 100%; border-collapse: collapse; }
 .study-prose th, .study-prose td { padding: .8rem; border: 1px solid var(--study-rule); text-align: left; }
-.study-prose th { font: 500 .68rem var(--study-mono); letter-spacing: .08em; text-transform: uppercase; }
+.study-prose th { font: var(--study-weight-meta) var(--study-size-meta) var(--study-font-meta); letter-spacing: .08em; text-transform: uppercase; }
 .study-article-header { max-width: 1100px; }
 .study-article-header .study-title { font-size: clamp(3rem, 6.5vw, 6.3rem); }
 .study-article-meta { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin-top: 2rem; }
@@ -32,11 +35,11 @@ body[theme="dark"] .study-feature img { filter: grayscale(1) brightness(.76) con
 .study-article-footer { width: 100%; max-width: var(--study-reading); margin: 0 auto; padding-top: 3rem; border-top: 1px solid var(--study-rule); }
 .study-form { padding: var(--study-space-5); border: 1px solid var(--study-rule); }
 .study-form .form-group { margin-bottom: 2rem; }
-.study-form label { color: var(--study-copper); font: 500 .65rem var(--study-mono); letter-spacing: .08em; text-transform: uppercase; }
+.study-form label { color: var(--study-copper); font: var(--study-weight-meta) var(--study-size-meta) var(--study-font-meta); letter-spacing: .08em; text-transform: uppercase; }
 .study-form .form-control { padding: .8rem 0; border: 0; border-bottom: 1px solid var(--study-ink); border-radius: 0; background: transparent; color: var(--study-ink); caret-color: var(--study-copper); }
-.study-form .form-control::placeholder { color: var(--study-ink-soft); opacity: .72; }
+.study-form .form-control::placeholder { color: var(--study-ink-soft); opacity: .82; }
 .study-form .form-control:focus { border-color: var(--study-copper); box-shadow: none; }
 .study-form textarea.form-control { min-height: 150px; }
-.study-form .btn-submit { width: auto; margin: 0; padding: .95rem 1.4rem; border: 1px solid var(--study-action); border-radius: 0; background: var(--study-action); color: var(--study-action-ink); font: 500 .68rem var(--study-mono); letter-spacing: .09em; }
+.study-form .btn-submit { width: auto; min-height: 44px; margin: 0; padding: .95rem 1.4rem; border: 1px solid var(--study-action); border-radius: 0; background: var(--study-action); color: var(--study-action-ink); font: var(--study-weight-meta) var(--study-size-ui) var(--study-font-meta); letter-spacing: .09em; }
 .study-form .btn-submit:hover { background: var(--study-copper); transform: none; }
 .study-form .form-footer { margin-top: 2rem; border-color: var(--study-rule); text-align: left; }

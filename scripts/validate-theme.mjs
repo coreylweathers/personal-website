@@ -12,6 +12,8 @@ const requiredRules = [
   "--study-weight-ui:",
   "--study-leading-body:",
   "--study-leading-prose:",
+  "--study-size-meta:",
+  "--study-size-ui:",
   "--study-header-bg:",
   "--study-header-ink:",
   "--study-header-muted:",
@@ -26,6 +28,9 @@ const requiredRules = [
   "font-family:var(--study-font-body)",
   "font-weight:var(--study-weight-body)",
   "text-rendering:optimizeLegibility",
+  ".study-theme-toggle{width:44px;height:44px",
+  ".terminal-menu-toggle{display:flex;width:44px;height:44px",
+  ".terminal-header-cta,.terminal-button{display:inline-flex;min-height:44px",
   ".terminal-page-hero h1",
   ".study-hero .study-title",
   "body[theme=dark] .terminal-header",
@@ -54,6 +59,19 @@ for (const rule of forbiddenLegacyRules) {
   }
 }
 
+if (/font(?:-weight)?:[^;}]*\b800\b/.test(css)) {
+  throw new Error("Synthetic 800 font weight is compiled but no 800 font is loaded");
+}
+
+const darkTypographyOverrides = css.match(
+  /body\[theme=dark\][^{]*\{[^}]*(?:font|line-height|letter-spacing):/g,
+);
+if (darkTypographyOverrides) {
+  throw new Error(
+    `Dark mode changes typography instead of palette: ${darkTypographyOverrides[0]}`,
+  );
+}
+
 const typographyTokens = [
   "--study-font-body",
   "--study-font-heading",
@@ -66,6 +84,8 @@ const typographyTokens = [
   "--study-weight-meta",
   "--study-leading-body",
   "--study-leading-prose",
+  "--study-size-meta",
+  "--study-size-ui",
 ];
 
 for (const name of typographyTokens) {
@@ -80,6 +100,9 @@ for (const name of typographyTokens) {
 const fontHead = readFileSync("layouts/partials/head/link.html", "utf8");
 for (const font of ["Geist", "IBM+Plex+Mono", "Newsreader"]) {
   if (!fontHead.includes(font)) throw new Error(`Font is not loaded: ${font}`);
+}
+if (!fontHead.includes("Geist:wght@400;500;600;700")) {
+  throw new Error("Loaded Geist weights do not satisfy the typography contract");
 }
 
 const routeContracts = [
@@ -105,6 +128,14 @@ for (const [label, path, marker] of routeContracts) {
   }
   if (!html.includes("/css/_custom.min.css")) {
     throw new Error(`${label} route does not load the active stylesheet`);
+  }
+  const mainCount = (html.match(/<main(?:\s|>)/g) ?? []).length;
+  const headingCount = (html.match(/<h1(?:\s|>)/g) ?? []).length;
+  if (mainCount !== 1) {
+    throw new Error(`${label} route has ${mainCount} main landmarks; expected 1`);
+  }
+  if (headingCount !== 1) {
+    throw new Error(`${label} route has ${headingCount} h1 headings; expected 1`);
   }
 }
 
@@ -142,14 +173,23 @@ function contrast(foreground, background) {
 }
 
 const pairs = [
+  ["light body", token(lightBlock, "--study-ink"), token(lightBlock, "--study-canvas"), 7],
+  ["light secondary text", token(lightBlock, "--study-ink-soft"), token(lightBlock, "--study-canvas"), 7],
+  ["light accent text", token(lightBlock, "--study-copper"), token(lightBlock, "--study-canvas"), 4.5],
   ["light header brand", token(lightBlock, "--study-header-ink"), token(lightBlock, "--study-header-bg"), 7],
   ["light header navigation", token(lightBlock, "--study-header-muted"), token(lightBlock, "--study-header-bg"), 4.5],
   ["light header active", token(lightBlock, "--study-header-active"), token(lightBlock, "--study-header-bg"), 4.5],
+  ["dark body", token(darkBlock, "--study-ink"), token(darkBlock, "--study-canvas"), 7],
+  ["dark secondary text", token(darkBlock, "--study-ink-soft"), token(darkBlock, "--study-canvas"), 7],
+  ["dark accent text", token(darkBlock, "--study-copper"), token(darkBlock, "--study-canvas"), 4.5],
   ["dark header brand", token(darkBlock, "--study-header-ink"), token(darkBlock, "--study-header-bg"), 7],
   ["dark header navigation", token(darkBlock, "--study-header-muted"), token(darkBlock, "--study-header-bg"), 7],
   ["dark header active", token(darkBlock, "--study-header-active"), token(darkBlock, "--study-header-bg"), 4.5],
   ["dark page heading", token(darkBlock, "--study-heading-ink"), token(darkBlock, "--study-canvas"), 7],
   ["dark page deck", token(darkBlock, "--study-heading-deck"), token(darkBlock, "--study-canvas"), 7],
+  ["dark action", token(darkBlock, "--study-action-ink"), token(darkBlock, "--study-action"), 7],
+  ["inverse text", token(lightBlock, "--study-inverse-ink"), token(lightBlock, "--study-night"), 7],
+  ["inverse secondary text", token(lightBlock, "--study-inverse-soft"), token(lightBlock, "--study-night"), 7],
 ];
 
 for (const [label, foreground, background, minimum] of pairs) {

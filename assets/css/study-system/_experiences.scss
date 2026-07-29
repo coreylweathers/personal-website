@@ -38,11 +38,11 @@
   color: var(--study-inverse-ink) !important; text-decoration: none !important; transition: transform .25s, border-color .25s, background .25s;
 }
 .live-platform:hover { transform: translateY(-5px); border-color: currentColor; }
-.live-platform__mark { width: 42px; height: 42px; display: grid; place-items: center; margin-bottom: auto; border: 1px solid currentColor; font: 600 1rem var(--study-sans); }
+.live-platform__mark { width: 42px; height: 42px; display: grid; place-items: center; margin-bottom: auto; border: 1px solid currentColor; font: var(--study-weight-display) 1rem var(--study-font-ui); }
 .live-platform .study-label { margin-top: 2rem; margin-bottom: .6rem; color: currentColor; }
-.live-platform strong { font: 500 1.55rem/1.15 var(--study-serif); }
+.live-platform strong { font: var(--study-weight-heading) 1.55rem/1.15 var(--study-font-heading); }
 .live-platform small { margin-top: .65rem; color: var(--study-inverse-soft); line-height: 1.5; }
-.live-platform b { margin-top: 1.5rem; font: 500 .63rem var(--study-mono); letter-spacing: .08em; text-transform: uppercase; }
+.live-platform b { margin-top: 1.5rem; font: var(--study-weight-meta) var(--study-size-meta) var(--study-font-meta); letter-spacing: .08em; text-transform: uppercase; }
 .live-platform--youtube { color: #ff8b79 !important; background: rgba(255,50,40,.08); }
 .live-platform--twitch { color: #c6a6ff !important; background: rgba(145,70,255,.1); }
 .live-platform--linkedin { color: #8ecae8 !important; background: rgba(10,102,194,.11); }
@@ -58,23 +58,23 @@
 .about-hero__portrait { position: relative; margin: 0; overflow: hidden; border-left: 1px solid var(--study-rule); background: var(--study-inset); }
 .about-hero__portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: grayscale(1) sepia(.1); transition: filter .6s; }
 .about-hero__portrait:hover img { filter: none; }
-.about-hero__portrait figcaption { position: absolute; left: 2rem; bottom: 2rem; color: #fff; font: 500 .62rem var(--study-mono); letter-spacing: .08em; text-transform: uppercase; text-shadow: 0 1px 12px #000; }
+.about-hero__portrait figcaption { position: absolute; left: 2rem; bottom: 2rem; color: #fff; font: var(--study-weight-meta) var(--study-size-meta) var(--study-font-meta); letter-spacing: .08em; text-transform: uppercase; text-shadow: 0 1px 12px #000; }
 .about-principles { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--study-rule); }
 .about-principles article { min-height: 280px; padding: 2.5rem; border-right: 1px solid var(--study-rule); }
 .about-principles article:last-child { border-right: 0; }
 .about-principles article:nth-child(1) { border-top: 4px solid var(--study-copper); }
 .about-principles article:nth-child(2) { border-top: 4px solid var(--study-navy); background: var(--study-blue-wash); }
 .about-principles article:nth-child(3) { border-top: 4px solid var(--study-sage); background: var(--study-sage-wash); }
-.about-principles span { font: 500 .65rem var(--study-mono); color: var(--study-copper); }
-.about-principles h2 { margin: 4rem 0 .8rem; font: 500 2.2rem var(--study-serif); }
+.about-principles span { font: var(--study-weight-meta) var(--study-size-meta) var(--study-font-meta); color: var(--study-copper); }
+.about-principles h2 { margin: 4rem 0 .8rem; font: var(--study-weight-heading) 2.2rem var(--study-font-heading); }
 .about-principles p { color: var(--study-ink-soft); line-height: 1.6; }
 .about-story { display: grid; grid-template-columns: minmax(300px, 4fr) minmax(0, 8fr); }
 .about-story__rail { padding: var(--study-section) var(--study-gutter); border-right: 1px solid var(--study-rule); background: var(--study-plum-wash); }
 .about-story__rail > div { position: sticky; top: 100px; }
 .about-story__rail .study-label { margin-top: 1.5rem; }
-.about-story__rail blockquote { margin: 2rem 0 3rem; padding: 0; border: 0; font: italic 1.75rem/1.45 var(--study-serif); }
+.about-story__rail blockquote { margin: 2rem 0 3rem; padding: 0; border: 0; font: italic var(--study-weight-body) 1.75rem/1.45 var(--study-font-heading); }
 .about-story__rail dl { border-top: 1px solid var(--study-rule); }
-.about-story__rail dt { margin-top: 1.4rem; color: var(--study-copper); font: 500 .63rem var(--study-mono); letter-spacing: .08em; text-transform: uppercase; }
+.about-story__rail dt { margin-top: 1.4rem; color: var(--study-copper); font: var(--study-weight-meta) var(--study-size-meta) var(--study-font-meta); letter-spacing: .08em; text-transform: uppercase; }
 .about-story__rail dd { margin: .35rem 0; color: var(--study-ink-soft); }
 .about-prose { margin: 0; }
 .about-next { padding: var(--study-section) var(--study-gutter); background: var(--study-night); color: var(--study-inverse-ink); }
