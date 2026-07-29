@@ -24,6 +24,14 @@
   --study-inverse-soft: #cfc5bd;
   --study-logo-surface: #ffffff;
   --study-image-overlay: rgba(17, 12, 9, .18);
+  --study-header-bg: #f7f3eb;
+  --study-header-ink: #211b17;
+  --study-header-muted: #574f49;
+  --study-header-active: #994718;
+  --study-header-border: rgba(33, 27, 23, .18);
+  --study-header-control: #fdf9f1;
+  --study-heading-ink: #211b17;
+  --study-heading-deck: #4d4540;
   --study-serif: "Newsreader", Georgia, serif;
   --study-sans: "Geist", Arial, sans-serif;
   --study-mono: "IBM Plex Mono", Consolas, monospace;
@@ -67,5 +75,13 @@ body[theme="dark"] {
   --study-action-ink: #151715;
   --study-control: #202320;
   --study-image-overlay: rgba(4, 5, 4, .32);
+  --study-header-bg: #111411;
+  --study-header-ink: #fffaf2;
+  --study-header-muted: #e8dfd4;
+  --study-header-active: #ffad78;
+  --study-header-border: rgba(255, 250, 242, .28);
+  --study-header-control: #202520;
+  --study-heading-ink: #fffaf2;
+  --study-heading-deck: #e8dfd4;
   color-scheme: dark;
 }
