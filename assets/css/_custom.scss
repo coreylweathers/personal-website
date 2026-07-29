@@ -1711,3 +1711,19 @@ body[theme=dark] :is(.terminal-label,.terminal-meta,.study-label,.study-meta){fo
 .terminal-page-hero h1,.study-hero .study-title,.study-article-header .study-title{color:var(--study-heading-ink)!important}
 .terminal-page-lede,.study-hero .study-lede{color:var(--study-heading-deck)!important}
 body[theme=dark] .terminal-header{box-shadow:0 1px 0 var(--study-header-border),0 8px 24px rgba(0,0,0,.22)}
+
+/* Dark border hierarchy: strong frames, standard dividers, quiet inner rules. */
+body[theme=dark] :is(.terminal-header,.terminal-current,.terminal-gateways>a,.terminal-card-grid,.terminal-appearances>div,.terminal-contact-grid,.study-card,.study-form,.study-series,.study-license,.writing-feature){border-color:var(--study-rule-strong)}
+body[theme=dark] :is(.terminal-hero,.terminal-notebook,.terminal-page-body,.terminal-post-list,.terminal-appearances,.study-hero,.study-section--inset,.study-list,.study-article-footer,.writing-tools,.about-hero,.about-principles){border-color:var(--study-rule)}
+body[theme=dark] :is(.terminal-current-main,.terminal-current aside>a,.terminal-notebook-list,.terminal-card-grid section,.terminal-post-list article,.terminal-appearances article,.terminal-contact-grid>aside,.terminal-page-body>aside,.study-list-item,.study-toc,.about-principles article,.about-story__rail,.about-story__rail dl){border-color:var(--study-rule)}
+body[theme=dark] :is(.terminal-route span,.terminal-page-route span,.terminal-notebook-list header span),
+body[theme=dark] .study-rule::after{background:var(--study-rule)}
+body[theme=dark] :is(.contact-form input,.contact-form select,.contact-form textarea,.study-form,.study-share-button,.study-chip){border-color:var(--study-rule-strong)}
+body[theme=dark] .terminal-footer .terminal-copyright{border-color:var(--study-rule)}
+body[theme=dark] .terminal-current{border-left-color:var(--study-copper)}
+body[theme=dark] .terminal-gateways>a{border-top-color:var(--study-copper)}
+body[theme=dark] .study-card:nth-child(4n+1){border-top-color:var(--study-copper)}
+body[theme=dark] .study-card:nth-child(4n+2){border-top-color:var(--study-navy)}
+body[theme=dark] .study-card:nth-child(4n+3){border-top-color:var(--study-plum)}
+body[theme=dark] .study-card:nth-child(4n+4){border-top-color:var(--study-sage)}
+body[theme=dark] .writing-feature{border-top-color:var(--study-copper)}

@@ -10,10 +10,13 @@ const requiredRules = [
   "--study-header-control:",
   "--study-heading-ink:",
   "--study-heading-deck:",
+  "--study-rule-soft:",
+  "--study-rule-strong:",
   ".terminal-header>nav a",
   ".terminal-page-hero h1",
   ".study-hero .study-title",
   "body[theme=dark] .terminal-header",
+  "body[theme=dark] :is(.terminal-header,.terminal-current,.terminal-gateways>a",
 ];
 
 for (const rule of requiredRules) {
@@ -27,6 +30,14 @@ function token(block, name) {
   const value = block.match(new RegExp(`${name}:(#[0-9a-f]{6})`, "i"))?.[1];
   if (!value) throw new Error(`Theme token is missing or is not a hex color: ${name}`);
   return value;
+}
+
+function alphaToken(block, name) {
+  const alpha = block.match(
+    new RegExp(`${name}:rgba\\([^,]+,[^,]+,[^,]+,\\s*([.0-9]+)\\)`, "i"),
+  )?.[1];
+  if (!alpha) throw new Error(`Theme alpha token is missing: ${name}`);
+  return Number.parseFloat(alpha);
 }
 
 function luminance(hex) {
@@ -67,6 +78,21 @@ for (const [label, foreground, background, minimum] of pairs) {
     );
   }
   console.log(`${label}: ${ratio.toFixed(2)}:1`);
+}
+
+const darkBorders = [
+  ["dark soft border", alphaToken(darkBlock, "--study-rule-soft"), 0.2],
+  ["dark standard border", alphaToken(darkBlock, "--study-rule"), 0.35],
+  ["dark strong border", alphaToken(darkBlock, "--study-rule-strong"), 0.5],
+];
+
+for (const [label, alpha, minimum] of darkBorders) {
+  if (alpha < minimum) {
+    throw new Error(
+      `${label} alpha is ${alpha}; expected at least ${minimum}`,
+    );
+  }
+  console.log(`${label}: ${(alpha * 100).toFixed(0)}%`);
 }
 
 console.log("Theme contract passed.");
