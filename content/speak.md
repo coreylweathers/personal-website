@@ -23,5 +23,3 @@ Clear language for a difficult shift, practical questions to carry back to the w
 ## Formats
 
 Keynotes, conference and technical sessions, executive briefings, workshops, leadership offsites, panels, podcasts, and moderated conversations.
-
-[Invite me to speak →](/contact/)
