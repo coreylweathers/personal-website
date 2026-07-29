@@ -1,2 +1,19 @@
 {{ define "title" }}Now · {{ .Site.Title }}{{ end }}
-{{ define "content" }}<article class="terminal-page">{{ partial "terminal/page-hero.html" (dict "eyebrow" (printf "Now · Updated %s" hugo.Data.site.now.updated) "title" .Title "description" .Description) }}<div class="terminal-card-grid">{{ range $index,$item := hugo.Data.site.now.items }}<section><p class="terminal-meta">{{ printf "%02d" (add $index 1) }}</p><h2>{{ .label }}</h2><p>{{ .text }}</p></section>{{ end }}</div></article>{{ end }}
+{{ define "content" }}
+<article class="terminal-page">
+  {{ partial "terminal/page-hero.html" (dict
+    "eyebrow" (printf "Now · Updated %s" hugo.Data.site.now.updated)
+    "title" .Title
+    "description" .Description
+  ) }}
+  <div class="terminal-card-grid">
+    {{ range $index, $item := hugo.Data.site.now.items }}
+      <section>
+        <p class="terminal-meta">{{ printf "%02d" (add $index 1) }}</p>
+        <h2>{{ .label }}</h2>
+        <p>{{ .text }}</p>
+      </section>
+    {{ end }}
+  </div>
+</article>
+{{ end }}

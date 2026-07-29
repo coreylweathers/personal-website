@@ -1,4 +1,51 @@
 {{ define "title" }}Contact · {{ .Site.Title }}{{ end }}
-{{ define "content" }}<article class="terminal-page terminal-contact-page">{{ partial "terminal/page-hero.html" (dict "eyebrow" "Contact" "title" .Title "description" .Description) }}
-<div class="terminal-contact-grid"><aside><p class="terminal-label">Good reasons to reach out</p><ul><li>Advisory and consulting</li><li>Speaking and workshops</li><li>Podcasts and media</li><li>Projects and partnerships</li><li>A thoughtful general note</li></ul>{{ with .Site.Params.contact_form_id }}<p>Prefer email? <a href="mailto:corey.weathers@outlook.com">Write directly.</a></p>{{ end }}</aside>
-{{ with .Site.Params.contact_form_id }}<form class="contact-form" action="https://forms.un-static.com/forms/{{ . }}" method="post"><div class="form-row"><label>Name <input name="name" autocomplete="name" required></label><label>Email <input type="email" name="email" autocomplete="email" required></label></div><label>Organization <input name="organization" autocomplete="organization"></label><label>Inquiry type <select name="inquiry_type"><option>Advisory and consulting</option><option>Speaking</option><option>Workshop</option><option>Podcast or media</option><option>Project or partnership</option><option>General note</option></select></label><div class="form-row"><label>Desired timeline <input name="timeline"></label><label>Budget range <input name="budget"></label></div><label>Tell me what you’re working through, who it affects, and what a useful outcome would look like. <textarea name="message" rows="7" required></textarea></label><input type="text" name="_gotcha" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true"><button class="terminal-button" type="submit">Send the note</button><p class="form-note">Your details are used only to respond to this inquiry.</p></form>{{ else }}<div class="terminal-email-fallback"><p class="terminal-label">Email is the front door</p><h2>Send the shape of the problem.</h2><p>Include your organization, timeline, and what a useful outcome would look like. I’ll take it from there.</p><a class="terminal-button" href="mailto:corey.weathers@outlook.com?subject=Project%20inquiry">Email Corey</a></div>{{ end }}</div></article>{{ end }}
+{{ define "content" }}
+<article class="terminal-page terminal-contact-page">
+  {{ partial "terminal/page-hero.html" (dict "eyebrow" "Contact" "title" .Title "description" .Description) }}
+  <div class="terminal-contact-grid">
+    <aside>
+      <p class="terminal-label">Good reasons to reach out</p>
+      <ul>
+        <li>Advisory and consulting</li>
+        <li>Speaking and workshops</li>
+        <li>Podcasts and media</li>
+        <li>Projects and partnerships</li>
+        <li>A thoughtful general note</li>
+      </ul>
+      {{ with .Site.Params.contact_form_id }}<p>Prefer email? <a href="mailto:corey.weathers@outlook.com">Write directly.</a></p>{{ end }}
+    </aside>
+    {{ with .Site.Params.contact_form_id }}
+      <form class="contact-form" action="https://forms.un-static.com/forms/{{ . }}" method="post">
+        <div class="form-row">
+          <label>Name <input name="name" autocomplete="name" required></label>
+          <label>Email <input type="email" name="email" autocomplete="email" required></label>
+        </div>
+        <label>Organization <input name="organization" autocomplete="organization"></label>
+        <label>Inquiry type
+          <select name="inquiry_type">
+            <option>Advisory and consulting</option><option>Speaking</option><option>Workshop</option>
+            <option>Podcast or media</option><option>Project or partnership</option><option>General note</option>
+          </select>
+        </label>
+        <div class="form-row">
+          <label>Desired timeline <input name="timeline"></label>
+          <label>Budget range <input name="budget"></label>
+        </div>
+        <label>Tell me what you’re working through, who it affects, and what a useful outcome would look like.
+          <textarea name="message" rows="7" required></textarea>
+        </label>
+        <input type="text" name="_gotcha" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="terminal-button" type="submit">Send the note</button>
+        <p class="form-note">Your details are used only to respond to this inquiry.</p>
+      </form>
+    {{ else }}
+      <div class="terminal-email-fallback">
+        <p class="terminal-label">Email is the front door</p>
+        <h2>Send the shape of the problem.</h2>
+        <p>Include your organization, timeline, and what a useful outcome would look like. I’ll take it from there.</p>
+        <a class="terminal-button" href="mailto:corey.weathers@outlook.com?subject=Project%20inquiry">Email Corey</a>
+      </div>
+    {{ end }}
+  </div>
+</article>
+{{ end }}

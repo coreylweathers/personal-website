@@ -10,6 +10,7 @@ featuredImageAlt: "DevRel meets AI illustration"
 categories: ["DevRel"]
 tags: ["DevRel", "AI", "Strategy"]
 slug: "devrel-meets-ai"
+homepageRole: "latest-essay"
 ---
 
 > **Editorial update · July 2026:** My thinking has expanded from AI-assisted advocacy toward AI-native developer journeys: agents are becoming developer audiences, trust and transparency are product requirements, and voice exposes the repair patterns human-agent collaboration needs. This essay captures an earlier step in that work.

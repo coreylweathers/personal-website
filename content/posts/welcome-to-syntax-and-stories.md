@@ -6,6 +6,7 @@ featuredImage: "/images/posts/intro-post-header.png"
 categories: ["Personal"]
 tags: ["DevRel", "Introduction", "Career", "Parenting", "C#"]
 slug: "welcome-to-syntax-and-stories"
+homepageRole: "field-note"
 ---
 
 > **Editorial note · July 2026:** Syntax & Stories was the beginning of this site. It has since grown into a broader home for my ideas, projects, conversations, family stories, and life outside technology. This essay remains as a record of that starting point.

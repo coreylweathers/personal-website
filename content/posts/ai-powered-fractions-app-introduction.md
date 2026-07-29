@@ -12,6 +12,7 @@ categories: ["Projects"]
 tags: ["DevRel", ".NET", "Blazor", "AI", "Education", "Parenting", "Building in Public"]
 slug: "ai-powered-fractions-app-introduction"
 series: ["Building an AI-Powered Fractions App"]
+homepageRole: "current-project"
 ---
 
 > **Project update · July 2026:** This experiment evolved into a broader family learning product. The architecture and livestream plans below describe the original exploration, not a current roadmap; they remain here as part of the project record.

@@ -1,2 +1,29 @@
 {{ define "title" }}Work With Me · {{ .Site.Title }}{{ end }}
-{{ define "content" }}<article class="terminal-page">{{ partial "terminal/page-hero.html" (dict "eyebrow" "Work with me" "title" .Title "description" .Description) }}<div class="terminal-card-grid">{{ range $index,$service := hugo.Data.site.services }}<section><p class="terminal-meta">{{ printf "%02d" (add $index 1) }}</p><h2>{{ .title }}</h2><p>{{ .text }}</p></section>{{ end }}</div><section class="terminal-page-cta"><p class="terminal-label">Ways to work together</p><h2>Choose the shape that fits the problem.</h2><p>Advisory sessions, strategy sprints, developer journey reviews, voice experience reviews, workshops, leadership offsites, ongoing retainers, speaking, and moderated conversations.</p><a class="terminal-button" href="/contact/">Start a conversation</a></section></article>{{ end }}
+{{ define "content" }}
+<article class="terminal-page">
+  {{ partial "terminal/page-hero.html" (dict
+    "eyebrow" "Work with me"
+    "title" .Title
+    "description" .Description
+  ) }}
+  <div class="terminal-card-grid">
+    {{ range $index, $service := hugo.Data.site.services }}
+      <section>
+        <p class="terminal-meta">{{ printf "%02d" (add $index 1) }}</p>
+        <h2>{{ .title }}</h2>
+        <p>{{ .text }}</p>
+      </section>
+    {{ end }}
+  </div>
+  <section class="terminal-page-cta">
+    <p class="terminal-label">Ways to work together</p>
+    <h2>Choose the shape that fits the problem.</h2>
+    <p>
+      Advisory sessions, strategy sprints, developer journey reviews, voice
+      experience reviews, workshops, leadership offsites, ongoing retainers,
+      speaking, and moderated conversations.
+    </p>
+    <a class="terminal-button" href="/contact/">Start a conversation</a>
+  </section>
+</article>
+{{ end }}

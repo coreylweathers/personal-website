@@ -3,12 +3,50 @@
 <header class="terminal-header">
   <a class="terminal-brand" href="/" aria-label="Corey L Weathers, home">Corey L Weathers</a>
   <nav id="terminal-menu" aria-label="Primary navigation">
-    {{ range hugo.Data.site.navigation.primary }}{{ $active := eq $.RelPermalink .url }}{{ if and (eq .label "Read") (eq $.Section "posts") }}{{ $active = true }}{{ end }}<a href="{{ .url }}"{{ if $active }} class="active" aria-current="page"{{ end }}>{{ .label }}</a>{{ end }}
+    {{ range hugo.Data.site.navigation.primary }}
+      {{ $active := eq $.RelPermalink .url }}
+      {{ if and (eq .label "Read") (eq $.Section "posts") }}{{ $active = true }}{{ end }}
+      <a href="{{ .url }}"{{ if $active }} class="active" aria-current="page"{{ end }}>
+        {{ .label }}
+      </a>
+    {{ end }}
+    {{ range hugo.Data.site.navigation.utility }}
+      <a
+        class="terminal-mobile-utility{{ if eq $.RelPermalink .url }} active{{ end }}"
+        href="{{ .url }}"
+        {{- if eq $.RelPermalink .url }} aria-current="page"{{ end }}
+      >{{ .label }}</a>
+    {{ end }}
   </nav>
   <div class="terminal-header-actions">
-    <a class="terminal-now-link" href="/now/">Now</a>
-    <button class="study-theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme"><span class="theme-light" aria-hidden="true">☼</span><span class="theme-dark" aria-hidden="true">◐</span></button>
-    <a class="terminal-header-cta" href="/work-with-me/">Work with me</a>
-    <button class="terminal-menu-toggle" type="button" aria-label="Toggle primary navigation" aria-expanded="false" aria-controls="terminal-menu"><span></span><span></span><span></span></button>
+    <a
+      class="terminal-now-link{{ if eq .RelPermalink "/now/" }} active{{ end }}"
+      href="/now/"
+      {{- if eq .RelPermalink "/now/" }} aria-current="page"{{ end }}
+    >Now</a>
+    <button
+      class="study-theme-toggle"
+      type="button"
+      aria-label="Switch color theme"
+      aria-pressed="false"
+      title="Switch color theme"
+    >
+      <span class="theme-light" aria-hidden="true">☼</span>
+      <span class="theme-dark" aria-hidden="true">◐</span>
+    </button>
+    <a
+      class="terminal-header-cta{{ if eq .RelPermalink "/work-with-me/" }} active{{ end }}"
+      href="/work-with-me/"
+      {{- if eq .RelPermalink "/work-with-me/" }} aria-current="page"{{ end }}
+    >Work with me</a>
+    <button
+      class="terminal-menu-toggle"
+      type="button"
+      aria-label="Toggle primary navigation"
+      aria-expanded="false"
+      aria-controls="terminal-menu"
+    >
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>

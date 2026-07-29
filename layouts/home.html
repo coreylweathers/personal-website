@@ -1,21 +1,117 @@
 {{ define "content" }}
-{{ $posts := (where .Site.RegularPages "Type" "posts").ByDate.Reverse }}{{ $latest := index $posts 0 }}{{ $essay := index $posts 1 }}{{ $portrait := resources.Get "images/about/corey-about-portrait.png" }}
+{{ $posts := (where .Site.RegularPages "Type" "posts").ByDate.Reverse }}
+{{ $cover := index (where $posts "Params.homepageRole" "cover") 0 }}
+{{ $essay := index (where $posts "Params.homepageRole" "latest-essay") 0 }}
+{{ $fieldNote := index (where $posts "Params.homepageRole" "field-note") 0 }}
+{{ $project := index (where $posts "Params.homepageRole" "current-project") 0 }}
+{{ $portrait := resources.Get "images/about/corey-about-portrait.png" }}
 <div class="terminal-home">
   <section class="terminal-hero">
     <div class="terminal-hero-copy">
       <p class="terminal-label">{{ hugo.Data.site.identity.eyebrow }}</p>
       <h1>Exploring the ideas that shape how we build, lead, and live.</h1>
-      <p class="terminal-lede">I’m Corey L Weathers, a technology leader, builder, and father working at the intersection of developer platforms, AI, product experience, and community.</p>
-      <p class="terminal-aside">This is my corner of the internet for the technical and the personal: what I’m building, what I’m learning, and what it means to pursue ambitious work while raising a family.</p>
-      <div class="terminal-actions"><a class="terminal-button" href="{{ $essay.RelPermalink }}">Read the latest</a><a class="terminal-text-link" href="/build/">Explore what I’m building <span>→</span></a></div>
-      <div class="terminal-experience"><span>{{ hugo.Data.site.experience.statement }}</span><div class="terminal-company-logos">{{ range hugo.Data.site.experience.companies }}<span><img src="{{ .logo }}" alt="{{ .name }}"></span>{{ end }}</div></div>
+      <p class="terminal-lede">
+        I’m Corey L Weathers, a technology leader, builder, and father working at the
+        intersection of developer platforms, AI, product experience, and community.
+      </p>
+      <p class="terminal-aside">
+        This is my corner of the internet for the technical and the personal: what
+        I’m building, what I’m learning, and what it means to pursue ambitious work
+        while raising a family.
+      </p>
+      <div class="terminal-actions">
+        <a class="terminal-button" href="{{ $essay.RelPermalink }}">Read the latest</a>
+        <a class="terminal-text-link" href="/build/">
+          Explore what I’m building <span>→</span>
+        </a>
+      </div>
+      <div class="terminal-experience">
+        <span>{{ hugo.Data.site.experience.statement }}</span>
+        <div class="terminal-company-logos">
+          {{ range hugo.Data.site.experience.companies }}
+            <span><img src="{{ .logo }}" alt="{{ .name }}"></span>
+          {{ end }}
+        </div>
+      </div>
     </div>
-    <figure class="terminal-hero-image"><img src="{{ $portrait.RelPermalink }}" width="{{ $portrait.Width }}" height="{{ $portrait.Height }}" alt="Corey L Weathers smiling in a red shirt."><figcaption><i></i> Brooklyn roots · Building with intention</figcaption></figure>
+    <figure class="terminal-hero-image">
+      <img
+        src="{{ $portrait.RelPermalink }}"
+        width="{{ $portrait.Width }}"
+        height="{{ $portrait.Height }}"
+        alt="Corey L Weathers smiling in a red shirt."
+      >
+      <figcaption><i></i> Brooklyn roots · Building with intention</figcaption>
+    </figure>
   </section>
   <div class="terminal-route" aria-hidden="true"><i></i><span></span><i></i></div>
-  <section class="terminal-current"><div class="terminal-current-main"><p class="terminal-label terminal-live"><i></i>Cover story</p><h2><a href="{{ $latest.RelPermalink }}">{{ $latest.Title }}</a></h2><p>{{ $latest.Summary | default $latest.Description | plainify | truncate 210 }}</p><div class="terminal-meta">{{ $latest.Date.Format "02 Jan 2006" | upper }} · {{ $latest.ReadingTime }} MIN READ</div></div><aside><p class="terminal-label">Start here</p><a href="/about/">Who I am and why this site exists</a><a href="/read/">Browse essays and field notes</a><a href="/work-with-me/">Explore advisory work</a></aside></section>
-  <section class="terminal-gateways">{{ range hugo.Data.site.gateways }}<a href="{{ .url }}"><span><i></i>{{ .number }}. [ {{ upper .label }} ]</span><h2>{{ .label }}</h2><p>{{ .text }}</p><b>Enter →</b></a>{{ end }}</section>
-  <section class="terminal-notebook"><div class="terminal-notebook-list"><header><h2>From the Notebook</h2><span></span><i></i></header>{{ range first 4 $posts }}<article><div class="terminal-meta">{{ .Date.Format "02 Jan 2006" | upper }}</div><h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3><p>{{ .Summary | default .Description | plainify | truncate 170 }}</p></article>{{ end }}<a class="terminal-text-link" href="/read/">Read every entry <span>→</span></a></div><aside class="terminal-now"><i class="terminal-dot"></i><h2>Now.</h2><dl>{{ range hugo.Data.site.now.items }}<dt>{{ .label }}</dt><dd>{{ .text }}</dd>{{ end }}</dl><p class="terminal-meta">UPDATED · {{ upper hugo.Data.site.now.updated }}</p></aside></section>
-  <section class="terminal-contact"><p class="terminal-label">Work with me</p><h2>{{ hugo.Data.site.workWithMe.title }}</h2><p>{{ hugo.Data.site.workWithMe.text }}</p><div class="terminal-actions"><a class="terminal-button" href="/work-with-me/">Explore how I can help</a><a class="terminal-text-link" href="/contact/">Start a conversation <span>→</span></a></div></section>
-  <section class="terminal-newsletter"><p class="terminal-label">Occasional dispatches</p><div><h2>{{ hugo.Data.site.newsletter.title }}</h2><p>{{ hugo.Data.site.newsletter.text }}</p></div><a class="terminal-outline-button" href="{{ hugo.Data.site.newsletter.url }}">Join the list</a></section>
+  <section class="terminal-current">
+    <div class="terminal-current-main">
+      <p class="terminal-label terminal-live"><i></i>Cover story</p>
+      <h2><a href="{{ $cover.RelPermalink }}">{{ $cover.Title }}</a></h2>
+      <p>{{ $cover.Summary | default $cover.Description | plainify | truncate 210 }}</p>
+      <div class="terminal-meta">{{ $cover.Date.Format "02 Jan 2006" | upper }} · {{ $cover.ReadingTime }} MIN READ</div>
+    </div>
+    <aside>
+      <p class="terminal-label">Also in rotation</p>
+      <a href="{{ $fieldNote.RelPermalink }}">Field note · {{ $fieldNote.Title }}</a>
+      <a href="{{ $project.RelPermalink }}">Current project · {{ $project.Title }}</a>
+      <a href="/live/">Live · Watch the latest session</a>
+    </aside>
+  </section>
+  <section class="terminal-gateways">
+    {{ range hugo.Data.site.gateways }}
+      <a href="{{ .url }}">
+        <span><i></i>{{ .number }}. [ {{ upper .label }} ]</span>
+        <h2>{{ .label }}</h2>
+        <p>{{ .text }}</p>
+        <b>Enter →</b>
+      </a>
+    {{ end }}
+  </section>
+  <section class="terminal-notebook">
+    <div class="terminal-notebook-list">
+      <header><h2>From the Notebook</h2><span></span><i></i></header>
+      {{ range first 4 $posts }}
+        <article>
+          <div class="terminal-meta">{{ .Date.Format "02 Jan 2006" | upper }}</div>
+          <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          <p>{{ .Summary | default .Description | plainify | truncate 170 }}</p>
+        </article>
+      {{ end }}
+      <a class="terminal-text-link" href="/read/">Read every entry <span>→</span></a>
+    </div>
+    <aside class="terminal-now">
+      <i class="terminal-dot"></i>
+      <h2>Now.</h2>
+      <dl>
+        {{ range hugo.Data.site.now.items }}
+          <dt>{{ .label }}</dt>
+          <dd>{{ .text }}</dd>
+        {{ end }}
+      </dl>
+      <p class="terminal-meta">UPDATED · {{ upper hugo.Data.site.now.updated }}</p>
+    </aside>
+  </section>
+  <section class="terminal-contact">
+    <p class="terminal-label">Work with me</p>
+    <h2>{{ hugo.Data.site.workWithMe.title }}</h2>
+    <p>{{ hugo.Data.site.workWithMe.text }}</p>
+    <div class="terminal-actions">
+      <a class="terminal-button" href="/work-with-me/">Explore how I can help</a>
+      <a class="terminal-text-link" href="/contact/">
+        Start a conversation <span>→</span>
+      </a>
+    </div>
+  </section>
+  <section class="terminal-newsletter">
+    <p class="terminal-label">Occasional dispatches</p>
+    <div>
+      <h2>{{ hugo.Data.site.newsletter.title }}</h2>
+      <p>{{ hugo.Data.site.newsletter.text }}</p>
+    </div>
+    <a class="terminal-outline-button" href="{{ hugo.Data.site.newsletter.url }}">
+      Join the list
+    </a>
+  </section>
 </div>{{ end }}

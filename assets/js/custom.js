@@ -24,7 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (window.innerWidth > 960) setOpen(false);
   });
   const themeToggle = document.querySelector(".study-theme-toggle");
-  const syncTheme = () => themeToggle?.setAttribute("aria-label", document.body.getAttribute("theme") === "dark" ? "Switch to light theme" : "Switch to dark theme");
+  const syncTheme = () => {
+    const dark = document.body.getAttribute("theme") === "dark";
+    themeToggle?.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+    themeToggle?.setAttribute("aria-pressed", String(dark));
+  };
   themeToggle?.addEventListener("click", () => {
     const next = document.body.getAttribute("theme") === "dark" ? "light" : "dark";
     document.body.setAttribute("theme", next);

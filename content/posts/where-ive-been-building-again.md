@@ -10,6 +10,7 @@ categories: ["Personal", "Leadership", "Career"]
 tags: ["Leadership", "Career", "DevRel", "Mental Health", "Building in Public", "Intentional Work", "Growth", "Personal Development"]
 keywords: ["leadership transition", "career change", "building in public", "developer relations", "work-life balance", "personal growth", "leadership lessons", "career journey", "mental health at work", "intentional living"]
 slug: "where-ive-been-building-again"
+homepageRole: "cover"
 ---
 
 Two years ago, I made one of the hardest decisions of my career: I left my job.

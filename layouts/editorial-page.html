@@ -1,5 +1,5 @@
 {{ define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end }}
 {{ define "content" }}<article class="terminal-page">
   {{ partial "terminal/page-hero.html" (dict "eyebrow" .Params.eyebrow "title" .Title "description" .Description) }}
-  <div class="terminal-page-body"><aside><p class="terminal-label">On this page</p><p>Ideas, experience, and notes from the work behind the work.</p></aside><div class="terminal-prose">{{ .Content }}</div></div>
+  <div class="terminal-page-body"><aside><p class="terminal-label">On this page</p>{{ .TableOfContents }}</aside><div class="terminal-prose">{{ .Content }}</div></div>
 </article>{{ end }}
