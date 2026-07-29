@@ -1,11 +1,11 @@
 ---
-title: "Ideas meant to move through a room."
-description: "I speak about voice AI, developer experience, technical leadership, and what increasingly human software asks of the people building it."
+title: "Talks built from experience, not just slides."
+description: "I speak about voice AI, developer experience, technical leadership, and what happens when software has to communicate with people."
 eyebrow: "Speak"
 layout: "speak"
 ---
 
-My talks combine technical experience, operating perspective, and the messy human realities that determine whether technology earns trust.
+My talks start with work I have done and questions I am still working through. I connect the technical details to the decisions, misunderstandings, and tradeoffs that determine whether people trust a product.
 
 ## Speaking themes
 
@@ -18,7 +18,7 @@ My talks combine technical experience, operating perspective, and the messy huma
 
 ## What audiences leave with
 
-Clear language for a difficult shift, practical questions to carry back to the work, and a more complete view of the people affected by technical decisions.
+A clearer way to name the problem, practical questions to take back to the team, and examples grounded in real product and leadership work.
 
 ## Formats
 

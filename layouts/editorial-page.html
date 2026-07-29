@@ -1,5 +1,16 @@
 {{ define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end }}
-{{ define "content" }}<article class="terminal-page">
+{{ define "content" }}
+{{ $hasTOC := gt (len (strings.TrimSpace (plainify .TableOfContents))) 0 }}
+<article class="terminal-page">
   {{ partial "terminal/page-hero.html" (dict "eyebrow" .Params.eyebrow "title" .Title "description" .Description) }}
-  <div class="terminal-page-body"><aside><p class="terminal-label">On this page</p>{{ .TableOfContents }}</aside><div class="terminal-prose">{{ .Content }}</div></div>
-</article>{{ end }}
+  <div class="terminal-page-body{{ if not $hasTOC }} terminal-page-body--single{{ end }}">
+    {{ if $hasTOC }}
+      <aside>
+        <p class="terminal-label">On this page</p>
+        {{ .TableOfContents }}
+      </aside>
+    {{ end }}
+    <div class="terminal-prose">{{ .Content }}</div>
+  </div>
+</article>
+{{ end }}

@@ -5,7 +5,7 @@
   {{ partial "terminal/page-hero.html" (dict
     "eyebrow" "Read"
     "title" "Essays & Field Notes"
-    "description" "Long-form thinking and shorter observations from the intersection of technology and life."
+    "description" .Description
   ) }}
   <div class="terminal-post-list">
     {{ range $index, $post := $posts }}

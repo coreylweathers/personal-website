@@ -1,4 +1,4 @@
 ---
 title: "Essays & Field Notes"
-description: "Long-form thinking and shorter observations from the intersection of technology and life."
+description: "Essays and shorter notes about technology, leadership, family, work, and whatever I’m learning along the way."
 ---

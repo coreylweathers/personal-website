@@ -1,6 +1,6 @@
 ---
-title: "Let’s work through something difficult."
-description: "I help technology leaders and developer-facing teams make better decisions where product, engineering, developer experience, community, content, leadership, and AI meet."
+title: "Let’s work through the part that isn’t adding up."
+description: "I help technology leaders and developer-facing teams understand where people get stuck, decide what matters, and turn that into practical changes."
 eyebrow: "Work with me"
 layout: "work-with-me"
 ---
