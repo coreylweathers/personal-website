@@ -24,16 +24,6 @@
       href="/now/"
       {{- if eq .RelPermalink "/now/" }} aria-current="page"{{ end }}
     >Now</a>
-    <button
-      class="study-theme-toggle"
-      type="button"
-      aria-label="Switch color theme"
-      aria-pressed="false"
-      title="Switch color theme"
-    >
-      <span class="theme-light" aria-hidden="true">☼</span>
-      <span class="theme-dark" aria-hidden="true">◐</span>
-    </button>
     <a
       class="terminal-header-cta{{ if eq .RelPermalink "/work-with-me/" }} active{{ end }}"
       href="/work-with-me/"

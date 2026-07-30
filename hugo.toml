@@ -45,7 +45,7 @@ enableRobotsTXT = true
   # site keywords
   keywords = ["syntax and stories", "Corey L Weathers", "coding blog", "developer relations", "devrel insights", "programming stories", "debugging life", "software engineering reflections", "coding lessons", "developer journey", "tech storytelling", "developer advocacy", "work-life balance", "parenting in tech", "coding advice for developers", ".net development", "c# programming", "asp.net core", "blazor development", "dotnet"]
   # site default theme ("light", "dark", "auto")
-  defaultTheme = "auto"
+  defaultTheme = "light"
   # public git repo url only then enableGitInfo is true
   gitRepo = "https://github.com/coreylweathers/personal-website"
   # date format

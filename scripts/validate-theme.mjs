@@ -44,7 +44,6 @@ const requiredRules = [
   "font-family:var(--study-font-body)",
   "font-weight:var(--study-weight-body)",
   "text-rendering:optimizeLegibility",
-  ".study-theme-toggle{width:44px;height:44px",
   ".terminal-brand{display:inline-flex;min-height:44px",
   ".terminal-header>nav a{display:flex;min-height:44px",
   ".terminal-menu-toggle{display:flex;width:44px;height:44px",
@@ -63,8 +62,6 @@ for (const rule of requiredRules) {
 }
 
 const lightBlock = tokenCss.match(/:root\{([^}]*)\}/)?.[1] ?? "";
-const darkBlock = tokenCss.match(/body\[theme="dark"\]\{([^}]*)\}/)?.[1] ?? "";
-
 const forbiddenLegacyRules = [
   ".home-profile",
   ".section-hero",
@@ -72,6 +69,11 @@ const forbiddenLegacyRules = [
   ".single-title",
   "--background-color",
   "--text-color-secondary",
+  'body[theme="dark"]',
+  "body[theme=dark]",
+  ".study-theme-toggle",
+  ".theme-light",
+  ".theme-dark",
 ];
 
 for (const rule of forbiddenLegacyRules) {
@@ -82,15 +84,6 @@ for (const rule of forbiddenLegacyRules) {
 
 if (/font(?:-weight)?:[^;}]*\b800\b/.test(css)) {
   throw new Error("Synthetic 800 font weight is compiled but no 800 font is loaded");
-}
-
-const darkTypographyOverrides = css.match(
-  /body\[theme=dark\][^{]*\{[^}]*(?:font|line-height|letter-spacing):/g,
-);
-if (darkTypographyOverrides) {
-  throw new Error(
-    `Dark mode changes typography instead of palette: ${darkTypographyOverrides[0]}`,
-  );
 }
 
 const typographyTokens = [
@@ -112,9 +105,6 @@ const typographyTokens = [
 for (const name of typographyTokens) {
   if (!lightBlock.includes(`${name}:`)) {
     throw new Error(`Typography token is missing from the base theme: ${name}`);
-  }
-  if (darkBlock.includes(`${name}:`)) {
-    throw new Error(`Dark mode must not redefine typography: ${name}`);
   }
 }
 
@@ -210,13 +200,24 @@ for (const path of htmlFiles("public")) {
 
 const home = readFileSync("public/index.html", "utf8");
 for (const contract of [
-  'class="study-theme-toggle"',
-  'aria-label="Switch color theme"',
-  'meta name="color-scheme" content="light dark"',
+  '<body theme="light"',
+  'meta name="color-scheme" content="light"',
   'meta name="theme-color" content="#f7f3eb"',
 ]) {
   if (!home.includes(contract)) {
     throw new Error(`Theme UI contract is missing: ${contract}`);
+  }
+}
+
+for (const forbidden of [
+  "study-theme-toggle",
+  "prefers-color-scheme",
+  'theme="dark"',
+  'cfg-theme=',
+  "data-dark=",
+]) {
+  if (home.includes(forbidden)) {
+    throw new Error(`The generated site still exposes dark mode: ${forbidden}`);
   }
 }
 
@@ -233,19 +234,21 @@ for (const contract of [
 if (interactionScript.includes("toggle.textContent")) {
   throw new Error("The menu toggle destroys its icon markup after interaction");
 }
+for (const forbidden of ["localStorage", "themeToggle", "site-theme-change"]) {
+  if (interactionScript.includes(forbidden)) {
+    throw new Error(`The interaction script still contains theme switching: ${forbidden}`);
+  }
+}
+
+const siteConfig = readFileSync("hugo.toml", "utf8");
+if (!/defaultTheme\s*=\s*"light"/.test(siteConfig)) {
+  throw new Error("The site default theme is not fixed to light");
+}
 
 function token(block, name) {
   const value = block.match(new RegExp(`${name}:(#[0-9a-f]{6})`, "i"))?.[1];
   if (!value) throw new Error(`Theme token is missing or is not a hex color: ${name}`);
   return value;
-}
-
-function alphaToken(block, name) {
-  const alpha = block.match(
-    new RegExp(`${name}:rgba\\([^,]+,[^,]+,[^,]+,\\s*([.0-9]+)\\)`, "i"),
-  )?.[1];
-  if (!alpha) throw new Error(`Theme alpha token is missing: ${name}`);
-  return Number.parseFloat(alpha);
 }
 
 function luminance(hex) {
@@ -274,15 +277,6 @@ const pairs = [
   ["light header brand", token(lightBlock, "--study-header-ink"), token(lightBlock, "--study-header-bg"), 7],
   ["light header navigation", token(lightBlock, "--study-header-muted"), token(lightBlock, "--study-header-bg"), 4.5],
   ["light header active", token(lightBlock, "--study-header-active"), token(lightBlock, "--study-header-bg"), 4.5],
-  ["dark body", token(darkBlock, "--study-ink"), token(darkBlock, "--study-canvas"), 7],
-  ["dark secondary text", token(darkBlock, "--study-ink-soft"), token(darkBlock, "--study-canvas"), 7],
-  ["dark accent text", token(darkBlock, "--study-copper"), token(darkBlock, "--study-canvas"), 4.5],
-  ["dark header brand", token(darkBlock, "--study-header-ink"), token(darkBlock, "--study-header-bg"), 7],
-  ["dark header navigation", token(darkBlock, "--study-header-muted"), token(darkBlock, "--study-header-bg"), 7],
-  ["dark header active", token(darkBlock, "--study-header-active"), token(darkBlock, "--study-header-bg"), 4.5],
-  ["dark page heading", token(darkBlock, "--study-heading-ink"), token(darkBlock, "--study-canvas"), 7],
-  ["dark page deck", token(darkBlock, "--study-heading-deck"), token(darkBlock, "--study-canvas"), 7],
-  ["dark action", token(darkBlock, "--study-action-ink"), token(darkBlock, "--study-action"), 7],
   ["inverse text", token(lightBlock, "--study-inverse-ink"), token(lightBlock, "--study-night"), 7],
   ["inverse secondary text", token(lightBlock, "--study-inverse-soft"), token(lightBlock, "--study-night"), 7],
 ];
@@ -297,19 +291,4 @@ for (const [label, foreground, background, minimum] of pairs) {
   console.log(`${label}: ${ratio.toFixed(2)}:1`);
 }
 
-const darkBorders = [
-  ["dark soft border", alphaToken(darkBlock, "--study-rule-soft"), 0.08],
-  ["dark standard border", alphaToken(darkBlock, "--study-rule"), 0.16],
-  ["dark strong border", alphaToken(darkBlock, "--study-rule-strong"), 0.34],
-];
-
-for (const [label, alpha, minimum] of darkBorders) {
-  if (alpha < minimum) {
-    throw new Error(
-      `${label} alpha is ${alpha}; expected at least ${minimum}`,
-    );
-  }
-  console.log(`${label}: ${(alpha * 100).toFixed(0)}%`);
-}
-
-console.log("Theme contract passed.");
+console.log("Light-only theme contract passed.");

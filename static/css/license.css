@@ -27,12 +27,3 @@
     margin-top: 0.5rem;
     padding-left: 1.5rem;
 }
-
-[theme=dark] .license-box {
-    background-color: #2d333b;
-    border-color: #444c56;
-}
-
-[theme=dark] .post-footer-license {
-    border-top-color: #444c56;
-}

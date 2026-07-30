@@ -12,35 +12,7 @@
         {{- partial "head/link.html" . -}}
         {{- partial "head/seo.html" . -}}
     </head>
-    <body data-header-desktop="{{ .Site.Params.header.desktopMode }}" data-header-mobile="{{ .Site.Params.header.mobileMode }}">
-        {{- $theme := .Site.Params.defaulttheme -}}
-        <script>
-          (() => {
-            const query = window.matchMedia('(prefers-color-scheme: dark)');
-            const getStoredTheme = () => {
-              try {
-                return window.localStorage.getItem('theme');
-              } catch {
-                return null;
-              }
-            };
-            const applyTheme = () => {
-              const theme = getStoredTheme() || '{{ $theme }}';
-              const isDark = theme === 'dark' || (theme === 'auto' && query.matches);
-              document.body.setAttribute('theme', isDark ? 'dark' : 'light');
-              document.body.setAttribute('cfg-theme', theme);
-              document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
-              const themeColor = document.querySelector('meta[name="theme-color"]');
-              themeColor?.setAttribute('content', themeColor.dataset[isDark ? 'dark' : 'light']);
-              window.dispatchEvent(new CustomEvent('site-theme-change'));
-            };
-
-            applyTheme();
-            if (query.addEventListener) query.addEventListener('change', applyTheme);
-            else query.addListener(applyTheme);
-          })();
-        </script>
-
+    <body theme="light" data-header-desktop="{{ .Site.Params.header.desktopMode }}" data-header-mobile="{{ .Site.Params.header.mobileMode }}">
         <div class="wrapper">
             {{- partial "header.html" . -}}
             <main class="main" id="main-content">
