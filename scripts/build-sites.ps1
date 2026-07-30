@@ -16,7 +16,7 @@ if (Test-Path -LiteralPath $distDir) {
     Remove-Item -LiteralPath $resolvedDist -Recurse -Force
 }
 
-& hugo --cleanDestinationDir --environment production
+& hugo --cleanDestinationDir --environment production --minify
 if ($LASTEXITCODE -ne 0) {
     throw "Hugo build failed."
 }

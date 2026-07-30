@@ -8,6 +8,35 @@ function filesUnder(directory) {
   });
 }
 
+function parseAttributes(markup) {
+  const attributes = new Map();
+  const attributePattern =
+    /([^\s=/>]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g;
+
+  for (const attribute of markup.matchAll(attributePattern)) {
+    attributes.set(
+      attribute[1].toLowerCase(),
+      attribute[2] ?? attribute[3] ?? attribute[4] ?? "",
+    );
+  }
+
+  return attributes;
+}
+
+function hasElementWithAttributes(html, tagName, requiredAttributes) {
+  const elementPattern = new RegExp(`<${tagName}\\b([^>]*)>`, "gi");
+
+  for (const element of html.matchAll(elementPattern)) {
+    const attributes = parseAttributes(element[1]);
+    const matches = Object.entries(requiredAttributes).every(
+      ([name, value]) => attributes.get(name.toLowerCase()) === value,
+    );
+    if (matches) return true;
+  }
+
+  return false;
+}
+
 const css = readFileSync("public/css/style.min.css", "utf8");
 const tokenCss = readFileSync(
   "assets/css/study-system/_tokens.scss",
@@ -216,33 +245,43 @@ const generatedHtmlPaths = filesUnder("public").filter((path) =>
   path.endsWith(".html"),
 );
 const forbiddenThemeMarkup = [
-  ["study-theme-toggle", "the retired theme toggle"],
-  ["prefers-color-scheme", "a system theme query"],
-  ['theme="dark"', "a dark theme attribute"],
-  ["theme='dark'", "a dark theme attribute"],
-  ["cfg-theme=", "the retired theme configuration"],
-  ["data-dark=", "a dark theme data attribute"],
-  ["theme-dark", "a dark theme class"],
+  [/study-theme-toggle/i, "the retired theme toggle"],
+  [/prefers-color-scheme/i, "a system theme query"],
+  [
+    /\btheme\s*=\s*(?:"dark"|'dark'|dark)(?=[\s>])/i,
+    "a dark theme attribute",
+  ],
+  [/\bcfg-theme\s*=/i, "the retired theme configuration"],
+  [/\bdata-dark\s*=/i, "a dark theme data attribute"],
+  [/\btheme-dark\b/i, "a dark theme class"],
 ];
 
 for (const path of generatedHtmlPaths) {
   const html = readFileSync(path, "utf8");
 
-  for (const [forbidden, label] of forbiddenThemeMarkup) {
-    if (html.includes(forbidden)) {
-      throw new Error(`${path} contains ${label}: ${forbidden}`);
+  for (const [pattern, label] of forbiddenThemeMarkup) {
+    if (pattern.test(html)) {
+      throw new Error(`${path} contains ${label}`);
     }
   }
 
   if (path.endsWith("substack.html")) continue;
 
-  for (const contract of [
-    '<body theme="light"',
-    'meta name="color-scheme" content="light"',
-    `meta name="theme-color" content="${configuredThemeColor}"`,
+  for (const [tagName, attributes, label] of [
+    ["body", { theme: "light" }, "light body theme"],
+    [
+      "meta",
+      { name: "color-scheme", content: "light" },
+      "light color scheme",
+    ],
+    [
+      "meta",
+      { name: "theme-color", content: configuredThemeColor },
+      "configured browser theme color",
+    ],
   ]) {
-    if (!html.includes(contract)) {
-      throw new Error(`${path} is missing the light theme contract: ${contract}`);
+    if (!hasElementWithAttributes(html, tagName, attributes)) {
+      throw new Error(`${path} is missing the light theme contract: ${label}`);
     }
   }
 
@@ -266,15 +305,15 @@ for (const path of generatedHtmlPaths) {
   }
 
   for (const match of html.matchAll(/<button\b([^>]*)>([\s\S]*?)<\/button>/gi)) {
-    const attributes = match[1];
+    const attributes = parseAttributes(match[1]);
     const visibleText = match[2].replace(/<[^>]+>/g, "").trim();
-    if (!/aria-label=["'][^"']+["']/i.test(attributes) && !visibleText) {
+    if (!attributes.get("aria-label")?.trim() && !visibleText) {
       throw new Error(`${path} contains a button without an accessible name`);
     }
   }
 
   for (const match of html.matchAll(/<img\b([^>]*)>/gi)) {
-    if (!/\balt=["'][^"']*["']/i.test(match[1])) {
+    if (!parseAttributes(match[1]).has("alt")) {
       throw new Error(`${path} contains an image without alt text`);
     }
   }
