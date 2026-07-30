@@ -70,7 +70,9 @@ jobs:
             --gc \
             --minify \
             --baseURL "https://coreylweathers.com/"          
-      - name: Validate light and dark themes
+      - name: Remove dark theme styles
+        run: node scripts/remove-dark-theme.mjs
+      - name: Validate light-only theme
         run: node scripts/validate-theme.mjs
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5

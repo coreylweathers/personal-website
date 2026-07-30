@@ -1,18 +1,53 @@
-import { readdirSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { extname, join } from "node:path";
+
+function filesUnder(directory) {
+  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const path = join(directory, entry.name);
+    return entry.isDirectory() ? filesUnder(path) : [path];
+  });
+}
 
 const css = readFileSync("public/css/style.min.css", "utf8");
 const tokenCss = readFileSync(
   "assets/css/study-system/_tokens.scss",
   "utf8",
 ).replace(/\s+/g, "");
-const themeSource = [
-  "assets/css/_custom.scss",
-  "assets/css/study-system/_tokens.scss",
-  "assets/css/study-system/_components.scss",
-  "assets/css/study-system/_content.scss",
-  "assets/css/study-system/_experiences.scss",
-].map((path) => readFileSync(path, "utf8")).join("\n");
+const themeSourceExtensions = new Set([
+  ".css",
+  ".html",
+  ".js",
+  ".scss",
+  ".svg",
+  ".toml",
+  ".xml",
+]);
+const themeSourcePaths = [
+  ...filesUnder("assets"),
+  ...filesUnder("layouts"),
+  ...filesUnder("static"),
+  "hugo.toml",
+].filter((path) => themeSourceExtensions.has(extname(path)));
+const themeSource = themeSourcePaths
+  .map((path) => readFileSync(path, "utf8"))
+  .join("\n");
+const customStylesheet = readFileSync("assets/css/_custom.scss", "utf8");
+const longestCustomStyleLine = Math.max(
+  ...customStylesheet.split(/\r?\n/u).map((line) => line.length),
+);
+if (longestCustomStyleLine > 240) {
+  throw new Error(
+    `The custom stylesheet has a ${longestCustomStyleLine}-character line; keep it below 240`,
+  );
+}
+const siteConfig = readFileSync("hugo.toml", "utf8");
+const configuredThemeColor = siteConfig.match(
+  /themeColor\s*=\s*"(#[0-9a-f]{6})"/i,
+)?.[1];
+if (!configuredThemeColor) {
+  throw new Error("The site theme color is missing or invalid");
+}
+const manifest = JSON.parse(readFileSync("static/site.webmanifest", "utf8"));
 const requiredRules = [
   "--study-font-body:",
   "--study-font-heading:",
@@ -61,6 +96,27 @@ for (const rule of requiredRules) {
   if (!css.includes(rule)) throw new Error(`Theme contract is missing: ${rule}`);
 }
 
+for (const [pattern, label] of [
+  [
+    /\[\s*theme\s*=\s*(?:"dark"|'dark'|dark)\s*(?:[is])?\s*\]/i,
+    "a dark theme selector",
+  ],
+  [
+    /prefers-color-scheme\s*:\s*dark/i,
+    "a dark system color-scheme query",
+  ],
+  [/(?:^|[^\w-])\.theme-dark\b/i, "a dark theme utility class"],
+  [/(?:^|[^\w-])\.study-theme-toggle\b/i, "the retired theme toggle"],
+]) {
+  if (pattern.test(css)) {
+    throw new Error(`The compiled stylesheet still contains ${label}`);
+  }
+}
+
+if (existsSync("public/css/style.min.css.map")) {
+  throw new Error("The production build still publishes the theme source map");
+}
+
 const lightBlock = tokenCss.match(/:root\{([^}]*)\}/)?.[1] ?? "";
 const forbiddenLegacyRules = [
   ".home-profile",
@@ -74,11 +130,14 @@ const forbiddenLegacyRules = [
   ".study-theme-toggle",
   ".theme-light",
   ".theme-dark",
+  "prefers-color-scheme: dark",
+  "themeToggle",
+  "site-theme-change",
 ];
 
 for (const rule of forbiddenLegacyRules) {
   if (themeSource.includes(rule)) {
-    throw new Error(`Retired theme selector or token is still compiled: ${rule}`);
+    throw new Error(`Retired theme selector or token remains in app source: ${rule}`);
   }
 }
 
@@ -153,17 +212,40 @@ for (const [label, path, marker] of routeContracts) {
   }
 }
 
-function htmlFiles(directory) {
-  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
-    const path = join(directory, entry.name);
-    if (entry.isDirectory()) return htmlFiles(path);
-    return entry.name.endsWith(".html") ? [path] : [];
-  });
-}
+const generatedHtmlPaths = filesUnder("public").filter((path) =>
+  path.endsWith(".html"),
+);
+const forbiddenThemeMarkup = [
+  ["study-theme-toggle", "the retired theme toggle"],
+  ["prefers-color-scheme", "a system theme query"],
+  ['theme="dark"', "a dark theme attribute"],
+  ["theme='dark'", "a dark theme attribute"],
+  ["cfg-theme=", "the retired theme configuration"],
+  ["data-dark=", "a dark theme data attribute"],
+  ["theme-dark", "a dark theme class"],
+];
 
-for (const path of htmlFiles("public")) {
-  if (path.endsWith("substack.html")) continue;
+for (const path of generatedHtmlPaths) {
   const html = readFileSync(path, "utf8");
+
+  for (const [forbidden, label] of forbiddenThemeMarkup) {
+    if (html.includes(forbidden)) {
+      throw new Error(`${path} contains ${label}: ${forbidden}`);
+    }
+  }
+
+  if (path.endsWith("substack.html")) continue;
+
+  for (const contract of [
+    '<body theme="light"',
+    'meta name="color-scheme" content="light"',
+    `meta name="theme-color" content="${configuredThemeColor}"`,
+  ]) {
+    if (!html.includes(contract)) {
+      throw new Error(`${path} is missing the light theme contract: ${contract}`);
+    }
+  }
+
   const stylesheetCount = (html.match(/\/css\/style\.min\.css/g) ?? []).length;
   if (stylesheetCount !== 1) {
     throw new Error(`${path} loads the site stylesheet ${stylesheetCount} times`);
@@ -198,29 +280,6 @@ for (const path of htmlFiles("public")) {
   }
 }
 
-const home = readFileSync("public/index.html", "utf8");
-for (const contract of [
-  '<body theme="light"',
-  'meta name="color-scheme" content="light"',
-  'meta name="theme-color" content="#f7f3eb"',
-]) {
-  if (!home.includes(contract)) {
-    throw new Error(`Theme UI contract is missing: ${contract}`);
-  }
-}
-
-for (const forbidden of [
-  "study-theme-toggle",
-  "prefers-color-scheme",
-  'theme="dark"',
-  'cfg-theme=',
-  "data-dark=",
-]) {
-  if (home.includes(forbidden)) {
-    throw new Error(`The generated site still exposes dark mode: ${forbidden}`);
-  }
-}
-
 const interactionScript = readFileSync("assets/js/custom.js", "utf8");
 for (const contract of [
   'toggle.classList.toggle("is-open", open)',
@@ -240,9 +299,15 @@ for (const forbidden of ["localStorage", "themeToggle", "site-theme-change"]) {
   }
 }
 
-const siteConfig = readFileSync("hugo.toml", "utf8");
 if (!/defaultTheme\s*=\s*"light"/.test(siteConfig)) {
   throw new Error("The site default theme is not fixed to light");
+}
+for (const key of ["theme_color", "background_color"]) {
+  if (manifest[key]?.toLowerCase() !== configuredThemeColor.toLowerCase()) {
+    throw new Error(
+      `The web manifest ${key} does not match the configured theme color`,
+    );
+  }
 }
 
 function token(block, name) {

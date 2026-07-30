@@ -8,6 +8,8 @@ To build the site for production:
 
 ```bash
 hugo --minify --environment production
+node scripts/remove-dark-theme.mjs
+node scripts/validate-theme.mjs
 ```
 
 This will generate the site in the `public` directory using production configuration, which can be deployed to any static hosting service.
@@ -104,13 +106,17 @@ jobs:
         env:
           HUGO_ENVIRONMENT: production
           HUGO_ENV: production
-                  run: |
-            hugo \
-              --gc \
-              --minify \
-              --baseURL "https://coreylweathers.com/"          
-        - name: Upload artifact
-          uses: actions/upload-pages-artifact@v3
+        run: |
+          hugo \
+            --gc \
+            --minify \
+            --baseURL "https://coreylweathers.com/"
+      - name: Remove dark theme styles
+        run: node scripts/remove-dark-theme.mjs
+      - name: Validate light-only theme
+        run: node scripts/validate-theme.mjs
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
 
@@ -148,7 +154,7 @@ jobs:
 ### Netlify
 
 1. Connect your GitHub repository to Netlify
-2. Set build command: `hugo --environment production`
+2. Set build command: `hugo --environment production && node scripts/remove-dark-theme.mjs && node scripts/validate-theme.mjs`
 3. Set publish directory: `public`
 4. Add environment variables:
    - `CONTACT_FORM_ID` with your form ID value
@@ -159,7 +165,7 @@ jobs:
 
 1. Import your GitHub repository to Vercel
 2. Set framework preset to "Hugo"
-3. Set build command: `hugo --environment production`
+3. Set build command: `hugo --environment production && node scripts/remove-dark-theme.mjs && node scripts/validate-theme.mjs`
 4. Set output directory: `public`
 5. Add environment variables:
    - `CONTACT_FORM_ID` with your form ID value
@@ -169,7 +175,7 @@ jobs:
 ### Cloudflare Pages
 
 1. Connect your GitHub repository to Cloudflare Pages
-2. Set build command: `hugo --environment production`
+2. Set build command: `hugo --environment production && node scripts/remove-dark-theme.mjs && node scripts/validate-theme.mjs`
 3. Set build output directory: `public`
 4. Add environment variables:
    - `CONTACT_FORM_ID` with your form ID value
@@ -178,7 +184,7 @@ jobs:
 
 ## Manual Deployment via FTP/SFTP
 
-1. Build the site locally: `hugo --environment production`
+1. Build the site locally: `hugo --environment production && node scripts/remove-dark-theme.mjs && node scripts/validate-theme.mjs`
 2. Create your production config file with the actual form ID and Google Analytics ID
 3. Upload the contents of the `public/` directory to your web server
 4. Remember to exclude the `config/` directory from uploads
@@ -214,4 +220,4 @@ jobs:
 1. **Permissions**: Ensure GitHub Actions has proper permissions for Pages deployment
 2. **Branch protection**: Check if branch protection rules are blocking the deployment
 3. **Repository settings**: Verify GitHub Pages is enabled and configured correctly
-4. **Custom domains**: If using a custom domain, ensure DNS is properly configured 
+4. **Custom domains**: If using a custom domain, ensure DNS is properly configured

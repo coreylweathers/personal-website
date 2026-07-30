@@ -21,6 +21,16 @@ if ($LASTEXITCODE -ne 0) {
     throw "Hugo build failed."
 }
 
+& node scripts/remove-dark-theme.mjs
+if ($LASTEXITCODE -ne 0) {
+    throw "Light-only stylesheet processing failed."
+}
+
+& node scripts/validate-theme.mjs
+if ($LASTEXITCODE -ne 0) {
+    throw "Site validation failed."
+}
+
 New-Item -ItemType Directory -Path $clientDir, $serverDir -Force | Out-Null
 Get-ChildItem -LiteralPath $publicDir -Force |
     Copy-Item -Destination $clientDir -Recurse -Force
