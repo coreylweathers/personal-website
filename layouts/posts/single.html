@@ -25,7 +25,12 @@
   <div class="study-route"><div class="study-rule"></div></div>
   {{- with $featuredImage }}
   <figure class="study-feature">
-    <img src="{{ . }}" alt="{{ $.Params.featuredImageAlt | default $.Title }}" loading="eager">
+    <div class="study-feature__media">
+      <img src="{{ . }}" alt="{{ $.Params.featuredImageAlt | default $.Title }}" loading="eager">
+    </div>
+    {{- with $.Params.featuredImageCredit }}
+    <figcaption class="study-feature__credit">{{ . | markdownify }}</figcaption>
+    {{- end }}
   </figure>
   {{- end }}
   <div class="study-article-layout">

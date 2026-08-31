@@ -9,6 +9,9 @@ categories: ["Parenting", "Education"]
 tags: ["Math Anxiety", "Parenting", "Children and Learning", "AI and Education"]
 slug: "math-anxiety-in-children"
 homepageRole: "latest-essay"
+featuredImage: "/images/posts/math-anxiety-in-children-header.jpg"
+featuredImageAlt: "A Black mother and daughter studying together at a table with open books and notebooks."
+featuredImageCredit: "Photo by [Vitaly Gariev](https://www.pexels.com/photo/mother-and-daughter-studying-together-at-home-36812773/) on [Pexels](https://www.pexels.com/)."
 ---
 
 I'm a parent. I'm also a software engineer. But this didn't start with software. It started with watching my daughter struggle with math.
