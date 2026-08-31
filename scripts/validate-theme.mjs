@@ -1,5 +1,5 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
-import { extname, join } from "node:path";
+import { extname, join, relative } from "node:path";
 
 function filesUnder(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -196,7 +196,7 @@ for (const name of typographyTokens) {
   }
 }
 
-const fontHead = readFileSync("layouts/partials/head/link.html", "utf8");
+const fontHead = readFileSync("layouts/_partials/head/link.html", "utf8");
 for (const font of ["Geist", "IBM+Plex+Mono", "Newsreader"]) {
   if (!fontHead.includes(font)) throw new Error(`Font is not loaded: ${font}`);
 }
@@ -213,6 +213,10 @@ const routeContracts = [
   ["live", "public/live/index.html", "terminal-prose"],
   ["now", "public/now/index.html", "terminal-card-grid"],
   ["contact", "public/contact/index.html", "terminal-contact-grid"],
+  ["category index", "public/categories/index.html", "study-taxonomy-grid"],
+  ["category term", "public/categories/personal/index.html", "study-list"],
+  ["tag index", "public/tags/index.html", "study-taxonomy-grid"],
+  ["tag term", "public/tags/devrel/index.html", "study-list"],
   [
     "article",
     "public/posts/2025/05/welcome-to-syntax-and-stories/index.html",
@@ -244,6 +248,8 @@ for (const [label, path, marker] of routeContracts) {
 const generatedHtmlPaths = filesUnder("public").filter((path) =>
   path.endsWith(".html"),
 );
+const siteOrigin = new URL("https://coreylweathers.com");
+const brokenInternalReferences = [];
 const forbiddenThemeMarkup = [
   [/study-theme-toggle/i, "the retired theme toggle"],
   [/prefers-color-scheme/i, "a system theme query"],
@@ -258,6 +264,13 @@ const forbiddenThemeMarkup = [
 
 for (const path of generatedHtmlPaths) {
   const html = readFileSync(path, "utf8");
+  const outputPath = relative("public", path).replaceAll("\\", "/");
+  const pagePath =
+    outputPath === "index.html"
+      ? "/"
+      : outputPath.endsWith("/index.html")
+        ? `/${outputPath.slice(0, -"index.html".length)}`
+        : `/${outputPath}`;
 
   for (const [pattern, label] of forbiddenThemeMarkup) {
     if (pattern.test(html)) {
@@ -317,6 +330,41 @@ for (const path of generatedHtmlPaths) {
       throw new Error(`${path} contains an image without alt text`);
     }
   }
+
+  for (const match of html.matchAll(
+    /\b(?:href|src)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+))/gi,
+  )) {
+    const value = match[1] ?? match[2] ?? match[3] ?? "";
+    if (!value || value.startsWith("#")) continue;
+
+    let url;
+    try {
+      url = new URL(value, new URL(pagePath, siteOrigin));
+    } catch {
+      continue;
+    }
+
+    if (url.origin !== siteOrigin.origin) continue;
+
+    const decodedPath = decodeURIComponent(url.pathname);
+    const relativeTarget = decodedPath.replace(/^\/+/, "");
+    const candidates = decodedPath.endsWith("/")
+      ? [join("public", relativeTarget, "index.html")]
+      : [
+          join("public", relativeTarget),
+          join("public", relativeTarget, "index.html"),
+        ];
+
+    if (!candidates.some((candidate) => existsSync(candidate))) {
+      brokenInternalReferences.push(`${path}: ${value}`);
+    }
+  }
+}
+
+if (brokenInternalReferences.length > 0) {
+  throw new Error(
+    `Broken internal references:\n${[...new Set(brokenInternalReferences)].join("\n")}`,
+  );
 }
 
 const interactionScript = readFileSync("assets/js/custom.js", "utf8");

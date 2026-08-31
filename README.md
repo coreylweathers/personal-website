@@ -31,7 +31,7 @@ Hugo remains the static publishing engine and historical post store. Visitor-fac
 
 ## Prerequisites
 
-- [Hugo](https://gohugo.io/getting-started/installing/) (v0.147.6 or later)
+- [Hugo](https://gohugo.io/getting-started/installing/) (v0.164.0 or later, extended edition)
 - [Git](https://git-scm.com/downloads)
 
 ## Getting Started
@@ -39,16 +39,16 @@ Hugo remains the static publishing engine and historical post store. Visitor-fac
 ### Clone the repository
 
 ```bash
-git clone https://github.com/coreylweathers/personal-website.git
+git clone --recurse-submodules https://github.com/coreylweathers/personal-website.git
 cd personal-website
 ```
 
 ### Install the theme
 
-The LoveIt theme is automatically installed during the GitHub Actions build process. For local development, the theme will be cloned automatically if not present, or you can manually add it:
+The LoveIt theme is pinned as a Git submodule. GitHub Actions checks out that exact revision. If you cloned without `--recurse-submodules`, initialize it with:
 
 ```bash
-git clone https://github.com/dillonzq/LoveIt.git themes/LoveIt
+git submodule update --init --recursive
 ```
 
 ### Configuration Setup
@@ -155,7 +155,9 @@ hugo new page/my-new-page.md
 │   └── contact/       # Contact page
 ├── data/              # Configuration data files
 ├── layouts/           # Custom layout templates (overrides theme)
-│   └── shortcodes/    # Custom shortcodes
+│   ├── _partials/     # Reusable template fragments
+│   ├── _shortcodes/   # Custom shortcodes
+│   └── _markup/       # Markdown render hooks
 ├── static/            # Static files (images, etc.)
 ├── themes/            # Theme directory
 │   └── LoveIt/        # LoveIt theme (auto-installed)
