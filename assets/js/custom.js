@@ -1,4 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const diagrams = document.querySelectorAll(".mermaid");
+  if (diagrams.length && window.mermaid) {
+    window.mermaid.initialize({
+      startOnLoad: false,
+      theme: "neutral",
+      securityLevel: "strict",
+    });
+    window.mermaid.run({ nodes: diagrams }).catch(error => {
+      console.error("Unable to render Mermaid diagrams.", error);
+    });
+  }
+
   const toggle = document.querySelector(".terminal-menu-toggle");
   const navigation = document.getElementById("terminal-menu");
   if (!toggle || !navigation) return;

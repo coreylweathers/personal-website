@@ -1,3 +1,6 @@
+{{- if or (in .RawContent "```mermaid") (.HasShortcode "mermaid") -}}
+  {{- partial "plugin/script.html" (dict "Source" "lib/mermaid/mermaid.min.js" "Defer" true) -}}
+{{- end -}}
 {{- $script := resources.Get "js/custom.js" | js.Build (dict "minify" true "targetPath" "js/site.min.js") -}}
 <script src="{{ $script.RelPermalink }}" defer></script>
 {{- partial "plugin/analytics.html" . -}}
