@@ -26,7 +26,7 @@
   {{- with $featuredImage }}
   <figure class="study-feature">
     <div class="study-feature__media">
-      <img src="{{ . }}" alt="{{ $.Params.featuredImageAlt | default $.Title }}" loading="eager">
+      <img src="{{ . }}" alt="{{ $.Params.featuredImageAlt | default $.Title }}" loading="eager"{{ with $.Params.featuredImagePosition }} style="object-position: {{ . }};"{{ end }}>
     </div>
     {{- with $.Params.featuredImageCredit }}
     <figcaption class="study-feature__credit">{{ . | markdownify }}</figcaption>
