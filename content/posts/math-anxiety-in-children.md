@@ -128,3 +128,10 @@ I'm still learning. What helps me is asking what my daughter needs before I jump
 - Zhang, J., Zhao, N., & Kong, Q. P. (2019). [The relationship between math anxiety and math performance: A meta-analytic investigation](https://doi.org/10.3389/fpsyg.2019.01613).
 - Retanal, F., & Maloney, E. A. (2026). [Individual, interpersonal and sociocultural contributors to maths anxiety in children](https://doi.org/10.1038/s44159-025-00519-w).
 - Akhavein, K., Griffin, M. K., & Finch, J. E. (2025). [The interplay between parenting behaviors and executive functions for children's math outcomes](https://doi.org/10.1002/icd.70061).
+
+<aside class="study-next-step" aria-labelledby="next-step-title">
+  <p class="study-label">Keep the conversation going</p>
+  <h2 id="next-step-title">What have you noticed at your own kitchen table?</h2>
+  <p>If you've seen math anxiety show up with your child, I'd love to hear what helped, what made it harder, or what you wish a learning tool understood. I'm using those real experiences to shape what I build next.</p>
+  <a class="study-next-step__link" href="mailto:corey.weathers@outlook.com?subject=Math%20anxiety%20in%20children">Share what you've learned →</a>
+</aside>
