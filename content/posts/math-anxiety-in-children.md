@@ -15,7 +15,7 @@ I'm a parent. I'm also a software engineer. But this didn't start with software.
 
 She's good at it. She understands the material, can solve the problems, and makes connections. And she still gets anxious.
 
-I knew math anxiety in children was real. I just hadn't thought much about what it looked like when the child was actually good at math. That's hard to watch as her dad.
+I knew math anxiety in children was real. I just hadn't thought much about what it looked like when your kid is actually good at math. That's hard to watch as her dad.
 
 I care about the answer, sure. But mostly I care about *her*. I don't want her to dread something she's good at, or let one hard problem change the way she sees herself. So when the anxiety shows up, my first instinct is to make it better.
 
@@ -68,9 +68,9 @@ I started reading about math anxiety because I wanted to understand how a kid co
 
 Think of working memory as the brain's scratch paper. It's where you hold the pieces of a problem while you work on it. Now write “What if I get this wrong?” across half the page. The math skill hasn't disappeared; there's just less room to use it.
 
-In one study of first- and second-graders, math anxiety was most strongly connected to lower performance among kids with higher working-memory capacity, especially on harder problems. Even kids with strong mental tools had trouble using them when worry got in the way. ([Ramirez et al., 2013](https://sites.temple.edu/cognitionlearning/files/2013/09/Ramirez-et-al-2013.pdf))
+In one study of first- and second-graders, researchers found that math anxiety was tied most closely to lower performance in kids with stronger working memory, especially as the problems got harder. Even kids with strong mental tools had trouble using them when worry got in the way. ([Ramirez et al., 2013](https://sites.temple.edu/cognitionlearning/files/2013/09/Ramirez-et-al-2013.pdf))
 
-That sounded a lot closer to what I was seeing. Another review pulled together 84 study samples. It found that math anxiety and math performance are related, but they aren't the same thing. A child can have math ability and math anxiety at the same time. ([Zhang, Zhao, and Kong, 2019](https://doi.org/10.3389/fpsyg.2019.01613))
+That sounded a lot closer to what I was seeing. Another review looked across 84 study samples. It found that math anxiety and math performance are related, but they aren't the same thing. A child can have math ability and math anxiety at the same time. ([Zhang, Zhao, and Kong, 2019](https://doi.org/10.3389/fpsyg.2019.01613))
 
 Then I started reading about what happens around the child. Could my tone add pressure even when my words were encouraging? Could a teacher's reaction change how a mistake felt? Could watching other kids finish first make the anxiety worse?
 
@@ -84,7 +84,7 @@ I used to think helping meant explaining more. Now I'm trying to start with, “
 
 Sometimes she needs an explanation. Sometimes she needs one small clue. Sometimes she needs time to try something that I can already see won't work. And sometimes she needs me to stay calm while the problem feels hard.
 
-There's research language for this: autonomy-supportive help. In normal-person language, it means I stay available without grabbing the wheel. I can wait until help is needed, ask a question, offer a hint, or explain one piece while she stays in charge of solving the problem. ([Akhavein et al., 2025](https://doi.org/10.1002/icd.70061))
+There's a name for this in the research: autonomy-supportive help. For me, it means staying available without grabbing the wheel. I can wait until help is needed, ask a question, offer a hint, or explain one piece while she stays in charge of solving the problem. ([Akhavein et al., 2025](https://doi.org/10.1002/icd.70061))
 
 I am not great at this every time. The engineer in me still likes fixing things. But the goal isn't to make every hard feeling disappear; it's to help my daughter build a way through it.
 
@@ -106,11 +106,11 @@ For now, this is the idea I keep coming back to:
 
 ### Can a child be good at math and still have math anxiety?
 
-Yes. That was the part I had trouble understanding at first. Math ability and math anxiety can exist at the same time. Worry can make it harder for a child to use skills they already have, especially on problems that need more mental effort.
+Yes. That was the part I had trouble understanding at first. Math ability and math anxiety can exist at the same time. Worry can get in the way of skills a child already has, especially when a problem takes more mental effort.
 
 ### What can math anxiety look like in a child?
 
-For us, it wasn't simply getting an answer wrong. It was the pressure around the answer: worrying about mistakes, feeling rushed, or treating one hard problem as evidence that she couldn't do math.
+For us, it wasn't just getting an answer wrong. It was the pressure around the answer: worrying about mistakes, feeling rushed, or treating one hard problem as evidence that she couldn't do math.
 
 ### How can a parent help with math anxiety?
 
